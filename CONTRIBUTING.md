@@ -36,7 +36,7 @@ To work on this project from your own local machine:
 1. Make a pull request to merge your new branch with origin/main. Please leave a polite message detailing your changes. 
 1. If new changes have been merged, bring your local repository up to date in the main branch: 
     ``` 
-    git checkout main
+    git checkout master
     git pull 
     ```
 
