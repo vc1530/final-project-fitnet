@@ -7,12 +7,12 @@ In an era dictated by a global epidemic and the growing popularity of social med
 FitNet is a fitness tracker application that is viable for everybody, ranging from the average runner to fitness enthusiasts who seek an intense workout at the gym. As users continue to use the application and input new workouts, they will receive progress updates in their pursuit towards a healthier lifestyle. FitNet is able to be implemented in any setting or lift stage. The user interface and software is designed intuitively, such that its features are easy to navigate for anyone, regardless of tech literacy or familiarity with exercise programs. Users can be middle-aged parents looking to improve their health for comfort reasons, young people getting into fitness as a hobby, or office workers in their mid-thirties trying to introduce some extra movement into their lives. 
 
 ## Core Team Members 
-- [Joseph Kim](jk6236)
-- [Colin Mcrae](crm584) 
-- [Sydney Jo](selftimersyd)
-- [Vanessa Chen](vc1530)
+- [Joseph Kim](@jk6236)
+- [Colin Mcrae](@crm584) 
+- [Sydney Jo](@selftimersyd)
+- [Vanessa Chen](@vc1530)
 - Issac Singer 
-- [Yousuf Kidwai](yousufkidwai) 
+- [Yousuf Kidwai](@yousufkidwai) 
 
 ## Short History 
 Social media has long been the source of many of our fitness inspirations. According to a recent [study](https://www.forbes.com/sites/petersuciu/2019/11/06/is-social-media-the-best-place-to-get-fitness-and-health-advice/?sh=48407e158614), 44% of Americans turn to Facebook, Twitter, Instagram, and YouTube for health, fitness, and diet advice. However, in conjunction with the misinformation and false advertising often showcased on such platforms, viewing fitness-related content on Facebook or Twitter could result in engaging in a toxic environment that is not productive and possibly damaging to one’s health journey. 
