@@ -24,7 +24,7 @@ Instructions for working on the project are below in the Git workflow section.
 
 ## Git workflow 
 To work on this project from your own local machine: 
-1. Create a new branch: git checkout -b <branch-name> 
+1. Create a new branch: `git checkout -b <branch-name>` 
 1. Work on the project on your new branch. 
 1. Commit your changes: 
     ``` 
