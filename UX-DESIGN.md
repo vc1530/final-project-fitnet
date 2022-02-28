@@ -1,8 +1,7 @@
 # User Experience Design
 
 ## Prototype
-(link goes here)
-(description goes here)
+[FitNet Prototype](https://invis.io/QH12FDSVT2Z5) 
 
 ## Home, sign up, and login
 
