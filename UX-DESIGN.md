@@ -5,6 +5,10 @@
 
 By clicking the link above, you can view our intitial prototype of FitNet. Users are first greeted with a home screen in which they can select to log in or sign up. After logging in, users will be directed to their feed where they can view other users' newest posts. To the bottom left is a button where users can click to add their own posts as well. In the feed, users can also find options to view their profile which will display their Name, Username, Bio, Workout History, and Playlists as well as the settings page from which users can sign out or delete their account. Clicking Workout History will allow users to see their previously created workout playlists from which they can add exercises and indicate how many sets and reps of each exercise they want to do. Clicking Playlists will redirect users to see playlists from which they have added from Spotify. Users also have an option to connect a playlist through url to a workout through the Workout page. 
 
+## App map 
+
+<img src = ./ux-design/App-Map.png /> 
+
 ## Home, sign up, and login
 
 <img src=./ux-design/FitNet_1_Home_Screen.png width="160" height="346" />
