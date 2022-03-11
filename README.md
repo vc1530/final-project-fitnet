@@ -1,6 +1,6 @@
 # FitNet 
 
-## What and Why? 
+## What and Why?
 In an era dictated by a global epidemic and the growing popularity of social media, fitness and social connection are becoming increasingly vital aspects of our lifestyles. Unfortunately, the vast majority of individuals who engage in fitness often find themselves unable to effectively track and engage with their health journey, in addition to sharing their progress and achievements with others. **As a social media platform dedicated to tracking fitness, FitNet’s goal is to bridge this existing gap between fitness and social connection, creating a safe space for everyone to document and share their health journey.**
 
 ## For whom? 
