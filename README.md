@@ -8,7 +8,7 @@ FitNet is a fitness tracker application that is viable for everybody, ranging fr
 
 ## Core Team Members 
 - [Joseph Kim](../../../../jk6236)
-- [Colin Mcrae](../../../../crm584) 
+- [Colin McRae](../../../../crm584) 
 - [Sydney Jo](../../../../selftimersyd)
 - [Vanessa Chen](../../../../vc1530)
 - [Issac Singer](../../../../iwillseeyouinabits)
