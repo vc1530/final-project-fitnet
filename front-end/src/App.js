@@ -1,6 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
+import Home from "./Home.js"
+import AddExercise from "./AddExercise.js"
+import AddWorkout from "./AddWorkout.js"
+import MyProfile from "./MyProfile"
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/addExercise" element={<AddExercise />} />
+        <Route path="/addWorkout" element={<AddWorkout />} />
+        {/* <Route path="/myProfile" element={<MyProfile />} /> */}
+      </Routes>
+    </Router>
+  )
+}
+
+/*
 function App() {
   return (
     <div className="App">
@@ -21,5 +41,6 @@ function App() {
     </div>
   );
 }
+*/
 
-export default App;
+export default App
