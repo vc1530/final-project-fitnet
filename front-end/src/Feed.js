@@ -1,5 +1,6 @@
 import "./Feed.css"
 import FeedPost from "./FeedPost" 
+import { Link } from "react-router-dom"
 
 const Feed = () => { 
 
@@ -22,18 +23,28 @@ const Feed = () => {
 
     return ( 
         <main className = "Feed">
-            <h1>Hello and welcome to the feed!</h1>
-        <div className = "FeedPosts">
-            {posts.map((post) => ( 
-              <FeedPost 
-                username = {post.username} 
-                image = {post.image} 
-                description = {post.description}
-            /> 
-            )) 
-            }      
-        </div>
-        </main> 
+            <header className = "Feed-header">
+                <h1>Feed</h1>
+            </header>
+            <body className = "Feed-posts">
+                {posts.map((post) => ( 
+                <FeedPost 
+                    username = {post.username} 
+                    image = {post.image} 
+                    description = {post.description}
+                /> 
+                )) 
+                }      
+            </body>
+            <footer className = "Feed-footer">
+                <nav className = "Feed-links"> 
+                    <a href= "#">Create a new post</a>
+                    <b><a href="/Feed">Feed</a></b>
+                    <a href="#">My Profile</a>
+                    <a href="#">Settings</a>
+                </nav>
+            </footer>
+        </main>
     )
 }
 
