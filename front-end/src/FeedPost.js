@@ -4,11 +4,11 @@ import "./FeedPost.css"
 const FeedPost = props => {   
 
     return ( 
-        <div className = "Post-box">
-            <img className = "Post-image" src = {props.image} alt = "Post" width = "300px" />
-            <p><Link className = "Post-username" to={"/" + props.username}>{props.username}</Link></p>
-            <p className ="Post-description">{props.description}</p>
-        </div>
+        <main className = "Post-box">
+            <img src = {props.image} alt = "Post" width = "300px" />
+            <p><b><a href = {"/" + props.username} className = "Post-link">{props.username}</a></b></p>
+            <p>{props.description}</p>
+        </main>
     )
 
 }
