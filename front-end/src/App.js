@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
@@ -6,6 +6,8 @@ import Home from "./Home.js"
 import AddExercise from "./AddExercise.js"
 import AddWorkout from "./AddWorkout.js"
 import MyProfile from "./MyProfile"
+import Feed from "./Feed"
+import UserProfile from "./UserProfile" 
 
 const App = () => {
   return (
@@ -14,6 +16,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/addExercise" element={<AddExercise />} />
         <Route path="/addWorkout" element={<AddWorkout />} />
+        <Route path= "/Feed" element = {<Feed />} />
+        <Route path="/:username" element={<UserProfile />} />
         {/* <Route path="/myProfile" element={<MyProfile />} /> */}
       </Routes>
     </Router>

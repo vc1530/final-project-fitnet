@@ -10,6 +10,13 @@ const Home = () => {
             <p>
                 This should link to this page: <Link to='/'>home</Link>.
             </p>
+
+            <p> 
+                Hi guys I am in the process of creating the feed and populating it with dummy posts and profiles. 
+                This should link to the <Link to ="/Feed" > Feed</Link>.
+                -Vanessa 
+            </p>
+
         </main>
     )
 }
