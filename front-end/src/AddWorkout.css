@@ -1,3 +1,10 @@
 .default{
     margin: 20px;
 }
+
+.input {
+    margin: 5px auto; /* centered */
+    padding: 10px;
+    display: block;
+    width: 200px;
+  }
