@@ -1,4 +1,4 @@
-import "/MyProfile.css"
+import "./MyProfile.css"
 
 const MyProfile = () => {
 
