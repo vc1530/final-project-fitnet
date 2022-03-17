@@ -1,4 +1,4 @@
-import "WorkoutHistory.js"
+import "./WorkoutHistory.js"
 
 const WorkoutHistory = () => {
     return(
