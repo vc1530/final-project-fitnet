@@ -8,6 +8,7 @@ import AddWorkout from "./AddWorkout.js"
 import MyProfile from "./MyProfile"
 import Feed from "./Feed"
 import UserProfile from "./UserProfile" 
+import WorkoutHistory from "./WorkoutHistory"
 
 const App = () => {
   return (
