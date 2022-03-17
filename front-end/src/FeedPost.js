@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom"
 import "./FeedPost.css" 
 
 const FeedPost = props => {   

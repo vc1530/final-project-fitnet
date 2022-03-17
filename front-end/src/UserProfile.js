@@ -5,7 +5,7 @@ const profiles = [
 
     { 
         username: "lizzyxx", 
-        profile_img: "https://pbs.twimg.com/profile_images/468225594430599168/YTL0b1f3_400x400.jpeg",
+        profile_img: "https://i.pinimg.com/564x/42/02/d1/4202d1040da300b86359237107fb5d3d.jpg",
         name: "Liz Grant",
         bio: "just a texan gal living her best life! live laugh love, always and forever x",
     },
@@ -26,12 +26,25 @@ const UserProfile = props => {
     const user = profiles.find(x => x.username === params.username); 
 
     return ( 
-        <div>
-        <h1>{user.name}</h1>
-        <h1>{user.username}</h1>
-        <img src = {user.profile_img} alt = "me!" width = "300px" /> 
-        <p>{user.bio}</p>
-        </div>
+        <main className = "UserProfile"> 
+            <header className = "Feed-header">
+                <h1><a href = "/Feed" >Feed</a></h1>
+            </header>
+            <body className = "UserProfile-info">
+                <img className = "UserProfile-pic" src = {user.profile_img} alt = "me!" /> 
+                <h2> {user.name}</h2>
+                <h3><a href = {"/" + user.username}>{user.username}</a></h3>
+                <p>{user.bio}</p>
+            </body> 
+            <footer className = "Feed-footer">
+                <nav className = "Feed-links"> 
+                    <a href= "#">Create a new post</a>
+                    <a href="/Feed">Feed</a>
+                    <a href="#">My Profile</a>
+                    <a href="#">Settings</a>
+                </nav>
+            </footer>
+        </main>
     )
 
 }

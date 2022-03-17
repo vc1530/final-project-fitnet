@@ -24,7 +24,7 @@ const Feed = () => {
     return ( 
         <main className = "Feed">
             <header className = "Feed-header">
-                <h1>Feed</h1>
+                <h1> <a href = "/Feed" >Feed</a></h1>
             </header>
             <body className = "Feed-posts">
                 {posts.map((post) => ( 
