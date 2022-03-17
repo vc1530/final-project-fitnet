@@ -5,10 +5,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Home from "./Home.js"
 import AddExercise from "./AddExercise.js"
 import AddWorkout from "./AddWorkout.js"
-import MyProfile from "./MyProfile"
-import Feed from "./Feed"
-import UserProfile from "./UserProfile" 
-import WorkoutHistory from "./WorkoutHistory"
+import MyProfile from "./MyProfile.js"
+import Feed from "./Feed.js"
+import UserProfile from "./UserProfile.js" 
+import WorkoutHistory from "./WorkoutHistory.js"
 
 const App = () => {
   return (
