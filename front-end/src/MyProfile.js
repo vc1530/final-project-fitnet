@@ -12,5 +12,6 @@ const MyProfile = () => {
             <p>Bio</p>
         </main>
     )
-
 }
+
+export default MyProfile
