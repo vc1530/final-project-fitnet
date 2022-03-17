@@ -5,7 +5,8 @@ const Home = () => {
     return (
         <main>
             <p>
-                Testing routing. <Link to='/addExercise'>add exercise</Link>, <Link to='/addWorkout'>add workout</Link>.
+                Testing routing. <Link to='/addExercise'>add exercise</Link>, <Link to='/addWorkout'>add workout</Link>
+                                    <Link to='/MyProfile'>My Profile</Link>, <Link to='WorkoutHistory'>Workout History</Link>.
             </p>
             <p>
                 This should link to this page: <Link to='/'>home</Link>.
