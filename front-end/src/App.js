@@ -9,6 +9,7 @@ import MyProfile from "./MyProfile.js"
 import Feed from "./Feed.js"
 import UserProfile from "./UserProfile.js" 
 import WorkoutHistory from "./WorkoutHistory.js"
+import Playlists from './Playlists.js';
 
 const App = () => {
   return (
@@ -21,32 +22,33 @@ const App = () => {
         <Route path="/:username" element={<UserProfile />} />
         <Route path="/workoutHistory" element={<WorkoutHistory />} />
         <Route path="/myProfile" element={<MyProfile />} /> 
+        <Route path="/Playlists" element={<Playlists />} />
       </Routes>
     </Router>
   )
 }
 
-/*
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-*/
+
+// function App() {
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <img src={logo} className="App-logo" alt="logo" />
+//         <p>
+//           Edit <code>src/App.js</code> and save to reload.
+//         </p>
+//         <a
+//           className="App-link"
+//           href="https://reactjs.org"
+//           target="_blank"
+//           rel="noopener noreferrer"
+//         >
+//           Learn React
+//         </a>
+//       </header>
+//     </div>
+//   );
+// }
+
 
 export default App
