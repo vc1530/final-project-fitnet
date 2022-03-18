@@ -1,3 +1,22 @@
+.MyProfile { 
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+}
+
+.MyProfile-info { 
+    width: 300px; 
+    margin-top: 125px; 
+    margin-bottom: 125px; 
+    padding: 20px; 
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+    border-style: solid; 
+    border-color: #b8b7b7; 
+    box-shadow: 1px 1px 1px 1px #b8b7b7;
+}
+
 .border {
     border-style: ridge;
     border-color: #287EC7;
@@ -7,6 +26,10 @@
     padding:10px;
 }
 
-img {
+.img {
     border-color: #287EC7;
+    width: 200px; 
+    height: 200px; 
+    border-radius: 50%; 
+
 }
