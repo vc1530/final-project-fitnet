@@ -1,0 +1,12 @@
+.border {
+    border-style: ridge;
+    border-color: #287EC7;
+    border-width: 2px;
+    text-align: center;
+    display:inline-block;
+    padding:10px;
+}
+
+img {
+    border-color: #287EC7;
+}
