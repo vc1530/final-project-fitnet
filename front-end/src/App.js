@@ -5,9 +5,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Home from "./Home.js"
 import AddExercise from "./AddExercise.js"
 import AddWorkout from "./AddWorkout.js"
-import MyProfile from "./MyProfile"
-import Feed from "./Feed"
-import UserProfile from "./UserProfile" 
+import MyProfile from "./MyProfile.js"
+import Feed from "./Feed.js"
+import UserProfile from "./UserProfile.js" 
+import WorkoutHistory from "./WorkoutHistory.js"
 
 const App = () => {
   return (
@@ -18,7 +19,8 @@ const App = () => {
         <Route path="/addWorkout" element={<AddWorkout />} />
         <Route path= "/Feed" element = {<Feed />} />
         <Route path="/:username" element={<UserProfile />} />
-        {/* <Route path="/myProfile" element={<MyProfile />} /> */}
+        <Route path="/workoutHistory" element={<WorkoutHistory />} />
+        <Route path="/myProfile" element={<MyProfile />} /> 
       </Routes>
     </Router>
   )

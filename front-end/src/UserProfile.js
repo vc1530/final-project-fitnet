@@ -4,7 +4,7 @@ import user_database from "./mock_users.json"
 import { Link } from "react-router-dom"
 
 const UserProfile = () => { 
-
+  
     let profiles = user_database; 
     
     let params = useParams(); 
@@ -31,13 +31,13 @@ const UserProfile = () => {
             </footer>
             </main>
         )
-     return ( 
+    return ( 
         <main className = "UserProfile"> 
             <header className = "Feed-header">
                 <h1><a href = "/Feed" >Feed</a></h1>
             </header>
             <body className = "UserProfile-info">
-                <img className = "UserProfile-pic" src = {user.profile_pic} alt = "me!" /> 
+                <img className = "UserProfile-pic" src = {user.profile_img} alt = "me!" /> 
                 <h2> {user.name}</h2>
                 <h3><a href = {"/" + user.username}>{user.username}</a></h3>
                 <p>{user.bio}</p>
@@ -52,7 +52,7 @@ const UserProfile = () => {
             </footer>
         </main>
         )
-     
+    )
 
 }
 
