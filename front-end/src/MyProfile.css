@@ -35,7 +35,7 @@
 
 .border {
     border-style: ridge;
-    border-color: #287EC7;
+    border-color: rgb(76, 78, 228);
     border-width: 2px;
     text-align: center;
     display:inline-block;
@@ -43,7 +43,7 @@
 }
 
 .img {
-    border-color: #287EC7;
+    border-color: rgb(76, 78, 228);
     width: 200px; 
     height: 200px; 
     border-radius: 50%; 

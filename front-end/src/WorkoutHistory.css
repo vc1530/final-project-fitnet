@@ -1,0 +1,28 @@
+.WorkoutHistory { 
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+}
+
+.WorkoutHistory-info { 
+    width: 300px; 
+    margin-top: 125px; 
+    margin-bottom: 125px; 
+    padding: 20px; 
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+    border-style: solid; 
+    border-color: #b8b7b7; 
+    box-shadow: 1px 1px 1px 1px #b8b7b7;
+}
+
+.border-workouts {
+    border-style: ridge;
+    border-color: rgb(76, 78, 228);
+    border-width: 2px;
+    text-align: center;
+    display:inline-block;
+    padding:10px;
+    width:200px;
+}
