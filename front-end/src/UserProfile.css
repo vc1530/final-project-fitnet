@@ -1,0 +1,31 @@
+.UserProfile { 
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+} 
+
+.UserProfile-info { 
+    text-align: center; 
+    margin-top: 125px;
+    margin-bottom: 125px;
+    width: 300px; 
+    padding: 20px; 
+    border-style: solid; 
+    border-color: #b8b7b7; 
+    box-shadow: 1px 1px 1px 1px #b8b7b7;
+}
+
+.UserProfile-pic { 
+    border-radius: 50%; 
+    width: 200px; 
+    height: 200px; 
+}
+
+.UserProfile-info h3 a{ 
+    text-decoration: none;
+    color: rgb(76, 78, 228); 
+}
+
+.UserProfile-info h3 a:hover { 
+    color: rgb(0, 0, 168); 
+}

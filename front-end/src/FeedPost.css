@@ -1,0 +1,17 @@
+.Post-box { 
+    margin: 25px; 
+    border-style: solid; 
+    border-color: #b8b7b7; 
+    padding: 20px; 
+    width: 300px; 
+    box-shadow: 1px 1px 1px 1px #b8b7b7;
+}
+
+.Post-link {
+    text-decoration: none;
+    color: rgb(76, 78, 228); 
+}
+
+.Post-link:hover { 
+    color: rgb(0, 0, 168); 
+}
