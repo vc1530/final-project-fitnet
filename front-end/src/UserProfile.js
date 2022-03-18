@@ -37,7 +37,7 @@ const UserProfile = () => {
                 <h1><a href = "/Feed" >Feed</a></h1>
             </header>
             <body className = "UserProfile-info">
-                <img className = "UserProfile-pic" src = {user.profile_img} alt = "me!" /> 
+                <img className = "UserProfile-pic" src = {user.profile_pic} alt = "me!" /> 
                 <h2> {user.name}</h2>
                 <h3><a href = {"/" + user.username}>{user.username}</a></h3>
                 <p>{user.bio}</p>
@@ -52,7 +52,6 @@ const UserProfile = () => {
             </footer>
         </main>
         )
-    )
 
 }
 
