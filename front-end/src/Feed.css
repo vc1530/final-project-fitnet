@@ -17,6 +17,11 @@
     top: 0; 
 }
 
+.Feed-header a { 
+    color: white; 
+    text-decoration: none; 
+}
+
 .Feed-footer {
     bottom: 0;
     display: -webkit-flexbox;

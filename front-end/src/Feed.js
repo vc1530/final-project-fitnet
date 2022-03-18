@@ -7,7 +7,7 @@ const Feed = () => {
     const posts = [ 
 
         {
-            username: "lizzyxx", 
+            username: "lpadilla0", 
             image: "https://dummyimage.com/600x400/000/fff",
             description: "This is me working out!", 
 
