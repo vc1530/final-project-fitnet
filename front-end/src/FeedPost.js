@@ -4,7 +4,7 @@ const FeedPost = props => {
 
     return ( 
         <main className = "Post-box">
-            <img src = {props.image} alt = "Post" width = "300px" />
+            <img src = {props.picture} alt = "Post" width = "300px" />
             <p><b><a href = {"/" + props.username} className = "Post-link">{props.username}</a></b></p>
             <p>{props.description}</p>
         </main>
