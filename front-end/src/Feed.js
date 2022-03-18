@@ -1,25 +1,11 @@
 import "./Feed.css"
 import FeedPost from "./FeedPost" 
+import post_database from "./mock_posts.json" 
 import { Link } from "react-router-dom"
 
 const Feed = () => { 
 
-    const posts = [ 
-
-        {
-            username: "lpadilla0", 
-            image: "https://dummyimage.com/600x400/000/fff",
-            description: "This is me working out!", 
-
-        }, 
-
-        {
-            username: "getgains", 
-            image: "https://dummyimage.com/600x400/000/fff", 
-            description: "Today's workout. getting gains", 
-        }
-
-    ]
+    let posts = post_database; 
 
     return ( 
         <main className = "Feed">
@@ -30,7 +16,7 @@ const Feed = () => {
                 {posts.map((post) => ( 
                 <FeedPost 
                     username = {post.username} 
-                    image = {post.image} 
+                    picture = {post.picture} 
                     description = {post.description}
                 /> 
                 )) 
