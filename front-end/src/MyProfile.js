@@ -13,8 +13,8 @@ const MyProfile = () => {
                 <p className="border">John Smith</p>
                 <p className="border">@j.smith5</p>
                 <p className="border">Words for bio go here</p>
-                <Link to="/WorkoutHistory.js"><button className="button">Workout History</button></Link>
-                <Link to="/Playlists.js"><button className="button">Playlists</button></Link>
+                <Link to="/workoutHistory"><button className="button">Workout History</button></Link>
+                <Link to="/Playlists"><button className="button">Playlists</button></Link>
             </body>
             <footer className = "Feed-footer">
                 <nav className = "Feed-links"> 
