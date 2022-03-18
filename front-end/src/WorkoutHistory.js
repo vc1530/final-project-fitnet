@@ -5,13 +5,11 @@ const WorkoutHistory = () => {
     return(
         <main className="WorkoutHistory">
             <header className = "Feed-header">
-                <h1> <a href = "/WorkoutHistory" >Workout History</a></h1>
+                <h1><a href = "/WorkoutHistory" >Workout History</a></h1>
             </header>
+
             <body className="WorkoutHistory-info">
-                <p className="border-workouts">Workout #1</p>
-                <p className="border-workouts">Workout #2</p>
-                <p className="border-workouts">Workout #3</p>
-                <p className="border-workouts">Workout #4</p>
+                <b><p>Workout #1</p></b>
             </body>
             
             {/* do we want a link to go back to My Profile or just leave it in the footer
@@ -22,7 +20,7 @@ const WorkoutHistory = () => {
                     <a href= "#">Create a new post</a>
                     <a href="/Feed">Feed</a>
                     <b><a href="/MyProfile">My Profile</a></b>
-                    <a href="#">Settings</a>
+                    <a href="/Settings">Settings</a>
                 </nav>
             </footer>
         </main>

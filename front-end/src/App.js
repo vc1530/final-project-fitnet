@@ -10,6 +10,7 @@ import Feed from "./Feed.js"
 import UserProfile from "./UserProfile.js" 
 import WorkoutHistory from "./WorkoutHistory.js"
 import Playlists from './Playlists.js';
+import Settings from './Settings.js';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/workoutHistory" element={<WorkoutHistory />} />
         <Route path="/myProfile" element={<MyProfile />} /> 
         <Route path="/Playlists" element={<Playlists />} />
+        <Route path="/Settings" element={<Settings />} />
       </Routes>
     </Router>
   )

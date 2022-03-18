@@ -21,7 +21,7 @@ const MyProfile = () => {
                     <a href= "#">Create a new post</a>
                     <a href="/Feed">Feed</a>
                     <b><a href="#">My Profile</a></b>
-                    <a href="#">Settings</a>
+                    <a href="/Settings">Settings</a>
                 </nav>
             </footer>
         </main>
