@@ -40,7 +40,7 @@ const Feed = () => {
                 <nav className = "Feed-links"> 
                     <a href= "#">Create a new post</a>
                     <b><a href="/Feed">Feed</a></b>
-                    <a href="#">My Profile</a>
+                    <a href="/MyProfile">My Profile</a>
                     <a href="#">Settings</a>
                 </nav>
             </footer>
