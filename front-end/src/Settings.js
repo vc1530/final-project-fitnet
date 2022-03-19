@@ -11,7 +11,7 @@ const Settings = () => {
                 title = "Settings"
             /> 
             <body className="Settings-info">
-                <p>Dummy text in bordered thing</p>
+                <p>Settings coming soon</p>
             </body>
             <Footer 
                 title = "Settings" 
