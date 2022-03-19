@@ -3,17 +3,12 @@
     align-items: center;
     flex-direction: column;
 }
-
-.Feed-header, .Feed-footer {  
+.Feed-footer {  
     position: fixed; 
     width: 100%;   
     height: 80px; 
     background: rgb(76, 78, 228);
     text-align: center; 
-}
-
-.Feed-header { 
-    top: 0; 
 }
 
 .Feed-header a { 
