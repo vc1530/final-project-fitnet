@@ -1,0 +1,8 @@
+.AddWorkoutInfo-title input,
+.AddWorkoutInfo-title button,
+.AddWorkoutInfo-title textarea {
+    margin: 5px auto;
+    padding: 10px;
+    display: 'block';
+    width: 200px;
+}

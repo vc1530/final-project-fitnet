@@ -1,18 +1,24 @@
 import "./AddWorkout.css"
+import AddWorkoutInfo from "./AddWorkoutInfo.js"
 
 const AddWorkout = () => {
 
-    const submitForm = e => {
-        console.log("NYI: 'submitForm' in 'AddWorkout.js'.")
-    }
+    // const submitForm = e => {
+    //     console.log("NYI: 'submitForm' in 'AddWorkout.js'.")
+    // }
     return (
-        /*
-        <main className="default">
-            <h1>Buttons go here</h1>
-        </main>
-        */
-        <form className="input" onSubmit={submitForm}>
-            </form>
+        
+        // <main className="AddWorkout">
+        <>
+            {/* <header className = "Feed-header">
+                <h1> <a href = "/addWorkout" >Add Workout</a></h1>
+            </header> */}
+            <AddWorkoutInfo/>
+        
+        {/* </main> */}
+        </>
+        
+        
     )
 }
 
