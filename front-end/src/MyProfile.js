@@ -1,13 +1,15 @@
 import "./MyProfile.css"
 import profilepic from "./blank_profile.jpg"
 import {Link} from "react-router-dom"
+import Header from "./Header"
 
 const MyProfile = () => {
     return(
         <main className="MyProfile">
-            <header className = "Feed-header">
-                <h1> <a href = "/MyProfile" >My Profile</a></h1>
-            </header>
+            <Header 
+                url = "./MyProfile" 
+                title = "My Profile"
+            /> 
             <body className = "MyProfile-info">
                 <img className="img" src={profilepic} alt="profile img"/>
                 <p className="border">John Smith</p>

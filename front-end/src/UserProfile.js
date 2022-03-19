@@ -2,6 +2,7 @@ import "./UserProfile.css"
 import { useParams } from "react-router-dom";
 import user_database from "./mock_users.json"
 import { Link } from "react-router-dom"
+import Header from "./Header"
 
 const UserProfile = () => { 
   
@@ -14,9 +15,10 @@ const UserProfile = () => {
     if (typeof user == 'undefined') 
         return (
             <main className = "UserProfile">
-                 <header className = "Feed-header">
-                        <h1><a href = "/Feed" >Feed</a></h1>
-                </header>
+                 <Header 
+                    url = "./Feed" 
+                    title = "Feed" 
+                /> 
                 <body className = "UserProfile-info"> 
                     <h3> Sorry, no such user exists. </h3>
                     <h3>Return to <Link to = "/Feed">Feed</Link>? </h3>
@@ -33,9 +35,10 @@ const UserProfile = () => {
         )
     return ( 
         <main className = "UserProfile"> 
-            <header className = "Feed-header">
-                <h1><a href = "/Feed" >Feed</a></h1>
-            </header>
+            <Header 
+                url = "./Feed" 
+                title = "Feed" 
+            />
             <body className = "UserProfile-info">
                 <img className = "UserProfile-pic" src = {user.profile_pic} alt = "me!" /> 
                 <h2> {user.name}</h2>

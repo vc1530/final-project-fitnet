@@ -1,6 +1,7 @@
 import "./Feed.css"
 import FeedPost from "./FeedPost" 
 import post_database from "./mock_posts.json" 
+import Header from "./Header"
 import { Link } from "react-router-dom"
 
 const Feed = () => { 
@@ -9,9 +10,10 @@ const Feed = () => {
 
     return ( 
         <main className = "Feed">
-            <header className = "Feed-header">
-                <h1> <a href = "/Feed" >Feed</a></h1>
-            </header>
+            <Header
+                url = "./Feed" 
+                title = "Feed"
+            /> 
             <body className = "Feed-posts">
                 {posts.map((post) => ( 
                 <FeedPost 
