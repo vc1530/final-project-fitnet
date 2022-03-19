@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 import Home from "./Home.js"
+import NewPost from "./NewPost.js"
 import AddExercise from "./AddExercise.js"
 import AddWorkout from "./AddWorkout.js"
 import MyProfile from "./MyProfile.js"
@@ -17,6 +18,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/NewPost" element={<NewPost/>} />
         <Route path="/addExercise" element={<AddExercise />} />
         <Route path="/addWorkout" element={<AddWorkout />} />
         <Route path= "/Feed" element = {<Feed />} />
