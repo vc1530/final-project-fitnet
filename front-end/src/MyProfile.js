@@ -2,6 +2,7 @@ import "./MyProfile.css"
 import profilepic from "./blank_profile.jpg"
 import {Link} from "react-router-dom"
 import Header from "./Header"
+import Footer from "./Footer" 
 
 const MyProfile = () => {
     return(
@@ -18,14 +19,9 @@ const MyProfile = () => {
                 <Link to="/workoutHistory"><button className="button">Workout History</button></Link>
                 <Link to="/Playlists"><button className="button">Playlists</button></Link>
             </body>
-            <footer className = "Feed-footer">
-                <nav className = "Feed-links"> 
-                    <a href= "#">Create a new post</a>
-                    <a href="/Feed">Feed</a>
-                    <b><a href="#">My Profile</a></b>
-                    <a href="/Settings">Settings</a>
-                </nav>
-            </footer>
+            <Footer 
+                title = "My Profile" 
+            /> 
         </main>
     )
 }

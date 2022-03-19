@@ -2,6 +2,7 @@ import "./Feed.css"
 import FeedPost from "./FeedPost" 
 import post_database from "./mock_posts.json" 
 import Header from "./Header"
+import Footer from "./Footer"
 import { Link } from "react-router-dom"
 
 const Feed = () => { 
@@ -24,14 +25,9 @@ const Feed = () => {
                 )) 
                 }      
             </body>
-            <footer className = "Feed-footer">
-                <nav className = "Feed-links"> 
-                    <a href= "#">Create a new post</a>
-                    <b><a href="/Feed">Feed</a></b>
-                    <a href="/MyProfile">My Profile</a>
-                    <a href="#">Settings</a>
-                </nav>
-            </footer>
+            <Footer 
+                title = "Feed" 
+            /> 
         </main>
     )
 }

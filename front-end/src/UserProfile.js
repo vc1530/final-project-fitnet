@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import user_database from "./mock_users.json"
 import { Link } from "react-router-dom"
 import Header from "./Header"
+import Footer from "./Footer"
 
 const UserProfile = () => { 
   
@@ -23,14 +24,7 @@ const UserProfile = () => {
                     <h3> Sorry, no such user exists. </h3>
                     <h3>Return to <Link to = "/Feed">Feed</Link>? </h3>
                 </body>
-                <footer className = "Feed-footer">
-                <nav className = "Feed-links"> 
-                    <a href= "#">Create a new post</a>
-                    <a href="/Feed">Feed</a>
-                    <a href="#">My Profile</a>
-                    <a href="#">Settings</a>
-                </nav>
-            </footer>
+                <Footer/> 
             </main>
         )
     return ( 
@@ -45,14 +39,7 @@ const UserProfile = () => {
                 <h3><a href = {"/" + user.username}>{user.username}</a></h3>
                 <p>{user.bio}</p>
             </body> 
-            <footer className = "Feed-footer">
-                <nav className = "Feed-links"> 
-                    <a href= "#">Create a new post</a>
-                    <a href="/Feed">Feed</a>
-                    <a href="/MyProfile">My Profile</a>
-                    <a href="#">Settings</a>
-                </nav>
-            </footer>
+            <Footer/> 
         </main>
         )
 
