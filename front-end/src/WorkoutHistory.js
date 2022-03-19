@@ -4,6 +4,7 @@ import workout_database from "./mock_workouts.json"
 import WorkoutPost from "./WorkoutPost"
 import Header from "./Header"
 import Footer from "./Footer" 
+import picture from "./music.png"
 
 const WorkoutHistory = () => {
 
@@ -17,6 +18,7 @@ const WorkoutHistory = () => {
             <body className = "Workout-posts">
                 {posts.map((workout) => ( 
                 <WorkoutPost 
+                    picture = {workout.picture} 
                     name = {workout.workout_name} 
                     description = {workout.workout_description}
                 /> 
