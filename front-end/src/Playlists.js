@@ -1,10 +1,21 @@
 import "./Playlists.css"
+import Header from "./Header"
+import Footer from "./Footer" 
 
 const Playlists = () => {
     return (
-        <main className="default">
-            <h1>Dummy text</h1>
-        </main>
+        <main className="Playlists">
+        <Header 
+            url = "./Playlists" 
+            title = "Playlists"
+        /> 
+        <body className="Playlists-info">
+            <p>Playlists being linked to Spotify soon!</p>
+        </body>
+        <Footer 
+            title = "Playlists" 
+        /> 
+    </main>
     )
 }
 

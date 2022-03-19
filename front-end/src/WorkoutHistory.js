@@ -2,16 +2,18 @@ import "./WorkoutHistory.css"
 import {Link} from "react-router-dom"
 import workout_database from "./mock_workouts.json" 
 import WorkoutPost from "./WorkoutPost"
+import Header from "./Header"
+import Footer from "./Footer" 
 
 const WorkoutHistory = () => {
 
     let posts = workout_database;
     return(
         <main className="WorkoutHistory">
-            <header className = "Feed-header">
-                <h1><a href = "/WorkoutHistory" >Workout History</a></h1>
-            </header>
-
+            <Header 
+                url = "./WorkoutHistory" 
+                title = "Workout History"
+            /> 
             <body className = "Workout-posts">
                 {posts.map((workout) => ( 
                 <WorkoutPost 
@@ -21,14 +23,9 @@ const WorkoutHistory = () => {
                 )) 
                 }   
             </body>
-            <footer className = "Feed-footer">
-                <nav className = "Feed-links"> 
-                    <a href= "#">Create a new post</a>
-                    <a href="/Feed">Feed</a>
-                    <b><a href="/MyProfile">My Profile</a></b>
-                    <a href="/Settings">Settings</a>
-                </nav>
-            </footer>
+            <Footer 
+                title = "Workout History" 
+            />
         </main>
     )
 }

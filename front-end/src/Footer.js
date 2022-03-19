@@ -3,7 +3,7 @@ import "./Footer.css"
 const Footer = props => { 
 
     const titles = ["Create a new post", "Feed", "My Profile", "Settings"]; 
-    const links = ["/NewPost", "/Feed", "MyProfile", "#"]; 
+    const links = ["/NewPost", "/Feed", "MyProfile", "/Settings"]; 
 
     return ( 
         <footer className = "footer">
