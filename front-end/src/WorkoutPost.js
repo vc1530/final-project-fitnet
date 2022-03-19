@@ -6,7 +6,10 @@ const WorkoutPost = props => {
 
     return ( 
         <main className = "Post-box">
-            <img src = {music_picture} alt = "Music Link" width = "100px"/>
+            <div className="Post-box-right">
+            <img src = {music_picture} alt = "Music Link" width = "50px"/>
+            </div>
+            
             <p><b><a href = {"/" + props.name} className = "Post-link">{props.name}</a></b></p>
             <p>{props.description}</p>
         </main>

@@ -4,7 +4,7 @@ import workout_database from "./mock_workouts.json"
 import WorkoutPost from "./WorkoutPost"
 import Header from "./Header"
 import Footer from "./Footer" 
-import picture from "./music.png"
+
 
 const WorkoutHistory = () => {
 
