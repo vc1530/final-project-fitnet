@@ -1,18 +1,9 @@
 import "./Footer.css"
 
-{/* <footer className = "Feed-footer">
-                <nav className = "Feed-links"> 
-                    <a href= "#">Create a new post</a>
-                    <b><a href="/Feed">Feed</a></b>
-                    <a href="/MyProfile">My Profile</a>
-                    <a href="#">Settings</a>
-                </nav>
-            </footer> */}
-
 const Footer = props => { 
 
     const titles = ["Create a new post", "Feed", "My Profile", "Settings"]; 
-    const links = ["#", "/Feed", "MyProfile", "#"]; 
+    const links = ["/NewPost", "/Feed", "MyProfile", "#"]; 
 
     return ( 
         <footer className = "footer">
