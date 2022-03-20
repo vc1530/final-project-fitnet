@@ -11,7 +11,7 @@ const NewPost = () => {
                 title = "Create a new post"
             /> 
             <body className = "NewPost-info">
-                <p className="border">Words for new post information go here</p>
+                <p className="border">Picture and words for new post information go here</p>
                 <Link to="/Feed"><button className="button">Post</button></Link>
             </body>
             <Footer 
