@@ -19,13 +19,5 @@
     border-radius: 50%; 
     width: 200px; 
     height: 200px; 
-}
-
-.UserProfile-info h3 a{ 
-    text-decoration: none;
-    color: rgb(76, 78, 228); 
-}
-
-.UserProfile-info h3 a:hover { 
-    color: rgb(0, 0, 168); 
+    object-fit: cover; 
 }

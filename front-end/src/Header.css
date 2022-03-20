@@ -5,6 +5,7 @@
     height: 80px; 
     background: rgb(76, 78, 228);
     text-align: center; 
+    z-index: 99; 
 }
 
 .header a { 
