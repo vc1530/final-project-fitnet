@@ -15,7 +15,7 @@
     padding: 30px; 
     margin-bottom: 125px;
     background-color: #fdfdfd;
-    animation: fadeIn 1.5s; 
+    animation: fadeIn 1s; 
 }
 
 .UserProfile-pic { 
@@ -32,15 +32,12 @@
     transition: 1s; 
 }
 
-.UserProfile-info h3 { 
-    margin-top: 0;
-    margin-bottom: 0;
+.UserProfile-info h2 { 
+    margin-top: 30px; 
     margin-left: 5px; 
 }
 
-.UserProfile-info h2 { 
-    margin-top: 30px; 
-    margin-bottom: 10px; 
+.UserProfile-info h3 { 
     margin-left: 5px; 
 }
 

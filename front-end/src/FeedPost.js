@@ -7,6 +7,10 @@ const FeedPost = props => {
 
     const user = profiles.find(x => x.username === props.username); 
 
+    function handleClick () {
+        window.location.replace(user.username)
+    }
+
     if (typeof user == 'undefined') 
         return (<main></main>)
 
@@ -19,7 +23,7 @@ const FeedPost = props => {
                         <div className = "Profile-link">
                             <b><a className = "User-link" href = {"/" + props.username} >{props.username}</a></b> 
                         </div> 
-                    <div className = "Profile-card"> 
+                    <div className = "Profile-card" onClick = {handleClick}> 
                         <div className = "card-top"> 
                             <img src = {user.profile_pic} alt = "profile" /> 
                             <div className = "card-names">
