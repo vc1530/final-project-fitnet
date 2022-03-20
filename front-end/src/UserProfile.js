@@ -36,7 +36,7 @@ const UserProfile = () => {
             <body className = "UserProfile-info">
                 <img className = "UserProfile-pic" src = {user.profile_pic} alt = "me!" /> 
                 <h2> {user.name}</h2>
-                <h3><a href = {"/" + user.username}>{user.username}</a></h3>
+                <h3><a className = "User-link" href = {"/" + user.username}>{user.username}</a></h3>
                 <p>{user.bio}</p>
             </body> 
             <Footer/> 
