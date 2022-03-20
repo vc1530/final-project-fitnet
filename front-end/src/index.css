@@ -20,7 +20,7 @@ code {
 .Post-box { 
   margin: 25px; 
   border-style: solid; 
-  border-color: #dfdfdf; 
+  border-color: #c0c0c0; 
   border-radius: 10px; 
   padding: 20px; 
   width: 300px; 
@@ -28,7 +28,7 @@ code {
 }
 
 .Post-box:hover { 
-  border-color: #dbdbdb;
+  border-color: #a8a8a8;
   transition: .25s; 
   box-shadow: 1px 1px 1px 1px #d4d4d4;
 }
