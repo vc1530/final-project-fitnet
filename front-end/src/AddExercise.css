@@ -1,3 +1,14 @@
-.default{
-    margin: 20px;
+.AddExercise {
+    margin-top: 120px;
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+}
+.AddExercise-form input,
+.AddExercise-form button {
+    padding: 10px;
+    margin: 5px auto;
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
 }

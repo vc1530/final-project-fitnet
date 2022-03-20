@@ -1,11 +1,60 @@
 import "./AddExercise.css"
+import { useState } from 'react'
+import Header from "./Header"
+import Footer from "./Footer"
 
 const AddExercise = () => {
+    // create a state variable for each form field
+    const [exerciseName, setExerciseName] = useState('')
+    const [numSets, setNumSets] = useState('')
+    const [numReps, setNumReps] = useState('')
+
+    /**
+    * A nested function that is called when the user submits the form to save a new Workout.
+    * @param {*} e
+    */
+    const submitForm = e => {
+        e.preventDefault() // prevent normal browser submit behavior
+        //NEEDS axios stuff here
+        console.log("NYI: submitForm, AddExercise.js")
+        setExerciseName('')
+        setNumSets('')
+        setNumReps('')
+    }
     return (
-        <main className="default">
-            <h1>Dummy text so I can test things. Add exercise page.</h1>
+        <main class="AddExercise">
+            <Header
+                url="./addExercise"
+                title="Add Exercise"
+            />
+          <form className="AddExercise-form" onSubmit={submitForm}>
+            <input
+              type="text"
+              placeholder="Exercise name"
+              value={exerciseName}
+              onChange={e => setExerciseName(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Number of Sets"
+              value={numSets}
+              onChange={e => setNumSets(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Number of Reps"
+              value={numReps}
+              onChange={e => setNumReps(e.target.value)}
+            />
+            <input type="submit" disabled={!exerciseName || !numSets || !numReps} value="Save" />
+          </form>
+          <Footer
+            url="./addExercise"
+            title="Add Exercise"
+          />
         </main>
-    )
+          
+        )
 }
 
 export default AddExercise
