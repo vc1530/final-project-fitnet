@@ -1,22 +1,22 @@
 import "./AddWorkout.css"
 import AddWorkoutInfo from "./AddWorkoutInfo.js"
+import Header from "./Header"
+import Footer from "./Footer"
 
 const AddWorkout = () => {
-
-    // const submitForm = e => {
-    //     console.log("NYI: 'submitForm' in 'AddWorkout.js'.")
-    // }
     return (
         
-        // <main className="AddWorkout">
-        <>
-            {/* <header className = "Feed-header">
-                <h1> <a href = "/addWorkout" >Add Workout</a></h1>
-            </header> */}
+        <main className="AddWorkout">
+            <Header
+                url = "./addWorkout" 
+                title = "Add Workout"
+            /> 
             <AddWorkoutInfo/>
+            <Footer
+                title = "AddWorkout"
+            />
         
-        {/* </main> */}
-        </>
+        </main>
         
         
     )

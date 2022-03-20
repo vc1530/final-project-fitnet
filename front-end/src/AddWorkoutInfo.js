@@ -19,7 +19,8 @@ const AddWorkoutInfo = () => {
     }
 
     return (
-        <form className="AddWorkoutInfo-title" onSubmit={submitForm}>
+      <main class="AddWorkoutInfo">
+        <form className="AddWorkoutInfo-header" onSubmit={submitForm}>
           <input
             type="text"
             placeholder="Workout title"
@@ -33,6 +34,8 @@ const AddWorkoutInfo = () => {
           />
           <input type="submit" disabled={!title || !desc} value="Save" />
         </form>
+      </main>
+        
       )
 }
 

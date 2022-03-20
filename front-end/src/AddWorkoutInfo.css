@@ -1,8 +1,24 @@
-.AddWorkoutInfo-title input,
-.AddWorkoutInfo-title button,
-.AddWorkoutInfo-title textarea {
+.AddWorkoutInfo {
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+    /* margin-top: 100px; */
+}
+.AddWorkoutInfo-header input {
+    width: 200px;
     margin: 5px auto;
     padding: 10px;
-    display: 'block';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.AddWorkoutInfo-header button,
+.AddWorkoutInfo-header textarea {
     width: 200px;
+    margin: 5px auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 }
