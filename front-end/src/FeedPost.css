@@ -42,15 +42,6 @@
     animation: fadeIn .4s; 
 }
 
-.User-link {
-    text-decoration: none;
-    color: rgb(76, 78, 228); 
-}
-
-.User-link:hover { 
-    color: rgb(0, 0, 168); 
-}
-
 .Profile-card { 
     display:none; 
 }
