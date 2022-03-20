@@ -4,51 +4,6 @@
     flex-direction: column;
 }
 
-.Feed-header, .Feed-footer {  
-    position: fixed; 
-    width: 100%;   
-    height: 80px; 
-    background: rgb(76, 78, 228);
-    text-align: center; 
-}
-
-.Feed-header { 
-    top: 0; 
-}
-
-.Feed-header a { 
-    color: white; 
-    text-decoration: none; 
-}
-
-.Feed-footer { 
-    bottom: 0;
-    display: -webkit-flexbox;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    justify-content: center;
-}
-
-.Feed-links a { 
-    padding: 10px; 
-    color: white; 
-    text-decoration: none;
-}
-
-.Feed-links a:hover { 
-    color: rgb(187, 187, 187); 
-}
-
-.Feed-header a { 
-    color: #fff;
-    text-decoration: none;
-}
-
 .Feed-posts { 
     padding-top: 100px; 
     padding-bottom: 100px; 

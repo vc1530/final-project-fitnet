@@ -1,0 +1,51 @@
+.MyProfile { 
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+}
+
+.MyProfile-info { 
+    width: 300px; 
+    margin-top: 125px; 
+    margin-bottom: 125px; 
+    padding: 20px; 
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+    border-style: solid; 
+    border-color: #b8b7b7; 
+    box-shadow: 1px 1px 1px 1px #b8b7b7;
+}
+
+.button {
+    background-color: #b8b7b7; 
+    color: black;
+    padding: 15px 32px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 15px; 
+    margin-bottom: 15px; 
+  }
+
+  .button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+.border {
+    border-style: ridge;
+    border-color: rgb(76, 78, 228);
+    border-width: 2px;
+    text-align: center;
+    display:inline-block;
+    padding:10px;
+}
+
+.img {
+    border-color: rgb(76, 78, 228);
+    width: 200px; 
+    height: 200px; 
+    border-radius: 50%; 
+
+}
