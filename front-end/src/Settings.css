@@ -9,3 +9,15 @@
 #Settings-info { 
     animation: fadeIn 1s; 
 }
+
+.button {
+    background-color: #b8b7b7; 
+    color: black;
+    padding: 10px 22px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 15px; 
+    margin-bottom: 10px; 
+  }

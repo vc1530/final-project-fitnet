@@ -2,8 +2,37 @@ import "./Settings.css"
 import Header from "./Header"
 import Footer from "./Footer" 
 import {FaEdit} from 'react-icons/fa'
+import React, { useState, useEffect } from "react"
+//import axios from "axios"
 
-const Settings = () => {
+const Settings = props => {
+    // const [name, setName] = useState("")
+    // const [username, setUsername] = useState("")
+    // const [bio, setBio] = useState("")
+    // const [email, setEmail] = useState("")
+    // const [password, setPassword] = useState("")
+
+    // const saveChanges = e => {
+    //     e.preventDefault() // prevent the default browser form submission stuff
+    
+    //     axios
+    //       .post("https://someserversomehwere.com/puppy/save", {
+    //         name: name,
+    //         username: username,
+    //         bio: bio,
+    //         email: email,
+    //         password: password,
+    //       })
+    //       .then(response => {
+    //         // success
+    //         console.log(`Received server response: ${response.data}`)
+    //       })
+    //       .catch(err => {
+    //         // failure
+    //         console.log(`Received server error: ${err}`)
+    //       })
+    //   }
+    
     return (
         <main className="Settings">
             <Header 
@@ -21,6 +50,7 @@ const Settings = () => {
                 <p id="password" >********</p>
                 <h3>Bio <FaEdit/></h3>
                 <p id="bio" >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                <button className="button">Save Changes</button>
             </body>
             <div> 
 
