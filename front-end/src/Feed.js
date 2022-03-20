@@ -3,7 +3,6 @@ import FeedPost from "./FeedPost"
 import post_database from "./mock_posts.json" 
 import Header from "./Header"
 import Footer from "./Footer"
-import { Link } from "react-router-dom"
 
 const Feed = () => { 
 
@@ -17,12 +16,12 @@ const Feed = () => {
             /> 
             <body className = "Feed-posts">
                 {posts.map((post) => ( 
-                <FeedPost 
-                    username = {post.username} 
-                    picture = {post.picture} 
-                    description = {post.description}
-                /> 
-                )) 
+                    <FeedPost 
+                        username = {post.username} 
+                        picture = {post.picture} 
+                        description = {post.description}
+                    /> 
+                    )) 
                 }      
             </body>
             <Footer 

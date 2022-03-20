@@ -4,6 +4,7 @@ import user_database from "./mock_users.json"
 import { Link } from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer"
+import {FaArrowLeft} from 'react-icons/fa'
 
 const UserProfile = () => { 
   
@@ -20,9 +21,9 @@ const UserProfile = () => {
                     url = "./Feed" 
                     title = "Feed" 
                 /> 
-                <body className = "UserProfile-info"> 
+                <body className = "Post-box"> 
                     <h3> Sorry, no such user exists. </h3>
-                    <h3>Return to <Link to = "/Feed">Feed</Link>? </h3>
+                    <h3>Return to <Link className = "User-link" to = "/Feed">Feed</Link>? </h3>
                 </body>
                 <Footer/> 
             </main>
@@ -33,10 +34,11 @@ const UserProfile = () => {
                 url = "./Feed" 
                 title = "Feed" 
             />
-            <body className = "UserProfile-info">
+            <a id = "back-link" className = "User-link" href = "./Feed"><FaArrowLeft size = {'28px'} /></a>
+            <body id = "UserProfile-info" className = "Post-box">
                 <img className = "UserProfile-pic" src = {user.profile_pic} alt = "me!" /> 
                 <h2> {user.name}</h2>
-                <h3><a className = "User-link" href = {"/" + user.username}>{user.username}</a></h3>
+                <i><h3><a className = "User-link" href = {"/" + user.username}>{user.username}</a></h3></i>
                 <p>{user.bio}</p>
             </body> 
             <Footer/> 
