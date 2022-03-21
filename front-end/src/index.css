@@ -67,8 +67,6 @@ form input {
 }
 
 .submit-button {  
-  margin: 20px; 
-  margin-bottom: 5px;  
   border-radius: 5px; 
   border-width: 1px; 
   border-color: #b8b7b7; 
@@ -77,6 +75,9 @@ form input {
   justify-content: center;
 }
 
-.submit-button button { 
+.submit-button button {
+  margin: 20px;  
+  margin-bottom:5px; 
+  font-size: 12pt; 
   padding: 10px; 
 }
