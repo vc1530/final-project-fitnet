@@ -2,6 +2,7 @@ import "./AddExercise.css"
 import { useState } from 'react'
 import Header from "./Header"
 import Footer from "./Footer"
+import { BsArrowLeftCircle } from 'react-icons/bs'
 
 const AddExercise = () => {
     // create a state variable for each form field
@@ -27,6 +28,9 @@ const AddExercise = () => {
                 url="./addExercise"
                 title="Add Exercise"
             />
+            <div className="backlink">
+                <a href={"./addWorkout"}>{<BsArrowLeftCircle size = "30px"/>}</a>
+            </div>
           <form className="AddExercise-form" onSubmit={submitForm}>
             <input
               type="text"
