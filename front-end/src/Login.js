@@ -43,8 +43,8 @@ function Login() {
             />
             <a id = "back-link" className = "User-link" href = "./"><AiOutlineLeft size = {'28px'} /></a>
             <body id="Login-info" className = "Post-box">
-                <h1>Log into your FitNet Account!</h1>
-                <h2>Don't have an account? Register <a className = "User-link" href="/SignUp"> here</a>!</h2>
+                <h1>Log in to FitNet</h1>
+                <h2>Don't have an account? Register <a className = "User-link" href="/SignUp"> here</a>.</h2>
                 <form id="Login-form">
                     <label>Username</label>
                     <input 

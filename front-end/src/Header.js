@@ -4,7 +4,7 @@ import Logo from "./Logo"
 const Header = props => { 
     return (
         <header className = "header">
-<svg
+      <svg
       xmlns="http://www.w3.org/2000/svg"
       width="800"
       height="800"

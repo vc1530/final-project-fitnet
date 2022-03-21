@@ -34,6 +34,7 @@ const App = () => {
         <Route path="/Playlists" element={<Playlists />} />
         <Route path="/Settings" element={<Settings />} />
         <Route path="/w/:id" element = {<AddWorkout/>}/> 
+        <Route path = "e/:id" element = {<AddExercise/>} />
       </Routes>
     </Router>
   )
