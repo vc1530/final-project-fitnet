@@ -21,6 +21,7 @@ const WorkoutHistory = () => {
                     picture = {workout.picture} 
                     name = {workout.workout_name} 
                     description = {workout.workout_description}
+                    id = {workout.id}
                 /> 
                 )) 
                 }   
