@@ -101,8 +101,13 @@ const Settings = props => {
                     </div>
                 </form>
             </body>
-            <div> 
-
+            <div className = "bottom-links"> 
+                <div className = "blue-button"> 
+                    <a className = "User-link" href="/">Sign Out</a> 
+                </div>
+                <div className = "blue-button"> 
+                    <a className = "User-link" href="/">Delete Account</a> 
+                </div>
             </div>
             <Footer 
                 title = "Settings" 

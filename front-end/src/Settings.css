@@ -53,3 +53,16 @@
     margin-top: 15px; 
     margin-bottom: 10px; 
   }
+
+  .bottom-links { 
+    margin-top: -20px;
+    margin-bottom:20px;  
+    display:flex; 
+    flex-direction: row;
+  }
+
+  .bottom-links a { 
+    margin: 10px; 
+    padding: 10px; 
+    font-size: 12pt; 
+  }
