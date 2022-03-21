@@ -10,7 +10,7 @@ const WorkoutPost = props => {
             <img src = {music_picture} alt = "Music Link" width = "50px"/>
             </div>
             
-            <p><b><a href = {"/" + props.name} className = "Post-link">{props.name}</a></b></p>
+            <p><b><a href = {"/" + props.name} className = "User-link">{props.name}</a></b></p>
             <p>{props.description}</p>
         </main>
     )
