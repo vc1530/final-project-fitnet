@@ -33,6 +33,7 @@ const App = () => {
         <Route path="/myProfile" element={<MyProfile />} /> 
         <Route path="/Playlists" element={<Playlists />} />
         <Route path="/Settings" element={<Settings />} />
+        <Route path="/w/:id" element = {<AddWorkout/>}/> 
       </Routes>
     </Router>
   )
