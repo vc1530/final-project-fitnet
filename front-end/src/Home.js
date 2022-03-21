@@ -11,14 +11,16 @@ const Home = () => {
                 title="Home"
             />
 	    <div className = "btnCont">
-        	    <div
-        	      className="btn">
+		<a href = "/LogIn">
+			<div className="btn">
 			Log In
 		    </div>
-		   <div
-		      className="btn">
-			Set Up
+		</a>
+		<a href="/SignUp">
+		   <div className="btn">
+			Sign Up
 	  	 </div>
+		</a>
 	   </div>
         </main>
     )
