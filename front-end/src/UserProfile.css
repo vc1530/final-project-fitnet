@@ -12,6 +12,7 @@
 } 
 
 #UserProfile-info { 
+    border-radius:20px; 
     padding: 30px; 
     margin-bottom: 125px;
     background-color: #fdfdfd;
@@ -32,13 +33,24 @@
     transition: 1s; 
 }
 
-.UserProfile-info h2 { 
-    margin-top: 30px; 
-    margin-left: 5px; 
+.UserProfile-title { 
+    display: flex; 
+    flex-direction: column;
 }
 
-.UserProfile-info h3 { 
-    margin-left: 5px; 
+.UserProfile-title p { 
+    margin: 0; 
+    padding: 0; 
+    font-weight: 600; 
+}
+
+.UserProfile-title #name { 
+    margin-top: 20px; 
+    font-size: 25px;
+}
+
+.UserProfile-title #username { 
+    font-size: 20px; 
 }
 
 .UserProfile-info p { 

@@ -7,7 +7,7 @@ import Footer from "./Footer"
 const Feed = () => { 
 
     let posts = post_database; 
-
+    
     return ( 
         <main className = "Feed">
             <Header
@@ -15,14 +15,14 @@ const Feed = () => {
                 title = "Feed"
             /> 
             <body className = "Feed-posts">
-                {posts.map((post) => ( 
-                    <FeedPost 
-                        username = {post.username} 
-                        picture = {post.picture} 
-                        description = {post.description}
-                    /> 
-                    )) 
-                }      
+                    {posts.map((post) => ( 
+                        <FeedPost 
+                            username = {post.username} 
+                            picture = {post.picture} 
+                            description = {post.description}
+                        /> 
+                        )) 
+                    }    
             </body>
             <Footer 
                 title = "Feed" 

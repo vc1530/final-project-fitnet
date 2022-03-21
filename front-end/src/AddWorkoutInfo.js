@@ -19,7 +19,7 @@ const AddWorkoutInfo = () => {
     }
 
     return (
-      <main class="AddWorkoutInfo">
+      <main className="AddWorkoutInfo">
         <form className="AddWorkoutInfo-header" onSubmit={submitForm}>
           <input
             type="text"
