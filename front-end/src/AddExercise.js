@@ -22,7 +22,7 @@ const AddExercise = () => {
         setNumReps('')
     }
     return (
-        <main class="AddExercise">
+        <main className="AddExercise">
             <Header
                 url="./addExercise"
                 title="Add Exercise"
@@ -46,7 +46,7 @@ const AddExercise = () => {
               value={numReps}
               onChange={e => setNumReps(e.target.value)}
             />
-            <input type="submit" disabled={!exerciseName || !numSets || !numReps} value="Save" />
+            <input type="submit" disabled={!exerciseName || !numSets || !numReps} value="Add" />
           </form>
           <Footer
             url="./addExercise"
