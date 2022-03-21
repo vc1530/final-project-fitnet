@@ -3,6 +3,7 @@ import Header from "./Header"
 import Footer from "./Footer" 
 import { AiFillEdit } from 'react-icons/ai'
 import React, { useState } from "react"
+import profilepic from './blank_profile.jpg'
 // import { BsSave } from "react-icons/bs"
 //import axios from "axios"
 
@@ -58,6 +59,10 @@ const Settings = props => {
                 title = "Settings"
             /> 
             <body id = "Settings-info" className="Post-box"> 
+                <div id = "Settings-top"> 
+                    <img id = "settingspic" src = {profilepic} alt = "me!"/> 
+                    <b><a className = "User-link" href = "">Change Profile Picture</a></b>
+                </div>
                 <form className = "Settings-form" onSubmit = {submitForm}>
                     <p><h3><label for="name">Name <AiFillEdit /></label></h3></p>
                     <input 
