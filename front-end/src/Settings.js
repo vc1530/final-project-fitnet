@@ -102,11 +102,11 @@ const Settings = props => {
                 </form>
             </body>
             <div className = "bottom-links"> 
-                <div className = "blue-button"> 
+                <div id = "signout-button" className = "blue-button"> 
                     <a className = "User-link" href="/">Sign Out</a> 
                 </div>
-                <div className = "blue-button"> 
-                    <a className = "User-link" href="/">Delete Account</a> 
+                <div id = "deleteaccount-button" className = "blue-button"> 
+                    <a  className = "User-link" href="/">Delete Account</a> 
                 </div>
             </div>
             <Footer 

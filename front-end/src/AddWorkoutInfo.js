@@ -3,7 +3,7 @@ import { useState } from 'react'
 import "./AddWorkoutInfo.css"
 import workout_database from './mock_workouts.json'
 
-const AddWorkoutInfo = () => {
+const AddWorkoutInfo = props => {
     // create a state variable for each form field
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
@@ -20,23 +20,19 @@ const AddWorkoutInfo = () => {
     setDesc('')
     }
 
-    let workouts = workout_database; 
-    let params = useParams(); 
-    const workout = workouts.find(x=>x.id == params.id); 
-
     return (
       // <main className="AddWorkoutInfo">
         <form className="AddWorkoutInfo-header" onSubmit={submitForm}>
           <input
             type="text"
             placeholder="Workout title"
-            defaultValue = {workout.workout_name} 
+            defaultValue = {props.workout_name} 
             onChange={e => setTitle(e.target.value)}
             //value={title}
           />
           <textarea
             placeholder="Workout description"
-            defaultValue={workout.workout_description}
+            defaultValue={props.workout_description}
             onChange={e => setDesc(e.target.value)}
             //value={desc}
           />

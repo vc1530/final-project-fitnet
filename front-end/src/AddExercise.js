@@ -3,6 +3,8 @@ import { useState } from 'react'
 import Header from "./Header"
 import Footer from "./Footer"
 import { BsArrowLeftCircle } from 'react-icons/bs'
+import { useParams } from "react-router-dom";
+import workout_database from "./mock_workouts.json"
 
 const AddExercise = () => {
     // create a state variable for each form field
@@ -22,6 +24,11 @@ const AddExercise = () => {
         setNumSets('')
         setNumReps('')
     }
+
+    let workouts = workout_database; 
+    let params = useParams(); 
+    const workout = workouts.find(x=>x.id == params.id); 
+
     return (
         <main className="AddExercise">
             <Header
@@ -29,7 +36,7 @@ const AddExercise = () => {
                 title="Add Exercise"
             />
             <div className="backlink">
-                <a href={"./addWorkout"}>{<BsArrowLeftCircle size = "30px"/>}</a>
+                <a href={"/w/" + workout.id}>{<BsArrowLeftCircle size = "30px"/>}</a>
             </div>
           <form className="AddExercise-form" onSubmit={submitForm}>
             <input
