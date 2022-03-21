@@ -1,17 +1,22 @@
 .AddWorkout {
     margin: 20px;
-    margin-top: 120px;
+    margin-top: 90px;
     display: flex; 
     align-items: center;
     flex-direction: column;
 }
+.backlink {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    width: 212px;
+}
 
-.input {
-    margin: 5px auto; /* centered */
-    padding: 10px;
-    display: block;
-    width: 200px;
-  }
+.backlink a { /* needs 'a' here? */
+    /* margin: 20px; */
+    color: rgb(76, 78, 228); 
+}
 
 .TableHeader {
     margin: 20px;

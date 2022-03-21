@@ -5,6 +5,8 @@ import Header from "./Header"
 import Footer from "./Footer"
 import { Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
+import { BsArrowLeftCircle } from 'react-icons/bs'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 
 const AddWorkout = () => {
     const [exercises, setExercises] = useState([])
@@ -25,6 +27,10 @@ const AddWorkout = () => {
                 url = "./addWorkout" 
                 title = "Add Workout"
             /> 
+            <div className="backlink">
+                <a href={"./workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
+                <a href={"./addExercise"}>{<AiOutlinePlusCircle size = "34px"/>}</a>
+            </div>
             <AddWorkoutInfo/>
 
             <h5 className="TableHeader">
@@ -49,9 +55,9 @@ const AddWorkout = () => {
             />
             <Footer
             />
-            <p>
+            {/* <p>
                 <Link to='/addExercise'>Add Exercise</Link>
-            </p>
+            </p> */}
 
         </main>
         
