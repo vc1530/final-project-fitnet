@@ -63,13 +63,3 @@
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   }
-
-  #settings-button { 
-    margin: 20px; 
-    margin-left: 90px; 
-    margin-bottom: 10px; 
-    padding:10px; 
-    border-radius: 5px; 
-    border-width: 1px; 
-    border-color: #b8b7b7; 
-  }

@@ -41,3 +41,42 @@ code {
 .User-link:hover { 
   color: rgb(0, 0, 168); 
 }
+
+form { 
+  display: flex; 
+  flex-direction: column; 
+}
+
+form label { 
+  font-size: 12pt; 
+  font-weight: 600; 
+  padding: 0px; 
+  margin: 7px; 
+  margin-top: 12px; 
+  margin-left: -1px; 
+}
+
+form input { 
+  margin: 0; 
+  border-radius: 5px; 
+  border-style: solid; 
+  border-width: 1px;
+  border-color: #b8b8b8; 
+  padding: 5px; 
+  font-size: 12pt; 
+}
+
+.submit-button {  
+  margin: 20px; 
+  margin-bottom: 5px;  
+  border-radius: 5px; 
+  border-width: 1px; 
+  border-color: #b8b7b7; 
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-button button { 
+  padding: 10px; 
+}
