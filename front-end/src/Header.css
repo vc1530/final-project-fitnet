@@ -3,12 +3,26 @@
     position: fixed; 
     width: 100%;   
     height: 80px; 
-    background: rgb(76, 78, 228);
-    text-align: center; 
+    background: white;
+    text-align: right;
+    color: rgb(76 78 228);
+    border-style: none none solid none;
     z-index: 99; 
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .header a { 
-    color: white; 
-    text-decoration: none; 
+    color: rgb(76 78 228); 
+    text-decoration: none;
+    margin-right: 20px; 
+}
+
+.header svg {
+    margin-left: 20px;
+    margin-top: 5px;
+    height: 100%;
+    width: auto;
+    item-align: 
 }
