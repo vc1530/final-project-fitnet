@@ -60,7 +60,7 @@ function SignUp() {
                     <input onChange={changefirstName} value={firstName} type="text" className="form-control" placeholder="Username" /><br></br>
                     <label>Password</label><br></br>
                     <input onChange={changefirstName} value={firstName} type="text" className="form-control" placeholder="Password" /><br></br>
-                    <button type="button">Submit!</button>
+                    <button type="button">Sign Up</button>
                 </div>
             </body>
             <Footer 

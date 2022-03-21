@@ -1,0 +1,16 @@
+.Login { 
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+}
+
+.Login-info { 
+    text-align: center; 
+    margin-top: 125px;
+    margin-bottom: 125px;
+    width: 300px; 
+    padding: 20px; 
+    border-style: solid; 
+    border-color: #b8b7b7; 
+    box-shadow: 1px 1px 1px 1px #b8b7b7;
+}
