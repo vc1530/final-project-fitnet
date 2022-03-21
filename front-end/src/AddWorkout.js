@@ -16,6 +16,8 @@ const AddWorkout = () => {
     }
 
     const dummy1 = dummyExercise("Pushups", 3, 15)
+    const dummy2 = dummyExercise("Pullups", 3, 15)
+    const dummy3 = dummyExercise("Squats", 3, 15)
 
     return (
         <main className="AddWorkout">
@@ -25,10 +27,25 @@ const AddWorkout = () => {
             /> 
             <AddWorkoutInfo/>
 
+            <h5 className="TableHeader">
+                <div>Exercise Name</div>
+                <div>Sets</div>
+                <div>Reps</div>
+            </h5>
             <Exercise
                 exerciseName={dummy1.name}
                 numSets={dummy1.sets}
                 numReps={dummy1.reps}
+            />
+            <Exercise
+                exerciseName={dummy2.name}
+                numSets={dummy2.sets}
+                numReps={dummy2.reps}
+            />
+            <Exercise
+                exerciseName={dummy3.name}
+                numSets={dummy3.sets}
+                numReps={dummy3.reps}
             />
             <Footer
             />
