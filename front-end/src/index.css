@@ -81,3 +81,38 @@ form input {
   font-size: 12pt; 
   padding: 10px; 
 }
+
+textarea { 
+  border-radius:5px; 
+  padding: 5px; 
+  height:150px; 
+  width: 290px; 
+  font-size: 10pt; 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+sans-serif;
+}
+
+.blue-button { 
+  display: flex; 
+  align-items: center;
+  justify-content: center; 
+}
+
+.blue-button a { 
+  border-style: solid; 
+  padding: 20px; 
+  font-size:16pt; 
+  margin: 20px; 
+  border-radius: 10px; 
+  font-weight: 600;
+  transition: .25;  
+  box-shadow: 1px 1px 1px 1px #d4d4d4;
+}
+
+.blue-button a:hover { 
+  background-color: rgb(76, 78, 228); 
+  color: white; 
+  transition: .25s; 
+  border-color: rgb(76, 78, 228); 
+}

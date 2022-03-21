@@ -23,10 +23,10 @@ const FeedPost = props => {
                         <div className = "Profile-link">
                             <b><a className = "User-link" href = {"/" + props.username} >{props.username}</a></b> 
                         </div> 
-                    <div className = "Profile-card" onClick = {handleClick}> 
-                        <div className = "card-top"> 
-                            <img src = {user.profile_pic} alt = "profile" /> 
-                            <div className = "card-names">
+                        <div className = "Profile-card" onClick = {handleClick}> 
+                            <div className = "card-top"> 
+                                <img src = {user.profile_pic} alt = "profile" /> 
+                                <div className = "card-names">
                                 <b><p><a className = "User-link" href = {"/" + props.username}>{user.username}</a></p></b>
                                 <p>{user.name}</p> 
                             </div> 

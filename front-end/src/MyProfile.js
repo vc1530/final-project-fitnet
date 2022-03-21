@@ -22,7 +22,7 @@ const MyProfile = props => {
                     <p><i><a id="myusername" className = "User-link" href = {"/j.doe5"}>j.doe5</a></i></p>
                 </div>
                 <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-                <div className = "Profile-workoutHistory"> 
+                <div className = "blue-button"> 
                     <a className = "User-link" href="/workoutHistory">Workout History</a> 
                 </div>
             </body>

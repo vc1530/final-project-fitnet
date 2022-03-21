@@ -37,27 +37,3 @@
   .button:hover {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
   }
-
-.Profile-workoutHistory { 
-    display: flex; 
-    align-items: center;
-    justify-content: center; 
-}
-
-.Profile-workoutHistory a { 
-    border-style: solid; 
-    padding: 20px; 
-    font-size:16pt; 
-    margin: 20px; 
-    border-radius: 10px; 
-    font-weight: 600;
-    transition: .25;  
-    box-shadow: 1px 1px 1px 1px #d4d4d4;
-}
-
-.Profile-workoutHistory a:hover { 
-    background-color: rgb(76, 78, 228); 
-    color: white; 
-    transition: .25s; 
-    border-color: rgb(76, 78, 228); 
-}

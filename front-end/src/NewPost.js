@@ -1,5 +1,4 @@
 import "./NewPost.css"
-import {Link} from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer" 
 
@@ -10,10 +9,16 @@ const NewPost = () => {
                 url = "./NewPost" 
                 title = "Create a new post"
             /> 
-            <body className = "NewPost-info">
-                <p className="border">Picture and words for new post information go here</p>
-                <Link to="/Feed"><button className="button">Post</button></Link>
+            <body id = "NewPost-info" className = "Post-box">
+                <a href = "./NewPost" className = "User-link">Choose an image</a>
+                <textarea id = "newpost-description"
+                    placeholder = "Write a description..."
+                    maxlength = "258"
+                />
             </body>
+            <div id = "post-button" className = "blue-button">
+                <a className = "User-link" href = "/Feed">Post</a>
+            </div>
             <Footer 
                 title = "Create a new post" 
             />

@@ -1,43 +1,44 @@
 .NewPost { 
+    margin-top: 100px; 
+    margin-bottom: 100px; 
     display: flex; 
     align-items: center;
     flex-direction: column;
 }
 
-.NewPost-info { 
-    width: 300px; 
-    margin-top: 125px; 
-    margin-bottom: 125px; 
-    padding: 20px; 
+#NewPost-info { 
     display: flex; 
     align-items: center;
     flex-direction: column;
-    border-style: solid; 
-    border-color: #b8b7b7; 
-    box-shadow: 1px 1px 1px 1px #b8b7b7;
 }
 
-.button {
-    background-color: #b8b7b7; 
-    color: black;
-    padding: 15px 32px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    font-size: 16px;
-    margin-top: 15px; 
-    margin-bottom: 15px; 
-  }
+#NewPost-info a { 
+  border-style: solid; 
+  border-color: #c0c0c0; 
+  border-radius: 10px; 
+  width: 300px; 
+  height: 200px;  
+  font-weight: 600; 
+  font-size: 14pt; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
 
-  .button:hover {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  }
+#newpost-description { 
+   margin-top: 10px; 
+   border-style:none; 
+   height: 100px;  
+}
 
-.border {
-    border-style: ridge;
-    border-color: rgb(76, 78, 228);
-    border-width: 2px;
-    text-align: center;
-    display:inline-block;
-    padding:10px;
+#post-button { 
+  margin-top: -30px; 
+  align-items: right; 
+  justify-content: right;
+}
+
+#post-button a { 
+  margin-left: 290px; 
+  padding: 15px; 
+  font-size: 12pt; 
 }
