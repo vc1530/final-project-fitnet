@@ -15,7 +15,7 @@ const FeedPost = props => {
         return (<main></main>)
 
     return ( 
-        <main className = "Post-box">
+        <main id = "FeedPost" className = "Post-box">
             <img className = "Post-image" src = {props.picture} alt = "Post" />
             <section className = "Profile-info">
                     <img className = "Profile-image" src = {user.profile_pic} alt = "Profile" /> 
