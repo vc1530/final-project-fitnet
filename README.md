@@ -20,7 +20,12 @@ Social media has long been the source of many of our fitness inspirations. Accor
 FitNet was inspired by this lack of existing fitness social media platforms. By only showing users fitness-related content, FitNet ensures a welcoming environment that encourages social connection and motivation from watching others’ health journeys take shape. Additionally, users are able to document their own progress to see for oneself or share with others, keeping track of individual workouts or curating workout playlists to better personalize their fitness experience. 
 
 ## Building and testing 
-TBD 
+To test this project: 
+1. Clone the project repository: `git clone <url` 
+2. Go into the front end directory: `cd final-project-fitnet/front-end` 
+3. Run `npm install` 
+4. Run `npm start` 
+The app should start in your default web browser. 
 
 ## For Potential Contributors 
 If you would like to correct any bugs in our code or add new functionalities feel free to do so by following [these](./CONTRIBUTING.md) instructions.  
