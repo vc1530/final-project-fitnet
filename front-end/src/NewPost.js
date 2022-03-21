@@ -12,7 +12,7 @@ const NewPost = () => {
             <body id = "NewPost-info" className = "Post-box">
                 <a href = "./NewPost" className = "User-link">Choose an image</a>
                 <textarea id = "newpost-description"
-                    placeholder = "Write a description..."
+                    placeholder = "write a description..."
                     maxlength = "258"
                 />
             </body>
