@@ -46,4 +46,5 @@ To test this project:
 2. Go into the front end directory: `cd final-project-fitnet/front-end` 
 3. Run `npm install` 
 4. Run `npm start` 
+
 The app should start in your default web browser. 
