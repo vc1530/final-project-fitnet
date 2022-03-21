@@ -63,32 +63,32 @@ const Settings = props => {
                     <img id = "settingspic" src = {profilepic} alt = "me!"/> 
                     <b><a className = "User-link" href = "">Change Profile Picture</a></b>
                 </div>
-                <form className = "Settings-form" onSubmit = {submitForm}>
-                    <p><h3><label for="name">Name <AiFillEdit /></label></h3></p>
+                <form onSubmit = {submitForm}>
+                    <label for="name">Name <AiFillEdit /></label>
                     <input 
                         type= "text" 
                         defaultValue = "John Doe"
                         onChange = {e => setName(e.target.value)}
                     />
-                    <p><h3><label for="username">Username <AiFillEdit /></label></h3></p>
+                    <label for="username">Username <AiFillEdit /></label>
                     <input 
                         type= "text" 
                         defaultValue = "j.doe5"
                         onChange = {e => setName(e.target.value)}
                     />
-                    <p><h3><label for="email">Email <AiFillEdit /></label></h3></p>
+                    <label for="email">Email <AiFillEdit /></label>
                     <input 
                         type= "text" 
                         defaultValue = "janedoe@gmail.com"
                         onChange = {e => setName(e.target.value)}
                     />
-                    <p><h3><label for="password">Password <AiFillEdit /></label></h3></p>
+                    <label for="password">Password <AiFillEdit /></label>
                     <input 
                         type= "password" 
                         defaultValue = "abcasdfjaiosdf"
                         onChange = {e => setName(e.target.value)}
                     />
-                    <p><h3><label for="bio">Bio <AiFillEdit /></label></h3></p>
+                    <label for="bio">Bio <AiFillEdit /></label>
                     <textarea 
                         id = "settingsbio"
                         maxlength = "432"
@@ -96,7 +96,9 @@ const Settings = props => {
                         defaultValue = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."
                         onChange = {e => setName(e.target.value)}
                     />
-                    <button id="settings-button">Save Changes</button>
+                    <div className = "submit-button">
+                        <button>Save Changes</button>
+                    </div>
                 </form>
             </body>
             <div> 

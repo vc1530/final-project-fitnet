@@ -1,10 +1,8 @@
 import "./SignUp.css"
-import {Link} from "react-router-dom"
 import Header from "./Header"
-import Footer from "./Footer" 
 import { useState } from 'react'
-
-
+import { AiOutlineLeft } from 'react-icons/ai'
+import { BsWindowSidebar } from "react-icons/bs"
 
 function SignUp() {
 
@@ -30,8 +28,16 @@ function SignUp() {
         setEmail(e.target.value)
     }
 
+    const changeUsername = (e) => { 
+        setUsername(e.target.value); 
+    }
+
+    const changePassword = (e) => { 
+        setPassword(e.target.value); 
+    }
+
     const handleSubmit = () => {
-        if (firstName == '' || lastName == '' || email == '' || username == '' || password == '') {
+        if (firstName === '' || lastName === '' || email === '' || username === '' || password === '') {
             setFieldsFilled(false)
         } else {
             setFieldsFilled(true)
@@ -39,33 +45,62 @@ function SignUp() {
         }
     }
 
+    function handleClick () { 
+        window.location.replace('LogIn')
+    }
 
     return (
-        <main className="Sign Up">
+        <main className="SignUp">
             <Header 
                 url = "./SignUp" 
                 title = "Sign Up"
             /> 
-            <body className="SignUp-info">
+            <a id = "back-link" className = "User-link" href = "./"><AiOutlineLeft size = {'28px'} /></a>
+            <body id="SignUp-info" className = "Post-box">
                 <h1>Sign up for FitNet!</h1>
-                <h2>Already have an account? Log in <Link to="/LogIn"> here.</Link></h2>
-                <div className="form-group">
-                    <label>First Name</label><br></br>
-                    <input onChange={changefirstName} value={firstName} type="text" className="form-control" placeholder="First Name" /><br></br>
-                    <label>Last Name</label><br></br>
-                    <input onChange={changelastName} value={firstName} type="text" className="form-control" placeholder="Last Name" /><br></br>
-                    <label>Email</label><br></br>
-                    <input onChange={changeEmail} value={firstName} type="text" className="form-control" placeholder="Email" /><br></br>
-                    <label>Username</label><br></br>
-                    <input onChange={changefirstName} value={firstName} type="text" className="form-control" placeholder="Username" /><br></br>
-                    <label>Password</label><br></br>
-                    <input onChange={changefirstName} value={firstName} type="text" className="form-control" placeholder="Password" /><br></br>
-                    <button type="button">Sign Up</button>
-                </div>
+                <h2>Already have an account? Log in <a href = "/LogIn" className = "User-link"> here.</a></h2>
+                <form onSubmit = {handleSubmit}>
+                    <label>First Name</label>
+                    <input 
+                        onChange={changefirstName} 
+                        //value={firstName} 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="First Name" 
+                    />
+                    <label>Last Name</label>
+                    <input 
+                        onChange={changelastName} 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="Last Name" 
+                    />
+                    <label>Email</label>
+                    <input 
+                        onChange={changeEmail} 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="Email" 
+                    />
+                    <label>Username</label>
+                    <input 
+                        onChange={changeUsername} 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="Username" 
+                    />
+                    <label>Password</label>
+                    <input 
+                        onChange={changePassword} 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="Password" 
+                    />
+                </form>
+                <div className = "submit-button">
+                        <button onClick = {handleClick}>Submit</button>
+                    </div>
             </body>
-            <Footer 
-                title = "Sign Up" 
-            /> 
         </main>
     )
 }
