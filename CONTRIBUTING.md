@@ -41,4 +41,9 @@ To work on this project from your own local machine:
     ```
 
 ## Building and testing 
-TBD 
+To test this project: 
+1. Clone the project repository: `git clone <url` 
+2. Go into the front end directory: `cd final-project-fitnet/front-end` 
+3. Run `npm install` 
+4. Run `npm start` 
+The app should start in your default web browser. 
