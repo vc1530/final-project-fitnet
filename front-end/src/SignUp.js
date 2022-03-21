@@ -2,6 +2,7 @@ import "./SignUp.css"
 import Header from "./Header"
 import { useState } from 'react'
 import { AiOutlineLeft } from 'react-icons/ai'
+import { BsWindowSidebar } from "react-icons/bs"
 
 function SignUp() {
 
@@ -44,6 +45,9 @@ function SignUp() {
         }
     }
 
+    function handleClick () { 
+        window.location.replace('LogIn')
+    }
 
     return (
         <main className="SignUp">
@@ -59,14 +63,14 @@ function SignUp() {
                     <label>First Name</label>
                     <input 
                         onChange={changefirstName} 
-                        value={firstName} type="text" 
+                        //value={firstName} 
+                        type="text" 
                         className="form-control" 
                         placeholder="First Name" 
                     />
                     <label>Last Name</label>
                     <input 
                         onChange={changelastName} 
-                        value={firstName} 
                         type="text" 
                         className="form-control" 
                         placeholder="Last Name" 
@@ -74,28 +78,28 @@ function SignUp() {
                     <label>Email</label>
                     <input 
                         onChange={changeEmail} 
-                        value={firstName} type="text" 
+                        type="text" 
                         className="form-control" 
                         placeholder="Email" 
                     />
                     <label>Username</label>
                     <input 
                         onChange={changeUsername} 
-                        value={firstName} type="text" 
+                        type="text" 
                         className="form-control" 
                         placeholder="Username" 
                     />
                     <label>Password</label>
                     <input 
                         onChange={changePassword} 
-                        value={firstName} type="text" 
+                        type="text" 
                         className="form-control" 
                         placeholder="Password" 
                     />
-                    <div className = "submit-button">
-                        <button>Submit</button>
-                    </div>
                 </form>
+                <div className = "submit-button">
+                        <button onClick = {handleClick}>Submit</button>
+                    </div>
             </body>
         </main>
     )
