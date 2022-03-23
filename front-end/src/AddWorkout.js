@@ -7,6 +7,8 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
+import workout_database from "./mock_workouts.json"
+import { useParams } from "react-router-dom";
 
 const AddWorkout = () => {
     const [exercises, setExercises] = useState([])
@@ -21,6 +23,10 @@ const AddWorkout = () => {
     const dummy2 = dummyExercise("Pullups", 3, 15)
     const dummy3 = dummyExercise("Squats", 3, 15)
 
+    let workouts = workout_database; 
+    let params = useParams(); 
+    const workout = workouts.find(x=>x.id == params.id); 
+
     return (
         <main className="AddWorkout">
             <Header
@@ -28,10 +34,13 @@ const AddWorkout = () => {
                 title = "Add Workout"
             /> 
             <div className="backlink">
-                <a href={"./workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
-                <a href={"./addExercise"}>{<AiOutlinePlusCircle size = "34px"/>}</a>
+                <a href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
+                <a href={"../e/" + workout.id}>{<AiOutlinePlusCircle size = "34px"/>}</a>
             </div>
-            <AddWorkoutInfo/>
+            <AddWorkoutInfo
+                workout_name = {workout.workout_name}
+                workout_description = {workout.workout_description}
+            />
 
             <h5 className="TableHeader">
                 <div>Exercise Name</div>

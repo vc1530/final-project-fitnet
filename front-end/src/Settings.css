@@ -66,3 +66,23 @@
     padding: 10px; 
     font-size: 12pt; 
   }
+
+  #signout-button a { 
+    color: rgb(109, 109, 109); 
+  }
+
+  #signout-button a:hover { 
+    border-color: rgb(109, 109, 109) ; 
+    background-color: rgb(109, 109, 109); 
+    color: white; 
+  }
+
+  #deleteaccount-button a{ 
+    color: rgb(196, 0, 0); 
+  }
+
+  #deleteaccount-button a:hover { 
+    border-color: rgb(196, 0, 0);
+    background-color:rgb(196, 0, 0);
+    color: white;
+  }

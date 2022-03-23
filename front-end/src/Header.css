@@ -14,9 +14,15 @@
 }
 
 .header a { 
+    font-weight: 600; 
+    font-size: 22pt; 
     color: rgb(76 78 228); 
     text-decoration: none;
     margin-right: 20px; 
+}
+
+.header a:hover { 
+    color: rgb(44, 48, 255);  
 }
 
 .header svg {
@@ -24,5 +30,5 @@
     margin-top: 5px;
     height: 100%;
     width: auto;
-    item-align: 
+    align-items: left; 
 }
