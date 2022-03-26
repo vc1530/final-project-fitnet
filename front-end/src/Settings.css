@@ -1,8 +1,5 @@
 .Settings { 
-    margin-top: 100px; 
-    display: flex; 
     align-items: center;
-    flex-direction: column;
     margin-bottom: 100px; 
 }
 
@@ -28,7 +25,7 @@
     border-radius: 5px; 
     border-style: solid; 
     border-width: 1px;
-    border-color: #b8b8b8; 
+    border-color: var(--main-border-color); 
     padding: 5px; 
     font-size: 12pt; 
 }
@@ -40,26 +37,14 @@
 
 .Settings-form :first-child{ 
     margin-top: 0px; 
-}
+} 
 
-.button {
-    background-color: #b8b7b7; 
-    color: black;
-    padding: 10px 22px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    font-size: 13px;
-    margin-top: 15px; 
-    margin-bottom: 10px; 
-  }
-
-  .bottom-links { 
-    margin-top: -20px;
+.bottom-links { 
+ margin-top: -20px;
     margin-bottom:20px;  
     display:flex; 
     flex-direction: row;
-  }
+}
 
   .bottom-links a { 
     margin: 10px; 

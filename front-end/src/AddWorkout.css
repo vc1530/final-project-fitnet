@@ -15,7 +15,7 @@
 
 .backlink a { /* needs 'a' here? */
     /* margin: 20px; */
-    color: rgb(76, 78, 228); 
+    color: var(--main-accent-color); 
 }
 
 .TableHeader {

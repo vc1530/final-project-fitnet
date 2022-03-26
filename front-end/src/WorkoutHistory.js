@@ -1,5 +1,4 @@
 import "./WorkoutHistory.css"
-import {Link} from "react-router-dom"
 import workout_database from "./mock_workouts.json" 
 import WorkoutPost from "./WorkoutPost"
 import Header from "./Header"

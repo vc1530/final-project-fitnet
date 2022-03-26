@@ -1,7 +1,5 @@
 import "./Login.css"
-import {Link} from "react-router-dom"
 import Header from "./Header"
-import Footer from "./Footer" 
 import { useState } from 'react'
 import { AiOutlineLeft } from 'react-icons/ai'
 
@@ -36,7 +34,7 @@ function Login() {
     }
 
     return (
-        <main className="Login">
+        <main className = "Login">
             <Header 
                 url = "./Login" 
                 title = "Login"

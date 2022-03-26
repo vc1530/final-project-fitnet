@@ -5,17 +5,14 @@
 }
 
 .UserProfile { 
-    margin-top: 100px; 
-    display: flex; 
     align-items: center;
-    flex-direction: column;
+    margin-bottom: 20px; 
 } 
 
 #UserProfile-info { 
     border-radius:20px; 
     padding: 30px; 
     margin-bottom: 125px;
-    background-color: #fdfdfd;
     animation: fadeIn 1s; 
 }
 

@@ -9,7 +9,7 @@ const Feed = () => {
     let posts = post_database; 
     
     return ( 
-        <main className = "Feed">
+        <main id = "Feed">
             <Header
                 url = "./Feed" 
                 title = "Feed"
