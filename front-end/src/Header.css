@@ -5,7 +5,7 @@
     height: 80px; 
     background: white;
     text-align: right;
-    color: rgb(76 78 228);
+    color: var(--main-accent-color);
     border-style: none none solid none;
     z-index: 99; 
     display:flex;
@@ -16,14 +16,12 @@
 .header a { 
     font-weight: 600; 
     font-size: 22pt; 
-    color: rgb(76 78 228); 
-    text-decoration: none;
     margin-right: 20px; 
 }
 
 .header a:hover { 
-    color: rgb(44, 48, 255);  
-}
+    color: var(--light-accent-hover);  
+} 
 
 .header svg {
     margin-left: 20px;

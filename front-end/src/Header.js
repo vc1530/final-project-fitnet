@@ -1,5 +1,4 @@
 import "./Header.css"
-import Logo from "./Logo"
 
 const Header = props => { 
     return (
@@ -75,7 +74,7 @@ const Header = props => {
           Net
         </tspan>
       </text>
-    </svg><h1> <a href = {props.url} > {props.title} </a> </h1>
+    </svg><h1> <a className = "User-link" href = {props.url} > {props.title} </a> </h1>
         </header>
     ) 
 
