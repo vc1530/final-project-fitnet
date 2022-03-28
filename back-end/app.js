@@ -24,6 +24,9 @@ app.use(morgan("dev")) // morgan has a few logging default styles - dev is a nic
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
 
+// make 'public' directory publicly readable with static content
+app.use("/static", express.static("public"))
+
 //Route for root link to the website
 app.get("/", (req, res) => {
     res.send("This is the root directory link for our app")
