@@ -5,7 +5,7 @@ import { AiFillEdit } from 'react-icons/ai'
 import React, { useState } from "react"
 import profilepic from './blank_profile.jpg'
 // import { BsSave } from "react-icons/bs"
-//import axios from "axios"
+// import axios from "axios"
 
 const Settings = props => {
 
