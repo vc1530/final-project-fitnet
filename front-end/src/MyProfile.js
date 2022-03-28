@@ -5,7 +5,6 @@ import Header from "./Header"
 import Footer from "./Footer" 
 import React, { useState } from "react"
 import UserProfile from "./UserProfile"
-import axios from 'axios'
 
 
 const MyProfile = props => {

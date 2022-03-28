@@ -47,33 +47,32 @@ app.get("/Create-a-new-post", (req, res) => {
 module.exports = app // CommonJS export style!
 
 
+// TRYING TO DEAL WITH UPLOADING PROFILE PHOTO
+// enable file uploads saved to disk in a directory named 'public/uploads'
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "public/uploads")
+    },
+    filename: function (req, file, cb) {
+      cb(
+        null,
+        `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+      )
+    },
+  })
 
-// // TRYING TO DEAL WITH UPLOADING PROFILE PHOTO
-// // enable file uploads saved to disk in a directory named 'public/uploads'
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, "public/uploads")
-//     },
-//     filename: function (req, file, cb) {
-//       cb(
-//         null,
-//         `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-//       )
-//     },
-//   })
+const upload = multer({ storage: storage })
 
-// const upload = multer({ storage: storage })
-
-// // route for HTTP POST requests for /upload-example
-// app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
-//     // check whether anything was uploaded
-//     if (req.files) {
-//       // success! send data back to the client, e.g. some JSON data
-//       const data = {
-//         status: "all good",
-//         message: "yup, the files were uploaded!!!",
-//         files: req.files,
-//       }
-//       res.json(data) // send respose
-//     }
-//   })
+// route for HTTP POST requests for /upload-example
+app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
+    // check whether anything was uploaded
+    if (req.files) {
+      // success! send data back to the client, e.g. some JSON data
+      const data = {
+        status: "all good",
+        message: "yup, the files were uploaded!!!",
+        files: req.files,
+      }
+      res.json(data) // send respose
+    }
+  })
