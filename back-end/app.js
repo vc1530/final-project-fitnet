@@ -15,12 +15,19 @@ const morgan = require("morgan") // middleware for nice logging of incoming HTTP
  * This is to match the order of the accompanying slides
  */
 
+
+
 // use the morgan middleware to log all incoming http requests
 app.use(morgan("dev")) // morgan has a few logging default styles - dev is a nice concise color-coded style
 
 // use express's builtin body-parser middleware to parse any data included in a request
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
+
+//Route for root link to the website
+app.get("/", (req, res) => {
+    res.send("This is the root directory link for our app")
+})
 
 // export the express app we created to make it available to other modules
 module.exports = app // CommonJS export style!
