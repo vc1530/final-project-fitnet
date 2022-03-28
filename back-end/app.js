@@ -37,9 +37,9 @@ app.get("/Create-a-new-post", (req, res) => {
     const body = {
       title: "Create a new post!",
       heading: "New Post!",
+      image: "",
       message: "Image will be uploaded here",
       message: "Description will be uploaded here",
-      imagePath: "/static/images/donkey.jpg",
     }
 })    
 
