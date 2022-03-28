@@ -32,16 +32,5 @@ app.get("/", (req, res) => {
     res.send("This is the root directory link for our app")
 })
 
-app.get("/Create-a-new-post", (req, res) => {
-    // assemble an object with the data we want to send
-    const body = {
-      title: "Create a new post!",
-      heading: "New Post!",
-      image: "",
-      message: "Image will be uploaded here",
-      message: "Description will be uploaded here",
-    }
-})    
-
 // export the express app we created to make it available to other modules
 module.exports = app // CommonJS export style!
