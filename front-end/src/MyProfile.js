@@ -1,5 +1,5 @@
 import "./MyProfile.css"
-import profilepic from "./blank_profile.jpg"
+import profilepic from "./images/blank_profile.jpg"
 import {Link} from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer" 

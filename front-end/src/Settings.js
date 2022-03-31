@@ -2,10 +2,11 @@ import "./Settings.css"
 import Header from "./Header"
 import Footer from "./Footer" 
 import { AiFillEdit } from 'react-icons/ai'
-import React, { useState } from "react"
-import profilepic from './blank_profile.jpg'
-// import { BsSave } from "react-icons/bs"
-import axios from "axios"
+import React, { useEffect, useState } from "react"
+import profilepic from './images/blank_profile.jpg'
+
+import { BsSave } from "react-icons/bs"
+//import axios from "axios"
 
 const Settings = props => {
 
@@ -15,6 +16,50 @@ const Settings = props => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    // // for uploading profile image
+    // const [uploadStatus, setUploadStatus] = useState('');
+    // // need to add: {uploadStatus} somewhere
+    // app.use('/', express.static(path.join(__dirname, '/')));
+
+    // app.get("/api/image", (req,res) => {
+    //     const id = 1;
+    //     const sqlInsert = "SELECT * FROM images WHERE id = ?;"
+
+    //     connection.query(sqlInsert, [id], (err,result) => {
+    //         if (err) {
+    //             console.log(err)
+    //             res.send({
+    //                 msg: err
+    //             })
+    //         }
+
+    //         if (result) {
+    //             res.send({
+    //                 image: result[0].image,
+    //             });
+    //         }
+    //     });
+    // })
+
+    // const [image,setImage] = useState('');
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:8000/api/image`, {
+    //         method: 'GET',
+    //         headers: {
+    //             "Content-Type": 'application/json, charset=UTF-8',
+    //             'Accept': 'application/json, text/html',
+    //         },
+    //         credentials: 'include',
+    //     })
+    //     .then(data => data.json())
+    //     .then((data) => {
+    //         console.log(data)
+    //             setImage('http://localhost:8000/' + data.image)
+    //             console.log(image)
+    //     });
+    // })
+    // {image && <img src={image} alt="img"/>}
 
     /**
     * A nested function that is called when the user submits the form to save changes.
@@ -31,26 +76,6 @@ const Settings = props => {
         setPassword(bio)
     }
 
-    // const saveChanges = e => {
-    //     e.preventDefault() // prevent the default browser form submission stuff
-    
-    //     axios
-    //       .post("https://someserversomehwere.com/puppy/save", {
-    //         name: name,
-    //         username: username,
-    //         bio: bio,
-    //         email: email,
-    //         password: password,
-    //       })
-    //       .then(response => {
-    //         // success
-    //         console.log(`Received server response: ${response.data}`)
-    //       })
-    //       .catch(err => {
-    //         // failure
-    //         console.log(`Received server error: ${err}`)
-    //       })
-    //   }
     
     return (
         <main className="Settings">
@@ -61,13 +86,14 @@ const Settings = props => {
             <body id = "Settings-info" className="Post-box"> 
                 <div id = "Settings-top"> 
                     <img id = "settingspic" src = {profilepic} alt = "me!"/> 
-                    <b><a className = "User-link" href = "">Change Profile Picture</a></b>
+
+                    <input type="file" name="image" accept="image/*" multiple={false} />
                 </div>
                 <form onSubmit = {submitForm}>
                     <label for="name">Name <AiFillEdit /></label>
                     <input 
                         type= "text" 
-                        defaultValue = "John Doe"
+                        defaultValue = "John Doe" // insert state variable 
                         onChange = {e => setName(e.target.value)}
                     />
                     <label for="username">Username <AiFillEdit /></label>

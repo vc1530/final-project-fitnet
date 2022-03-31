@@ -1,5 +1,5 @@
 import "./WorkoutPost.css" 
-import music_picture from "./music.png"
+import music_picture from "./images/music.png"
 
 
 const WorkoutPost = props => {   
