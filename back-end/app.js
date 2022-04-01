@@ -5,17 +5,16 @@ const path = require("path")
 
 // import some useful middleware
 const multer = require("multer") // middleware to handle HTTP POST requests with file uploads
+const cors = require("cors")
 const axios = require("axios") // middleware for making requests to APIs
-require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
 const morgan = require("morgan") // middleware for nice logging of incoming HTTP requests
+require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
 
 /**
  * Typically, all middlewares would be included before routes
  * In this file, however, most middlewares are after most routes
  * This is to match the order of the accompanying slides
  */
-
-
 
 // use the morgan middleware to log all incoming http requests
 app.use(morgan("dev")) // morgan has a few logging default styles - dev is a nice concise color-coded style
@@ -35,33 +34,54 @@ app.get("/", (req, res) => {
 // export the express app we created to make it available to other modules
 module.exports = app // CommonJS export style!
 
-
-// TRYING TO DEAL WITH UPLOADING PROFILE PHOTO
-// enable file uploads saved to disk in a directory named 'public/uploads'
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "public/uploads")
-    },
-    filename: function (req, file, cb) {
-      cb(
-        null,
-        `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-      )
-    },
-  })
-
-const upload = multer({ storage: storage })
-
 // route for HTTP POST requests for /upload-example
 app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
-    // check whether anything was uploaded
-    if (req.files) {
-      // success! send data back to the client, e.g. some JSON data
-      const data = {
-        status: "all good",
-        message: "yup, the files were uploaded!!!",
-        files: req.files,
-      }
-      res.json(data) // send respose
+  // check whether anything was uploaded
+  if (req.files) {
+    // success! send data back to the client, e.g. some JSON data
+    const data = {
+      status: "all good",
+      message: "yup, the files were uploaded!!!",
+      files: req.files,
     }
-  })
+    res.json(data) // send respose
+  }
+})
+
+
+// // enable file uploads saved to disk in a directory named 'public/uploads'
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "public/uploads")
+//   },
+//   filename: function (req, file, cb) {
+//     // take apart the uploaded file's name so we can create a new one based on it
+//     const extension = path.extname(file.originalname)
+//     const basenameWithoutExtension = path.basename(file.originalname, extension)
+//     // create a new filename with a timestamp in the middle
+//     const newName = `${basenameWithoutExtension}-${Date.now()}${extension}`
+//     // tell multer to use this new filename for the uploaded file
+//     cb(null, newName)
+//   },
+// })
+// const upload = multer({ storage: storage })
+
+// // route for HTTP POST requests for /upload-example
+// app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
+//   // check whether anything was uploaded
+//   if (!req.files) {
+//     // failure!
+//     const error = new Error("Please upload some files!")
+//     error.httpStatusCode = 400
+//     return next(error)
+//   } else {
+//     // success
+//     // send a message back to the client, for example, a simple JSON object
+//     const data = {
+//       status: "all good",
+//       message: "files were uploaded!!!",
+//       files: req.files,
+//     }
+//     res.json(data)
+//   }
+// })

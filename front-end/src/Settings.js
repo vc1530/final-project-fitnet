@@ -2,10 +2,11 @@ import "./Settings.css"
 import Header from "./Header"
 import Footer from "./Footer" 
 import { AiFillEdit } from 'react-icons/ai'
-import React, { useState } from "react"
-import profilepic from './blank_profile.jpg'
-// import { BsSave } from "react-icons/bs"
-import axios from "axios"
+import React, { useEffect, useState } from "react"
+import profilepic from './images/blank_profile.jpg'
+
+import { BsSave } from "react-icons/bs"
+//import axios from "axios"
 
 const Settings = props => {
 
@@ -50,7 +51,8 @@ const Settings = props => {
             <body id = "Settings-info" className="Post-box"> 
                 <div id = "Settings-top"> 
                     <img id = "settingspic" src = {profilepic} alt = "me!"/> 
-                    <b><a className = "User-link" href = "">Change Profile Picture</a></b>
+
+                    <input type="file" name="image" accept="image/*" multiple={false} />
                 </div>
                 <form onSubmit = {handleSubmit}>
                     <label for="name">Name <AiFillEdit /></label>
