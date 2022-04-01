@@ -10,72 +10,37 @@ import { BsSave } from "react-icons/bs"
 
 const Settings = props => {
 
-    const [name, setName] = useState("")
-    const [username, setUsername] = useState("")
-    const [bio, setBio] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [name, setName] = useState("John Doe")
+    const [username, setUsername] = useState("j.doe5")
+    const [bio, setBio] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.")
+    const [email, setEmail] = useState("janedoe@gmail.com")
+    const [password, setPassword] = useState("abcasdfjaiosdf")
 
-    // // for uploading profile image
-    // const [uploadStatus, setUploadStatus] = useState('');
-    // // need to add: {uploadStatus} somewhere
-    // app.use('/', express.static(path.join(__dirname, '/')));
-
-    // app.get("/api/image", (req,res) => {
-    //     const id = 1;
-    //     const sqlInsert = "SELECT * FROM images WHERE id = ?;"
-
-    //     connection.query(sqlInsert, [id], (err,result) => {
-    //         if (err) {
-    //             console.log(err)
-    //             res.send({
-    //                 msg: err
-    //             })
-    //         }
-
-    //         if (result) {
-    //             res.send({
-    //                 image: result[0].image,
-    //             });
-    //         }
-    //     });
-    // })
-
-    // const [image,setImage] = useState('');
-
-    // useEffect(() => {
-    //     fetch(`http://localhost:8000/api/image`, {
-    //         method: 'GET',
-    //         headers: {
-    //             "Content-Type": 'application/json, charset=UTF-8',
-    //             'Accept': 'application/json, text/html',
-    //         },
-    //         credentials: 'include',
-    //     })
-    //     .then(data => data.json())
-    //     .then((data) => {
-    //         console.log(data)
-    //             setImage('http://localhost:8000/' + data.image)
-    //             console.log(image)
-    //     });
-    // })
-    // {image && <img src={image} alt="img"/>}
-
-    /**
-    * A nested function that is called when the user submits the form to save changes.
-    * @param {*} e
-    */
-     const submitForm = e => {
-        e.preventDefault() // prevent normal browser submit behavior
-        //NEEDS axios stuff here
-        console.log("NYI: submitForm, AddExercise.js")
-        setName(name)
-        setUsername(username)
-        setBio(email)
-        setEmail(password)
-        setPassword(bio)
-    }
-
+    const handleSubmit = e => {
+        e.preventDefault() // prevent the default browser form submission stuff
+    
+        // send the data of the new puppy to a server
+        // this server doesn't exist, so we will see an error in the console
+        // axios' get() and post() methods return a promise, so we can use our javascript Promise or async/await expertise here to deal with the resolution or rejection of the request
+        axios
+          .post("http://localhost:3000/save-changes", {
+            name: name, 
+            username: username, 
+            password: password, 
+            email: email, 
+            bio: bio, 
+          })
+          .then(response => {
+            // success
+            console.log(`Received server response: ${response.data}`)
+            alert("Received" ); 
+          })
+          .catch(err => {
+            // failure
+            console.log(`Received server error: ${err}`)
+            alert("Did not receiv" + name + username); 
+          })
+      }
     
     return (
         <main className="Settings">
@@ -89,38 +54,42 @@ const Settings = props => {
 
                     <input type="file" name="image" accept="image/*" multiple={false} />
                 </div>
-                <form onSubmit = {submitForm}>
+                <form onSubmit = {handleSubmit}>
                     <label for="name">Name <AiFillEdit /></label>
                     <input 
                         type= "text" 
-                        defaultValue = "John Doe" // insert state variable 
+                        name = "name" 
+                        value = {name}
                         onChange = {e => setName(e.target.value)}
                     />
                     <label for="username">Username <AiFillEdit /></label>
                     <input 
                         type= "text" 
-                        defaultValue = "j.doe5"
-                        onChange = {e => setName(e.target.value)}
+                        name = "username" 
+                        value = {username} 
+                        onChange = {e => setUsername(e.target.value)}
                     />
                     <label for="email">Email <AiFillEdit /></label>
                     <input 
                         type= "text" 
-                        defaultValue = "janedoe@gmail.com"
-                        onChange = {e => setName(e.target.value)}
+                        name = "email" 
+                        value = {email} 
+                        onChange = {e => setEmail(e.target.value)}
                     />
                     <label for="password">Password <AiFillEdit /></label>
                     <input 
                         type= "password" 
-                        defaultValue = "abcasdfjaiosdf"
-                        onChange = {e => setName(e.target.value)}
+                        name = "password" 
+                        value = {password} 
+                        onChange = {e => setPassword(e.target.value)}
                     />
                     <label for="bio">Bio <AiFillEdit /></label>
                     <textarea 
                         id = "settingsbio"
                         maxlength = "432"
                         type= "text" 
-                        defaultValue = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."
-                        onChange = {e => setName(e.target.value)}
+                        value = {bio} 
+                        onChange = {e => setBio(e.target.value)}
                     />
                     <div className = "submit-button">
                         <button>Save Changes</button>
