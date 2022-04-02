@@ -5,7 +5,7 @@ const path = require("path")
 
 // import some useful middleware
 const multer = require("multer") // middleware to handle HTTP POST requests with file uploads
-const cors = require("cors")
+// const cors = require("cors")
 const axios = require("axios") // middleware for making requests to APIs
 const morgan = require("morgan") // middleware for nice logging of incoming HTTP requests
 require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
@@ -34,8 +34,12 @@ app.get("/", (req, res) => {
 // export the express app we created to make it available to other modules
 module.exports = app // CommonJS export style!
 
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
+
 // route for HTTP POST requests for /upload-example
 app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
+  console.log("a request")
   // check whether anything was uploaded
   if (req.files) {
     // success! send data back to the client, e.g. some JSON data
@@ -46,6 +50,12 @@ app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
     }
     res.json(data) // send respose
   }
+})
+
+app.post("/save-changes", upload.single('image'), (req, res, next) => {
+  console.log('request:', req.body)
+  console.log('size:', req.file.size)
+  next(req, res)
 })
 
 
@@ -64,7 +74,8 @@ app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
 //     cb(null, newName)
 //   },
 // })
-// const upload = multer({ storage: storage })
+
+
 
 // // route for HTTP POST requests for /upload-example
 // app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
