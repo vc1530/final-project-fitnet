@@ -2,12 +2,16 @@
 const express = require("express") // CommonJS import style!
 const app = express() // instantiate an Express object
 const path = require("path")
+const cors = require('cors') 
+const port = 3000 
 
 // import some useful middleware
 const multer = require("multer") // middleware to handle HTTP POST requests with file uploads
 // const cors = require("cors")
 const axios = require("axios") // middleware for making requests to APIs
 const morgan = require("morgan") // middleware for nice logging of incoming HTTP requests
+const allWorkouts = require("./mock_workouts.json")
+
 require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
 
 /**
@@ -22,6 +26,8 @@ app.use(morgan("dev")) // morgan has a few logging default styles - dev is a nic
 // use express's builtin body-parser middleware to parse any data included in a request
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
+
+app.use(cors()) 
 
 // make 'public' directory publicly readable with static content
 app.use("/static", express.static("public"))
@@ -58,6 +64,21 @@ app.post("/save-changes", upload.single('image'), (req, res, next) => {
   next(req, res)
 })
 
+app.get("/workouts", async(req, res) => { 
+  try { 
+    res.json({ 
+      workouts: allWorkouts, 
+      status: 'everything is working!', 
+    })
+  }
+  catch (err) { 
+    console.error(err) 
+    res.status(400).json({ 
+      error: err, 
+      status: 'retrieving workouts from database failed', 
+    })
+  }
+}) 
 
 // // enable file uploads saved to disk in a directory named 'public/uploads'
 // const storage = multer.diskStorage({
