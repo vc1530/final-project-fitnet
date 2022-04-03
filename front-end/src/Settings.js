@@ -22,6 +22,39 @@ const Settings = props => {
     
         console.log("this is a test")
 
+        const validateEmail = (email) => {
+            return String(email)
+              .toLowerCase()
+              .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+              );
+        };
+
+        const validateUsername = (username) => {
+            return /^[0-9a-zA-Z_.-]+$/.test(username);
+        }
+
+        let valid = true 
+
+        if (name === "") { 
+            valid = false; 
+            alert("Invalid name")
+        } 
+        if (username === "" || !validateUsername(username)) { 
+            valid = false; 
+            alert ("Invalid username")
+        } 
+        if (email === "" || !validateEmail(email)) { 
+            valid = false; 
+            alert("Invalid email")
+        } 
+        if (password === "") { 
+            valid = false; 
+            alert ("Invalid password") 
+        } 
+
+        if (valid) { 
+
         const formData = new FormData();
         formData.append("name", name);
         formData.append("username", username);
@@ -29,12 +62,13 @@ const Settings = props => {
         formData.append("email", email);
         formData.append("password", password);
         formData.append("image", selectedFile); // does the image need a state variable
-        axios({
-                method: "post",
-                url: "/save-changes",
-                data: formData,
-                headers: {"Content-Type": "multipart/form-data"},
-            }).catch(console.log).then((response) => console.log('response=', response))
+            axios({
+                    method: "post",
+                    url: "/save-changes",
+                    data: formData,
+                    headers: {"Content-Type": "multipart/form-data"},
+                }).catch(console.log).then((response) => console.log('response=', response))
+        } 
         // this server doesn't exist, so we will see an error in the console
         // axios' get() and post() methods return a promise, so we can use our javascript Promise or async/await expertise here to deal with the resolution or rejection of the request
         // axios
