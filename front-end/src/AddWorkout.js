@@ -3,15 +3,14 @@ import AddWorkoutInfo from "./AddWorkoutInfo.js"
 import Exercise from "./Exercise.js"
 import Header from "./Header"
 import Footer from "./Footer"
-import { Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 import workout_database from "./mock_workouts.json"
 import { useParams } from "react-router-dom";
+import axios from "axios"
 
 const AddWorkout = () => {
-    const [exercises, setExercises] = useState([])
     const dummyExercise = (exerciseName, numSets, numReps) => {
         const name = exerciseName
         const sets = numSets
@@ -23,9 +22,23 @@ const AddWorkout = () => {
     const dummy2 = dummyExercise("Pullups", 3, 15)
     const dummy3 = dummyExercise("Squats", 3, 15)
 
-    let workouts = workout_database; 
+    const [workout, setWorkout] = useState({}) 
+
     let params = useParams(); 
-    const workout = workouts.find(x=>x.id == params.id); 
+
+    useEffect(() => { 
+        console.log("retrieving workout " + params.id) 
+        axios 
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + params.id) 
+        .then(res => { 
+            setWorkout(res.data.workout)
+            console.log("successful retrieval of workout " + params.id + " from database")
+        })
+        .catch(err => { 
+            console.log("retrieval of workout " + params.id + " from backend failed") 
+            console.log(err)
+        })
+    }, []) 
 
     return (
         <main className="AddWorkout">
@@ -38,8 +51,7 @@ const AddWorkout = () => {
                 <a href={"../e/" + workout.id}>{<AiOutlinePlusCircle size = "34px"/>}</a>
             </div>
             <AddWorkoutInfo
-                workout_name = {workout.workout_name}
-                workout_description = {workout.workout_description}
+                workout = {workout} 
             />
 
             <h5 className="TableHeader">
