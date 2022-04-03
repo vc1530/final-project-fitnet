@@ -4,8 +4,6 @@ import Footer from "./Footer"
 import { AiFillEdit } from 'react-icons/ai'
 import React  from "react"
 import profilepic from './images/blank_profile.jpg'
-
-//import { BsSave } from "react-icons/bs"
 import axios from "axios"
 
 const Settings = props => {
@@ -22,6 +20,8 @@ const Settings = props => {
     
         console.log("this is a test")
 
+        //code taken from Stack Overflow 
+        //https://stackoverflow.com/questions/46155/whats-the-best-way-to-validate-an-email-address-in-javascript
         const validateEmail = (email) => {
             return String(email)
               .toLowerCase()
@@ -30,6 +30,8 @@ const Settings = props => {
               );
         };
 
+        //code taken from Stack Overflow 
+        //https://stackoverflow.com/questions/7331289/javascript-function-valid-username
         const validateUsername = (username) => {
             return /^[0-9a-zA-Z_.-]+$/.test(username);
         }
@@ -54,41 +56,20 @@ const Settings = props => {
         } 
 
         if (valid) { 
-
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("username", username);
-        formData.append("bio", bio);
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("image", selectedFile); // does the image need a state variable
-            axios({
-                    method: "post",
-                    url: "/save-changes",
-                    data: formData,
-                    headers: {"Content-Type": "multipart/form-data"},
-                }).catch(console.log).then((response) => console.log('response=', response))
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("username", username);
+            formData.append("bio", bio);
+            formData.append("email", email);
+            formData.append("password", password);
+            formData.append("image", selectedFile); // does the image need a state variable
+                axios({
+                        method: "post",
+                        url: `${process.env.REACT_APP_SERVER_HOSTNAME}/save-changes`,
+                        data: formData,
+                        headers: {"Content-Type": "multipart/form-data"},
+                    }).catch(console.log).then((response) => console.log('response=', response))
         } 
-        // this server doesn't exist, so we will see an error in the console
-        // axios' get() and post() methods return a promise, so we can use our javascript Promise or async/await expertise here to deal with the resolution or rejection of the request
-        // axios
-        //   .post("http://localhost:3000/save-changes", {
-        //     name: name, 
-        //     username: username, 
-        //     password: password, 
-        //     email: email, 
-        //     bio: bio, 
-        //   })
-        //   .then(response => {
-        //     // success
-        //     console.log(`Received server response: ${response.data}`)
-        //     alert("Received" ); 
-        //   })
-        //   .catch(err => {
-        //     // failure
-        //     console.log(`Received server error: ${err}`)
-        //     alert("Did not receiv" + name + username); 
-        //   })
       }
 
       // do i need this 

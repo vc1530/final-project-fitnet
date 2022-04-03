@@ -53,7 +53,8 @@ app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
 
 app.post("/save-changes", upload.single('image'), (req, res, next) => {
   console.log('request:', req.body)
-  console.log('size:', req.file.size)
+  if (req.file) 
+    console.log('size:', req.file.size)
   next(req, res)
 })
 
@@ -85,6 +86,43 @@ app.get("/workouts", async(req, res) => {
     res.status(400).json({ 
       error: err, 
       status: 'retrieving workouts from database failed', 
+    })
+  }
+}) 
+
+app.get("/w/:id", async(req, res) => { 
+  try {
+    const workout = allWorkouts.find(workout => workout.id == req.params.id)
+    res.json({ 
+      workout: workout,  
+      status: 'workout ' + req.params.id + ' has been found!', 
+    })
+  }
+  catch (err) { 
+    console.error(err) 
+    res.status(400).json({ 
+      error: err, 
+      status: 'retreiving workout ' + req.params.id + ' failed'
+    })
+  }
+})
+
+app.post("/w/:id", (req, res) => { 
+  try { 
+    const workout = allWorkouts.find(workout => workout.id == req.params.id)
+    //fake editing database — database integration not completed
+    workout.workout_name = req.body.workout_name
+    workout.workout_description = req.body.workout_description
+    res.json({ 
+      workout: workout, 
+      status: 'workout ' + req.params.id + ' has been edited!'
+    })
+  }
+  catch (err) { 
+    console.error(err) 
+    res.status(400).json( { 
+      error: err, 
+      status: 'editing workout ' + req.params.id + ' failed'
     })
   }
 }) 
