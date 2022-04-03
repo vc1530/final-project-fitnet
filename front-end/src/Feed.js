@@ -1,13 +1,28 @@
 import "./Feed.css"
 import FeedPost from "./FeedPost" 
-import post_database from "./mock_posts.json" 
 import Header from "./Header"
 import Footer from "./Footer"
+import { useEffect, useState } from 'react' 
+import axios from "axios"
 
 const Feed = () => { 
 
-    let posts = post_database; 
-    
+    const[posts, setPosts] = useState([])
+
+    useEffect(() => { 
+        console.log("retrieving posts from backend") 
+        axios 
+            .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/posts`)
+            .then(res => { 
+                setPosts(res.data.posts) 
+                console.log("successful retrieval of posts from database")
+            })
+            .catch(err => { 
+                console.log("retrieval of posts from backend failed") 
+                console.log(err)
+            })
+    }, [])
+
     return ( 
         <main id = "Feed">
             <Header

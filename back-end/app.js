@@ -2,23 +2,19 @@
 const express = require("express") // CommonJS import style!
 const app = express() // instantiate an Express object
 const path = require("path")
-const cors = require('cors') 
 const port = 3000 
 
 // import some useful middleware
 const multer = require("multer") // middleware to handle HTTP POST requests with file uploads
-// const cors = require("cors")
+const cors = require("cors")
 const axios = require("axios") // middleware for making requests to APIs
 const morgan = require("morgan") // middleware for nice logging of incoming HTTP requests
+
+//mock databases 
 const allWorkouts = require("./mock_workouts.json")
+const allPosts = require("./mock_posts.json") 
 
 require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
-
-/**
- * Typically, all middlewares would be included before routes
- * In this file, however, most middlewares are after most routes
- * This is to match the order of the accompanying slides
- */
 
 // use the morgan middleware to log all incoming http requests
 app.use(morgan("dev")) // morgan has a few logging default styles - dev is a nice concise color-coded style
@@ -36,9 +32,6 @@ app.use("/static", express.static("public"))
 app.get("/", (req, res) => {
     res.send("This is the root directory link for our app")
 })
-
-// export the express app we created to make it available to other modules
-module.exports = app // CommonJS export style!
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
@@ -62,6 +55,22 @@ app.post("/save-changes", upload.single('image'), (req, res, next) => {
   console.log('request:', req.body)
   console.log('size:', req.file.size)
   next(req, res)
+})
+
+app.get("/posts", async(req, res) => { 
+  try { 
+    res.json({ 
+      posts: allPosts, 
+      status: 'everything is working!', 
+    })
+  }
+  catch (err) { 
+    console.error(err) 
+    res.status(400).json({ 
+      error: err, 
+      status: "retrieving posts from database failed", 
+    })
+  }
 })
 
 app.get("/workouts", async(req, res) => { 
@@ -117,3 +126,6 @@ app.get("/workouts", async(req, res) => {
 //     res.json(data)
 //   }
 // })
+
+// export the express app we created to make it available to other modules
+module.exports = app // CommonJS export style!
