@@ -63,12 +63,12 @@ const Settings = props => {
             formData.append("email", email);
             formData.append("password", password);
             formData.append("image", selectedFile); // does the image need a state variable
-                axios({
-                        method: "post",
-                        url: `${process.env.REACT_APP_SERVER_HOSTNAME}/save-changes`,
-                        data: formData,
-                        headers: {"Content-Type": "multipart/form-data"},
-                    }).catch(console.log).then((response) => console.log('response=', response))
+            axios({
+                method: "post",
+                url: `${process.env.REACT_APP_SERVER_HOSTNAME}/save-changes`,
+                data: formData,
+                headers: {"Content-Type": "multipart/form-data"},
+            }).catch(console.log).then((response) => console.log('response=', response))
         } 
       }
 
@@ -85,9 +85,19 @@ const Settings = props => {
             /> 
             <body id = "Settings-info" className="Post-box"> 
                 <div id = "Settings-top"> 
-                    <img id = "settingspic" src = {profilepic} alt = "me!"/> 
+                    <img 
+                        id = "settingspic" 
+                        src = {profilepic} 
+                        alt = "me!"
+                    /> 
                     {/* added to this */}
-                    <input type="file" name="image" accept="image/*" multiple={false} onChange = {handleFileSelect} />
+                    <input 
+                        type="file" 
+                        name="image" 
+                        accept="image/*" 
+                        multiple={false} 
+                        onChange = {handleFileSelect} 
+                    />
                 </div>
                 <form onSubmit = {handleSubmit}>
                     <label for="name">Name <AiFillEdit /></label>
