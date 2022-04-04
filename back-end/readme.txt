@@ -1,3 +1,5 @@
-The back-end of your project will live in this directory.
+## Building and testing 
+* `npm install ` will install all dependencies listen in the `package.json` file
+* `npm start` is one way to start the server - it will require you to manually restart whenever you change the code
+* `nodemon server` will start up the server with a monitoring process that will stop and restart the server automatically anytime code is changed
 
-You will most likely initiate the back-end Node.js/Express.js server by running the "npm init" command from within this directory.
