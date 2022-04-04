@@ -4,3 +4,4 @@
 * install `nodemon` by doing `npm install -g nodemon`
 * `nodemon server` will start up the server with a monitoring process that will stop and restart the server automatically anytime code is changed
 
+Once started, the server will by default be available on `port 3000` of the local computer at the URL, `http://localhost:3000`.
