@@ -6,7 +6,6 @@ import Footer from "./Footer"
 import { useState, useEffect } from 'react'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
-import workout_database from "./mock_workouts.json"
 import { useParams } from "react-router-dom";
 import axios from "axios"
 
@@ -38,7 +37,7 @@ const AddWorkout = () => {
             console.log("retrieval of workout " + params.id + " from backend failed") 
             console.log(err)
         })
-    }, []) 
+    }, [params.id]) 
 
     return (
         <main className="AddWorkout">

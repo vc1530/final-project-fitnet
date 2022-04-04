@@ -1,5 +1,4 @@
 import "./WorkoutHistory.css"
-//import workout_database from "./mock_workouts.json" 
 import WorkoutPost from "./WorkoutPost"
 import Header from "./Header"
 import Footer from "./Footer" 
@@ -24,7 +23,6 @@ const WorkoutHistory = () => {
             })
         }, [])
 
-    //let posts = workout_database;
     return(
         <main className="WorkoutHistory">
             <Header 
@@ -32,7 +30,7 @@ const WorkoutHistory = () => {
                 title = "Workout History"
             /> 
             <body className = "Workout-posts">
-                {workouts.map((workout) => ( 
+                {workouts?.map((workout) => ( 
                 <WorkoutPost 
                     picture = {workout.picture} 
                     name = {workout.workout_name} 

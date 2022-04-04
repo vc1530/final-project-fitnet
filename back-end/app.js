@@ -13,6 +13,7 @@ const morgan = require("morgan") // middleware for nice logging of incoming HTTP
 //mock databases 
 const allWorkouts = require("./mock_workouts.json")
 const allPosts = require("./mock_posts.json") 
+const allUsers = require("./mock_users.json") 
 
 require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
 
@@ -105,6 +106,42 @@ app.get("/workouts", async(req, res) => {
   }
 }) 
 
+app.post("/new-post", upload.single('image'), (req, res) =>{
+  try { 
+    console.log("new post received: ") 
+    console.log(req.body) 
+    res.json(req.body) 
+    //fake editing database — database integration not completed
+    // allPosts.unshift({ 
+    //   username: "j.doe5", 
+    //   description: req.body.description, 
+    //   picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
+    // })
+  } catch (err) { 
+    console.error(err) 
+    res.status(400).json({ 
+      error: err, 
+      status: 'uploading new post failed', 
+    })
+  }
+})
+
+app.get("/:username", async(req, res) => { 
+  try { 
+    const user = allUsers.find(user => user.username == req.params.username) 
+    res.json( { 
+      user: user, 
+      status: "user" + req.params.username + "has been found"
+    })
+  } catch(err) { 
+    console.error(err)
+    res.status(400).json({ 
+      error: err, 
+      status: "retreiving user" + req.params.username + "failed" 
+    })
+  }
+})
+
 app.get("/w/:id", async(req, res) => { 
   try {
     const workout = allWorkouts.find(workout => workout.id == req.params.id)
@@ -141,26 +178,6 @@ app.post("/w/:id", (req, res) => {
     })
   }
 }) 
-
-app.post("/new-post", upload.single('image'), (req, res) =>{
-    try { 
-      console.log("new post received: ") 
-      console.log(req.body) 
-      res.json(req.body) 
-      //fake editing database — database integration not completed
-      // allPosts.unshift({ 
-      //   username: "j.doe5", 
-      //   description: req.body.description, 
-      //   picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
-      // })
-    } catch (err) { 
-      console.error(err) 
-      res.status(400).json({ 
-        error: err, 
-        status: 'uploading new post failed', 
-      })
-    }
-})
 
 // // route for HTTP POST requests for /upload-example
 app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
