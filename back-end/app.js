@@ -113,11 +113,12 @@ app.post("/new-post", upload.single('image'), (req, res) =>{
     console.log(req.body) 
     res.json(req.body) 
     //fake editing database — database integration not completed
-    // allPosts.unshift({ 
-    //   username: "j.doe5", 
-    //   description: req.body.description, 
-    //   picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
-    // })
+
+    allPosts.unshift({ 
+       username: req.body.username, 
+       description: req.body.description, 
+       picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
+    })
   } catch (err) { 
     console.error(err) 
     res.status(400).json({ 
