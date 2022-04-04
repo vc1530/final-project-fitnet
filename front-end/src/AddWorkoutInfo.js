@@ -1,5 +1,6 @@
 import React from 'react'
 import "./AddWorkoutInfo.css"
+import { useState } from 'react'
 import axios from "axios"
 
 function AddWorkoutInfo (props) {
@@ -7,8 +8,8 @@ function AddWorkoutInfo (props) {
     const workout = props.workout 
 
     // create a state variable for each form field
-    const [workout_name, setName] = React.useState(workout.workout_name)
-    const [workout_description, setDesc] = React.useState(workout.workout_description)
+    const [workout_name, setName] = useState(workout.workout_name)
+    const [workout_description, setDesc] = useState(workout.workout_description)
     /**
     * A nested function that is called when the user submits the form to save a new Workout.
     * @param {*} e
@@ -47,7 +48,7 @@ function AddWorkoutInfo (props) {
             placeholder = {workout.workout_description}
             onChange={e => setDesc(e.target.value)}
           />
-          <input type="submit" disabled={!workout_name && !workout_description} value="Save" />
+          <input type="submit" disabled={!workout_name} value="Save" />
         </form>
       //</main>
         
