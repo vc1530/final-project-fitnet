@@ -45,12 +45,12 @@ const MyProfile = props => {
                 title = "My Profile"
             /> 
             <body id = "MyProfile-info" className = "Post-box">
-                <img className="UserProfile-pic" src={profilepic} alt="profile img"/>
+                <img className="UserProfile-pic" src="http://dummyimage.com/200x100.png/5fa2dd/ffffffilepic" alt="profile img"/>
                 <div className = "UserProfile-title"> 
-                    <p id = "myname" >John Doe</p>
-                    <p><i><a id="myusername" className = "User-link" href = {"/j.doe5"}>j.doe5</a></i></p>
+                    <p id = "myname" >Lonni Padilla</p>
+                    <p><i><a id="myusername" className = "User-link" href = {"/lpadilla0"}>lpadilla0</a></i></p>
                 </div>
-                <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                <p >Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.</p>
                 <div className = "blue-button"> 
                     <a className = "User-link" href="/workoutHistory">Workout History</a> 
                 </div>

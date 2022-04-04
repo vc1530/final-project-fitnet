@@ -19,6 +19,7 @@ const NewPost = () => {
     const handleSubmit = e => { 
         e.preventDefault() 
         const formData = new FormData() 
+        formData.append("username", "lpadilla0")
         formData.append("description", description) 
         formData.append("image", picture.pictureAsFile) 
         axios

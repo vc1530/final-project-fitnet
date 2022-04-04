@@ -3,16 +3,16 @@ import Header from "./Header"
 import Footer from "./Footer" 
 import { AiFillEdit } from 'react-icons/ai'
 import React  from "react"
-import profilepic from './images/blank_profile.jpg'
+//import profilepic from './images/blank_profile.jpg'
 import axios from "axios"
 
 const Settings = props => {
 
-    const [name, setName] = React.useState("John Doe")
-    const [username, setUsername] = React.useState("j.doe5")
-    const [bio, setBio] = React.useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.")
-    const [email, setEmail] = React.useState("janedoe@gmail.com")
-    const [password, setPassword] = React.useState("abcasdfjaiosdf")
+    const [name, setName] = React.useState("Lonni Padilla")
+    const [username, setUsername] = React.useState("lpadilla0")
+    const [bio, setBio] = React.useState("Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.")
+    const [email, setEmail] = React.useState("lpadilla0@about.me")
+    const [password, setPassword] = React.useState("lPLk6HGJ")
     const [selectedFile, setSelectedFile] = React.useState(null)
     
     const handleSubmit = e => {
@@ -87,7 +87,7 @@ const Settings = props => {
                 <div id = "Settings-top"> 
                     <img 
                         id = "settingspic" 
-                        src = {profilepic} 
+                        src = "http://dummyimage.com/200x100.png/5fa2dd/ffffff"
                         alt = "me!"
                     /> 
                     {/* added to this */}
