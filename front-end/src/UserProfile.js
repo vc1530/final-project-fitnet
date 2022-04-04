@@ -1,18 +1,31 @@
 import "./UserProfile.css"
 import { useParams } from "react-router-dom";
-import user_database from "./mock_users.json"
 import { Link } from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer"
 import { AiOutlineLeft } from 'react-icons/ai'
+import { useEffect, useState } from 'react' 
+import axios from "axios"
 
 const UserProfile = () => { 
-  
-    let profiles = user_database; 
+
+    const [user, setUser] = useState({}) 
     
     let params = useParams(); 
 
-    const user = profiles.find(x => x.username === params.username); 
+    useEffect (() => { 
+        console.log("fetching data for user " + params.username) 
+        axios 
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/` + params.username)
+        .then (res => { 
+            setUser(res.data.user)
+            console.log("successful retrieval of user " + params.username + " from database")
+        })
+        .catch (err => { 
+            console.error(err) 
+            console.log("failed retrieval of user from" + params.username + "database")
+        })
+    }, [params.username])
 
     if (typeof user == 'undefined') 
         return (
