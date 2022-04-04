@@ -7,7 +7,7 @@ const allWorkouts = require('../mock_workouts.json')
 chai.use(chaiHttp); 
 
 describe('/GET workouts', () => { 
-    it('it should GET all mock workouts', (done) => { 
+    it('it should GET all workouts', (done) => { 
         chai
             .request(server) 
             .get('/workouts') 
