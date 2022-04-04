@@ -33,7 +33,22 @@ app.get("/", (req, res) => {
     res.send("This is the root directory link for our app")
 })
 
-const storage = multer.memoryStorage()
+//const storage = multer.memoryStorage()
+//enable file uploads saved to disk in a directory named 'public/uploads'
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/uploads")
+  },
+  filename: function (req, file, cb) {
+    // take apart the uploaded file's name so we can create a new one based on it
+    const extension = path.extname(file.originalname)
+    const basenameWithoutExtension = path.basename(file.originalname, extension)
+    // create a new filename with a timestamp in the middle
+    const newName = `${basenameWithoutExtension}-${Date.now()}${extension}`
+    // tell multer to use this new filename for the uploaded file
+    cb(null, newName)
+  },
+})
 const upload = multer({ storage: storage })
 
 // route for HTTP POST requests for /upload-example
@@ -55,7 +70,7 @@ app.post("/save-changes", upload.single('image'), (req, res, next) => {
   console.log('request:', req.body)
   if (req.file) 
     console.log('size:', req.file.size)
-  next(req, res)
+  res.json(req.body) 
 })
 
 app.get("/posts", async(req, res) => { 
@@ -127,43 +142,45 @@ app.post("/w/:id", (req, res) => {
   }
 }) 
 
-// // enable file uploads saved to disk in a directory named 'public/uploads'
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "public/uploads")
-//   },
-//   filename: function (req, file, cb) {
-//     // take apart the uploaded file's name so we can create a new one based on it
-//     const extension = path.extname(file.originalname)
-//     const basenameWithoutExtension = path.basename(file.originalname, extension)
-//     // create a new filename with a timestamp in the middle
-//     const newName = `${basenameWithoutExtension}-${Date.now()}${extension}`
-//     // tell multer to use this new filename for the uploaded file
-//     cb(null, newName)
-//   },
-// })
-
-
+app.post("/new-post", upload.single('image'), (req, res) =>{
+    try { 
+      console.log("new post received: ") 
+      console.log(req.body) 
+      res.json(req.body) 
+      //fake editing database — database integration not completed
+      // allPosts.unshift({ 
+      //   username: "j.doe5", 
+      //   description: req.body.description, 
+      //   picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
+      // })
+    } catch (err) { 
+      console.error(err) 
+      res.status(400).json({ 
+        error: err, 
+        status: 'uploading new post failed', 
+      })
+    }
+})
 
 // // route for HTTP POST requests for /upload-example
-// app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
-//   // check whether anything was uploaded
-//   if (!req.files) {
-//     // failure!
-//     const error = new Error("Please upload some files!")
-//     error.httpStatusCode = 400
-//     return next(error)
-//   } else {
-//     // success
-//     // send a message back to the client, for example, a simple JSON object
-//     const data = {
-//       status: "all good",
-//       message: "files were uploaded!!!",
-//       files: req.files,
-//     }
-//     res.json(data)
-//   }
-// })
+app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
+  // check whether anything was uploaded
+  if (!req.files) {
+    // failure!
+    const error = new Error("Please upload some files!")
+    error.httpStatusCode = 400
+    return next(error)
+  } else {
+    // success
+    // send a message back to the client, for example, a simple JSON object
+    const data = {
+      status: "all good",
+      message: "files were uploaded!!!",
+      files: req.files,
+    }
+    res.json(data)
+  }
+})
 
 // export the express app we created to make it available to other modules
 module.exports = app // CommonJS export style!
