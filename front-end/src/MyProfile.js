@@ -5,9 +5,43 @@ import Header from "./Header"
 import Footer from "./Footer" 
 import React, { useState } from "react"
 import UserProfile from "./UserProfile"
+import { useState, useEffect } from 'react'
+import { BsArrowLeftCircle } from 'react-icons/bs'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
+import { useParams } from "react-router-dom";
+import axios from "axios"
 
 
 const MyProfile = props => {
+
+    const dummyProfile = (profileName, profileUsername, profileBio) => {
+        const name = profileName
+        const username = profileUsername
+        const bio = profileBio
+        return {name, username, bio}
+    }
+
+    const profile1 = dummyProfile("John Smith", "JS10", "I am 20")
+    const profile2 = dummyProfile("Joe Shmo", "JS11", "I am 21")
+    const profile3 = dummyProfile("Daniel Oh", "DO9", "I am 22")
+
+    const [profiles, setProfiles] = useState({}) 
+
+    let params = useParams(); 
+
+    useEffect(() => { 
+        console.log("retrieving profile " + params.id) 
+        axios 
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + params.id) 
+        .then(res => { 
+            setProfiles(res.data.profiles)
+            console.log("successful retrieval of profile information " + params.id + " from database")
+        })
+        .catch(err => { 
+            console.log("retrieval of profile inoformation " + params.id + " from backend failed") 
+            console.log(err)
+        })
+    }, [params.id]) 
 
     return(
         <main className="MyProfile">
