@@ -2,11 +2,10 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../app');
 const should = chai.should();
-const allWorkouts = require('../mock_workouts.json')
 
 chai.use(chaiHttp); 
 
-describe('/GET/:id book', () => { 
+describe('/GET/:id workout', () => { 
     it('it should GET a workout by the given id', (done) => { 
         const workout = { 
             id : "e9b50fcd-3df2-4dd4-bce4-0d8ab6cb0d1d",
