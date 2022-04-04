@@ -14,6 +14,7 @@ const morgan = require("morgan") // middleware for nice logging of incoming HTTP
 const allWorkouts = require("./mock_workouts.json")
 const allPosts = require("./mock_posts.json") 
 const allUsers = require("./mock_users.json") 
+const { doesNotMatch } = require("assert")
 
 require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
 
@@ -53,19 +54,19 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 // route for HTTP POST requests for /upload-example
-app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
-  console.log("a request")
-  // check whether anything was uploaded
-  if (req.files) {
-    // success! send data back to the client, e.g. some JSON data
-    const data = {
-      status: "all good",
-      message: "yup, the files were uploaded!!!",
-      files: req.files,
-    }
-    res.json(data) // send respose
-  }
-})
+// app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
+//   console.log("a request")
+//   // check whether anything was uploaded
+//   if (req.files) {
+//     // success! send data back to the client, e.g. some JSON data
+//     const data = {
+//       status: "all good",
+//       message: "yup, the files were uploaded!!!",
+//       files: req.files,
+//     }
+//     res.json(data) // send respose
+//   }
+// })
 
 app.post("/save-changes", upload.single('image'), (req, res, next) => {
   console.log('request:', req.body)
@@ -180,24 +181,24 @@ app.post("/w/:id", (req, res) => {
 }) 
 
 // // route for HTTP POST requests for /upload-example
-app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
-  // check whether anything was uploaded
-  if (!req.files) {
-    // failure!
-    const error = new Error("Please upload some files!")
-    error.httpStatusCode = 400
-    return next(error)
-  } else {
-    // success
-    // send a message back to the client, for example, a simple JSON object
-    const data = {
-      status: "all good",
-      message: "files were uploaded!!!",
-      files: req.files,
-    }
-    res.json(data)
-  }
-})
+// app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
+//   // check whether anything was uploaded
+//   if (!req.files) {
+//     // failure!
+//     const error = new Error("Please upload some files!")
+//     error.httpStatusCode = 400
+//     return next(error)
+//   } else {
+//     // success
+//     // send a message back to the client, for example, a simple JSON object
+//     const data = {
+//       status: "all good",
+//       message: "files were uploaded!!!",
+//       files: req.files,
+//     }
+//     res.json(data)
+//   }
+// })
 
 // export the express app we created to make it available to other modules
 module.exports = app // CommonJS export style!
