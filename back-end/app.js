@@ -69,10 +69,32 @@ const upload = multer({ storage: storage })
 // })
 
 app.post("/save-changes", upload.single('image'), (req, res, next) => {
-  console.log('request:', req.body)
-  if (req.file) 
-    console.log('size:', req.file.size)
-  res.json(req.body) 
+  try { 
+    if (req.file) 
+      console.log('size:', req.file.size)
+    //the user id is just the index of the user in mock_users for now. 
+    //during database integration, we will assign real IDs to each user 
+    const user = allUsers[req.body.uid] 
+    //fake editing of user's information 
+    user.name = req.body.name
+    user.username = req.body.username 
+    user.bio = req.body.bio 
+    user.email = req.body.email 
+    user.password = req.body.password 
+    //don't worry about uploading pics for now 
+    //user.profile_pic = req.body.selectedFile 
+    res.json({ 
+      user: user, 
+      status: "saving changes in settings succeeded",   
+    })
+  }
+  catch (err) { 
+    console.error(err) 
+    res.status(400).json({ 
+      error: err, 
+      status: "saving changes in settings failed", 
+    })
+  }
 })
 
 app.get("/posts", async(req, res) => { 
@@ -111,9 +133,11 @@ app.post("/new-post", upload.single('image'), (req, res) =>{
   try { 
     console.log("new post received: ") 
     console.log(req.body) 
-    res.json(req.body) 
+    res.json({ 
+      newpost: req.body, 
+      status: "new post has been received" 
+    }) 
     //fake editing database — database integration not completed
-
     allPosts.unshift({ 
        username: req.body.username, 
        description: req.body.description, 
@@ -128,18 +152,50 @@ app.post("/new-post", upload.single('image'), (req, res) =>{
   }
 })
 
-app.get("/:username", async(req, res) => { 
+//more secure way of retrieving a user's information 
+//used for settings and myprofile
+app.get('/uid/:uid', async(req, res) => { 
   try { 
-    const user = allUsers.find(user => user.username == req.params.username) 
+    const user = allUsers[req.params.uid]
     res.json( { 
-      user: user, 
-      status: "user" + req.params.username + "has been found"
+      user: { 
+        name: user.name, 
+        username: user.username, 
+        bio: user.bio, 
+        profile_pic: user.profile_pic, 
+        email: user.email, 
+        password: user.password 
+      }, 
+      status: "user " + req.params.id + " has been found"
     })
   } catch(err) { 
     console.error(err)
     res.status(400).json({ 
       error: err, 
-      status: "retreiving user" + req.params.username + "failed" 
+      status: "retreiving user " + req.params.id + " failed" 
+    })
+  }
+}) 
+
+app.get("/:username", async(req, res) => { 
+  try { 
+    const user = allUsers.find(user => user.username == req.params.username) 
+    res.json( { 
+      user: { 
+        name: user.name, 
+        username: user.username, 
+        bio: user.bio, 
+        profile_pic: user.profile_pic, 
+        email: user.email, 
+        password: user.password 
+      }, 
+      status: "user " + req.params.username + " has been found"
+    })
+  } catch(err) { 
+    console.error(err)
+    res.status(400).json({ 
+      error: err, 
+      status: "retreiving user " + req.params.username + " failed" 
     })
   }
 })

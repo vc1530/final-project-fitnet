@@ -28,13 +28,13 @@ const Feed = () => {
             <Header
                 url = "./Feed" 
                 title = "Feed"
-            /> 
+            />  
             <body className = "Feed-posts">
                     {posts.map((post) => ( 
                         <FeedPost 
-                            username = {post.username} 
-                            picture = {post.picture} 
-                            description = {post.description}
+                            username = {post?.username} 
+                            picture = {post?.picture} 
+                            description = {post?.description}
                         /> 
                         )) 
                     }    

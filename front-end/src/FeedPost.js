@@ -1,11 +1,24 @@
 import "./FeedPost.css" 
-import user_database from "./mock_users.json" 
+import { useState, useEffect } from 'react' 
+import axios from 'axios' 
 
 const FeedPost = props => {   
 
-    let profiles = user_database; 
+    const [user, setUser] = useState({}) 
 
-    const user = profiles.find(x => x.username === props.username); 
+    useEffect (() => { 
+        console.log("fetching data for user " + props.username) 
+        axios 
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/` + props.username)
+        .then (res => { 
+            setUser(res.data.user)
+            console.log("successful retrieval of user " + props.username + " from database")
+        })
+        .catch (err => { 
+            console.error(err) 
+            console.log("failed retrieval of user " + props.username + " from database")
+        })
+    }, [props.username])
 
     function handleClick () {
         window.location.replace(user.username)

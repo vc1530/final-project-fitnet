@@ -23,9 +23,11 @@ const UserProfile = () => {
         })
         .catch (err => { 
             console.error(err) 
-            console.log("failed retrieval of user from" + params.username + "database")
+            console.log("failed retrieval of user " + params.username + " from database")
         })
     }, [params.username])
+
+    console.log(user.name)
 
     if (typeof user == 'undefined') 
         return (
