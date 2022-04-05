@@ -1,13 +1,35 @@
 import "./MyProfile.css"
-import profilepic from "./images/blank_profile.jpg"
+//import profilepic from "./images/blank_profile.jpg"
 import Header from "./Header"
 import Footer from "./Footer" 
-//import { useState, useEffect } from 'react'
-//import { useParams } from "react-router-dom";
-//import axios from "axios"
+import { useState, useEffect } from 'react'
+import axios from "axios"
 
 
-const MyProfile = props => {
+const MyProfile = () => {
+
+    const uid = 0 
+
+    const [name, setName] = useState("") 
+    const [username, setUsername] = useState("") 
+    const [bio, setBio] = useState("") 
+    const [profile_pic, setProfile_pic] = useState("")
+
+    useEffect(() => { 
+        console.log("fetching profile for user " + uid) 
+        axios.get(`${process.env.REACT_APP_SERVER_HOSTNAME}/uid/` + uid) 
+        .then(res => { 
+            setName(res.data.user.name) 
+            setUsername(res.data.user.username) 
+            setBio(res.data.user.bio) 
+            setProfile_pic(res.data.user.profile_pic) 
+            console.log("successful retrieval of user " + uid + " from database")
+        })
+        .catch(err => { 
+            console.error(err) 
+            console.log("failed retrieval of user " + uid + " from database")
+        })
+    }, [])
 
     // const dummyProfile = (profileName, profileUsername, profileBio) => {
     //     const name = profileName
@@ -45,12 +67,12 @@ const MyProfile = props => {
                 title = "My Profile"
             /> 
             <body id = "MyProfile-info" className = "Post-box">
-                <img className="UserProfile-pic" src="http://dummyimage.com/200x100.png/5fa2dd/ffffffilepic" alt="profile img"/>
+                <img className="UserProfile-pic" src={profile_pic} alt="profile img"/>
                 <div className = "UserProfile-title"> 
-                    <p id = "myname" >Lonni Padilla</p>
-                    <p><i><a id="myusername" className = "User-link" href = {"/lpadilla0"}>lpadilla0</a></i></p>
+                    <p id = "myname" >{name}</p>
+                    <p><i><a id="myusername" className = "User-link" href = {"/" + username}>{username}</a></i></p>
                 </div>
-                <p >Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.</p>
+                <p>{bio}</p>
                 <div className = "blue-button"> 
                     <a className = "User-link" href="/workoutHistory">Workout History</a> 
                 </div>

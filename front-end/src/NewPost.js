@@ -1,10 +1,28 @@
 import "./NewPost.css"
 import Header from "./Header"
 import Footer from "./Footer" 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios' 
 
 const NewPost = () => {
+
+    const uid = 0 
+
+    const [username, setUsername] = useState("")
+    useEffect(() => { 
+        console.log("fetching data for user " + uid) 
+        axios 
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/uid/` + uid)
+        .then (res => { 
+            setUsername(res.data.user.username) 
+            console.log("successful retrieval of user " + uid + " from database")
+        })
+        .catch (err => { 
+            console.error(err) 
+            console.log("failed retrieval of user " + uid + " from database")
+        })
+    }, []) 
+
 
     const [description, setDesc] = useState('') 
     const [picture, setPicture] = useState({})
@@ -19,7 +37,7 @@ const NewPost = () => {
     const handleSubmit = e => { 
         e.preventDefault() 
         const formData = new FormData() 
-        formData.append("username", "lpadilla0")
+        formData.append("username", username)
         formData.append("description", description) 
         formData.append("image", picture.pictureAsFile) 
         axios

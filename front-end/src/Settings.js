@@ -5,16 +5,41 @@ import { AiFillEdit } from 'react-icons/ai'
 import React  from "react"
 //import profilepic from './images/blank_profile.jpg'
 import axios from "axios"
+import { useState, useEffect } from 'react'
 
-const Settings = props => {
+const Settings = () => {
 
-    const [name, setName] = React.useState("Lonni Padilla")
-    const [username, setUsername] = React.useState("lpadilla0")
-    const [bio, setBio] = React.useState("Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.")
-    const [email, setEmail] = React.useState("lpadilla0@about.me")
-    const [password, setPassword] = React.useState("lPLk6HGJ")
-    const [selectedFile, setSelectedFile] = React.useState(null)
+    let changes = 0
+    //the user id is just the index of the user in mock_users for now. during database integration, 
+    //we will assign real IDs to each user 
+    const uid = 0 
+
+    const [name, setName] = useState("")
+    const [username, setUsername] = useState("")
+    const [bio, setBio] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [selectedFile, setSelectedFile] = useState(null)
     
+    useEffect(() => { 
+        console.log("fetching data for user " + uid) 
+        axios 
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/uid/` + uid)
+        .then (res => { 
+            setName(res.data.user.name) 
+            setUsername(res.data.user.username) 
+            setBio(res.data.user.bio)
+            setEmail(res.data.user.email) 
+            setPassword(res.data.user.password) 
+            setSelectedFile(res.data.user.profile_pic)
+            console.log("successful retrieval of user " + uid + " from database")
+        })
+        .catch (err => { 
+            console.error(err) 
+            console.log("failed retrieval of user " + uid + " from database")
+        })
+    }, [changes]) 
+
     const handleSubmit = e => {
         e.preventDefault() // prevent the default browser form submission stuff
     
@@ -57,6 +82,7 @@ const Settings = props => {
 
         if (valid) { 
             const formData = new FormData();
+            formData.append("uid", 0)
             formData.append("name", name);
             formData.append("username", username);
             formData.append("bio", bio);
@@ -69,6 +95,7 @@ const Settings = props => {
                 data: formData,
                 headers: {"Content-Type": "multipart/form-data"},
             }).catch(console.log).then((response) => console.log('response=', response))
+            changes ++
         } 
       }
 
