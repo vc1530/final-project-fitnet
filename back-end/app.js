@@ -14,7 +14,6 @@ const morgan = require("morgan") // middleware for nice logging of incoming HTTP
 const allWorkouts = require("./mock_workouts.json")
 const allPosts = require("./mock_posts.json") 
 const allUsers = require("./mock_users.json") 
-const { doesNotMatch } = require("assert")
 
 require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
 
@@ -39,7 +38,7 @@ app.get("/", (req, res) => {
 //enable file uploads saved to disk in a directory named 'public/uploads'
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/uploads")
+     cb(null, "public/uploads")
   },
   filename: function (req, file, cb) {
     // take apart the uploaded file's name so we can create a new one based on it
@@ -53,22 +52,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
-// route for HTTP POST requests for /upload-example
-// app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
-//   console.log("a request")
-//   // check whether anything was uploaded
-//   if (req.files) {
-//     // success! send data back to the client, e.g. some JSON data
-//     const data = {
-//       status: "all good",
-//       message: "yup, the files were uploaded!!!",
-//       files: req.files,
-//     }
-//     res.json(data) // send respose
-//   }
-// })
-
-app.post("/save-changes", upload.single('image'), (req, res, next) => {
+app.post("/save-changes", upload.single('image'), async(req, res) => {
   try { 
     if (req.file) 
       console.log('size:', req.file.size)
@@ -82,7 +66,7 @@ app.post("/save-changes", upload.single('image'), (req, res, next) => {
     user.email = req.body.email 
     user.password = req.body.password 
     //don't worry about uploading pics for now 
-    //user.profile_pic = req.body.selectedFile 
+    //user.profile_pic = req.file
     res.json({ 
       user: user, 
       status: "saving changes in settings succeeded",   
@@ -101,7 +85,7 @@ app.get("/posts", async(req, res) => {
   try { 
     res.json({ 
       posts: allPosts, 
-      status: 'everything is working!', 
+      status: 'retrieving posts from database succeeded', 
     })
   }
   catch (err) { 
@@ -117,7 +101,7 @@ app.get("/workouts", async(req, res) => {
   try { 
     res.json({ 
       workouts: allWorkouts, 
-      status: 'everything is working!', 
+      status: 'retrieving workouts from database succeeded', 
     })
   }
   catch (err) { 
@@ -180,7 +164,7 @@ app.get('/uid/:uid', async(req, res) => {
 app.get("/:username", async(req, res) => { 
   try { 
     const user = allUsers.find(user => user.username == req.params.username) 
-    res.json( { 
+    res.json({ 
       user: { 
         name: user.name, 
         username: user.username, 
@@ -204,7 +188,10 @@ app.get("/w/:id", async(req, res) => {
   try {
     const workout = allWorkouts.find(workout => workout.id == req.params.id)
     res.json({ 
-      workout: workout,  
+      workout: { 
+        workout_name: workout.workout_name,  
+        workout_description: workout.workout_description, 
+      }, 
       status: 'workout ' + req.params.id + ' has been found!', 
     })
   }
@@ -237,25 +224,4 @@ app.post("/w/:id", (req, res) => {
   }
 }) 
 
-// // route for HTTP POST requests for /upload-example
-// app.post("/upload-example", upload.array("my_files", 3), (req, res, next) => {
-//   // check whether anything was uploaded
-//   if (!req.files) {
-//     // failure!
-//     const error = new Error("Please upload some files!")
-//     error.httpStatusCode = 400
-//     return next(error)
-//   } else {
-//     // success
-//     // send a message back to the client, for example, a simple JSON object
-//     const data = {
-//       status: "all good",
-//       message: "files were uploaded!!!",
-//       files: req.files,
-//     }
-//     res.json(data)
-//   }
-// })
-
-// export the express app we created to make it available to other modules
-module.exports = app // CommonJS export style!
+module.exports = app
