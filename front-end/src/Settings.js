@@ -3,7 +3,6 @@ import Header from "./Header"
 import Footer from "./Footer" 
 import { AiFillEdit } from 'react-icons/ai'
 import React  from "react"
-//import profilepic from './images/blank_profile.jpg'
 import axios from "axios"
 import { useState, useEffect } from 'react'
 
@@ -96,6 +95,7 @@ const Settings = () => {
                 headers: {"Content-Type": "multipart/form-data"},
             }).catch(console.log).then((response) => console.log('response=', response))
             changes ++
+            setSelectedFile(null) 
         } 
       }
 
@@ -103,6 +103,8 @@ const Settings = () => {
       const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0])
       }
+
+    console.log(selectedFile)
     
     return (
         <main className="Settings">

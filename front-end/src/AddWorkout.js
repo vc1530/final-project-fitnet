@@ -21,7 +21,8 @@ const AddWorkout = () => {
     const dummy2 = dummyExercise("Pullups", 3, 15)
     const dummy3 = dummyExercise("Squats", 3, 15)
 
-    const [workout, setWorkout] = useState({}) 
+    const [workout_name, setName] = useState("") 
+    const [workout_description, setDesc] = useState("") 
 
     let params = useParams(); 
 
@@ -30,7 +31,8 @@ const AddWorkout = () => {
         axios 
         .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + params.id) 
         .then(res => { 
-            setWorkout(res.data.workout)
+            setName(res.data.workout.workout_name)
+            setDesc(res.data.workout.workout_description) 
             console.log("successful retrieval of workout " + params.id + " from database")
         })
         .catch(err => { 
@@ -47,10 +49,12 @@ const AddWorkout = () => {
             /> 
             <div className="backlink">
                 <a href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
-                <a href={"../e/" + workout.id}>{<AiOutlinePlusCircle size = "34px"/>}</a>
+                <a href={"../e/" + params.id}>{<AiOutlinePlusCircle size = "34px"/>}</a>
             </div>
             <AddWorkoutInfo
-                workout = {workout} 
+                workout_name = {workout_name} 
+                workout_description = {workout_description} 
+                id = {params.id}
             />
 
             <h5 className="TableHeader">
