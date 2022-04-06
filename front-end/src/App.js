@@ -28,12 +28,12 @@ const App = () => {
         <Route path="/addExercise" element={<AddExercise />} />
         <Route path="/addWorkout" element={<AddWorkout />} />
         <Route path= "/Feed" element = {<Feed />} />
+        <Route path="/w/:id" element = {<AddWorkout/>}/> 
         <Route path="/:username" element={<UserProfile />} />
         <Route path="/workoutHistory" element={<WorkoutHistory />} />
         <Route path="/myProfile" element={<MyProfile />} /> 
         <Route path="/Playlists" element={<Playlists />} />
         <Route path="/Settings" element={<Settings />} />
-        <Route path="/w/:id" element = {<AddWorkout/>}/> 
         <Route path = "e/:id" element = {<AddExercise/>} />
       </Routes>
     </Router>
