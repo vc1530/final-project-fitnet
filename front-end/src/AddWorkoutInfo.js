@@ -6,8 +6,9 @@ import axios from "axios"
 const AddWorkoutInfo = props => { 
 
     // create a state variable for each form field
-    const [workout_name, setName] = useState(props.workout_name)
-    const [workout_description, setDesc] = useState(props.workout_description)
+    const [workout_name, setName] = useState("")
+    const [workout_description, setDesc] = useState("")
+    const [savedMessage, setSavedMessage] = useState("") 
 
     useEffect(() => { 
       setName(props.workout_name) 
@@ -33,6 +34,7 @@ const AddWorkoutInfo = props => {
         .then((response) => { 
           console.log("editing workout " + props.id + " has succeeded")
         })
+        setSavedMessage("Your workout has been saved!") 
     }
 
     return (
@@ -43,15 +45,22 @@ const AddWorkoutInfo = props => {
             name = "workout_name"
             value = {workout_name}
             placeholder = {"Workout Name"}
-            onChange={e => setName(e.target.value)}
+            onChange={e => { 
+              setName(e.target.value)
+              setSavedMessage("") 
+            }}
           />
           <textarea
             name = "workout_description" 
             value = {workout_description}
             placeholder = {"Workout Description"}
-            onChange={e => setDesc(e.target.value)}
+            onChange={e => { 
+              setDesc(e.target.value)
+              setSavedMessage("") 
+            }}
           />
           <input type="submit" disabled={!workout_name} value="Save" />
+          {savedMessage ? <p id = "awiSaved" className = "saved">{savedMessage}</p> : ""}
         </form>
       //</main>
         

@@ -59,22 +59,34 @@ app.post("/save-changes", upload.single('image'), async(req, res) => {
     //the user id is just the index of the user in mock_users for now. 
     //during database integration, we will assign real IDs to each user 
     const user = allUsers[req.body.uid] 
-    //fake editing of user's information 
-    user.name = req.body.name
-    user.username = req.body.username 
-    user.bio = req.body.bio 
-    user.email = req.body.email 
-    user.password = req.body.password 
-    //don't worry about uploading pics for now 
-    //user.profile_pic = req.file
-    res.json({ 
-      user: user, 
-      status: "saving changes in settings succeeded",   
-    })
+    if (!user) { 
+      res
+      .status(400) 
+      .json({
+        success: false, 
+        status: "user " + req.params.id + " was not found",
+      })
+    }
+    else {
+      //fake editing of user's information 
+      user.name = req.body.name
+      user.username = req.body.username 
+      user.bio = req.body.bio 
+      user.email = req.body.email 
+      user.password = req.body.password 
+      //don't worry about uploading pics for now 
+      //user.profile_pic = req.file
+      res.json({ 
+        success: true, 
+        user: user, 
+        status: "saving changes in settings succeeded",   
+      })
+    } 
   }
   catch (err) { 
     console.error(err) 
     res.status(400).json({ 
+      success: false, 
       error: err, 
       status: "saving changes in settings failed", 
     })
@@ -84,6 +96,7 @@ app.post("/save-changes", upload.single('image'), async(req, res) => {
 app.get("/posts", async(req, res) => { 
   try { 
     res.json({ 
+      success: true, 
       posts: allPosts, 
       status: 'retrieving posts from database succeeded', 
     })
@@ -91,6 +104,7 @@ app.get("/posts", async(req, res) => {
   catch (err) { 
     console.error(err) 
     res.status(400).json({ 
+      success: false, 
       error: err, 
       status: "retrieving posts from database failed", 
     })
@@ -100,6 +114,7 @@ app.get("/posts", async(req, res) => {
 app.get("/workouts", async(req, res) => { 
   try { 
     res.json({ 
+      success: true, 
       workouts: allWorkouts, 
       status: 'retrieving workouts from database succeeded', 
     })
@@ -107,6 +122,7 @@ app.get("/workouts", async(req, res) => {
   catch (err) { 
     console.error(err) 
     res.status(400).json({ 
+      success: false, 
       error: err, 
       status: 'retrieving workouts from database failed', 
     })
@@ -114,22 +130,23 @@ app.get("/workouts", async(req, res) => {
 }) 
 
 app.post("/new-post", upload.single('image'), (req, res) =>{
-  try { 
-    console.log("new post received: ") 
-    console.log(req.body) 
-    res.json({ 
-      newpost: req.body, 
-      status: "new post has been received" 
-    }) 
+  try {  
     //fake editing database — database integration not completed
     allPosts.unshift({ 
-       username: req.body.username, 
-       description: req.body.description, 
-       picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
-    })
+      username: req.body.username, 
+      description: req.body.description, 
+      //dummy picture until data base integration completed
+      picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
+   })
+    res.json({ 
+      success: true, 
+      newpost: req.body, 
+      status: "uploading new post succeeded" 
+    }) 
   } catch (err) { 
     console.error(err) 
     res.status(400).json({ 
+      success: false, 
       error: err, 
       status: 'uploading new post failed', 
     })
@@ -141,20 +158,33 @@ app.post("/new-post", upload.single('image'), (req, res) =>{
 app.get('/uid/:uid', async(req, res) => { 
   try { 
     const user = allUsers[req.params.uid]
-    res.json( { 
-      user: { 
-        name: user.name, 
-        username: user.username, 
-        bio: user.bio, 
-        profile_pic: user.profile_pic, 
-        email: user.email, 
-        password: user.password 
-      }, 
-      status: "user " + req.params.id + " has been found"
-    })
+    if (!user) { 
+      res
+      .status(400) 
+      .json({
+        success: false, 
+        status: "user " + req.params.id + " was not found",
+      })
+    }
+    else 
+      res.json( { 
+        success: true, 
+        user: { 
+          name: user.name, 
+          username: user.username, 
+          bio: user.bio, 
+          profile_pic: user.profile_pic, 
+          email: user.email, 
+          password: user.password 
+        }, 
+        status: "retrieving user " + req.params.id + " succeeded"
+      })
   } catch(err) { 
     console.error(err)
-    res.status(400).json({ 
+    res
+    .status(400)
+    .json({ 
+      success: false, 
       error: err, 
       status: "retreiving user " + req.params.id + " failed" 
     })
@@ -164,20 +194,32 @@ app.get('/uid/:uid', async(req, res) => {
 app.get("/:username", async(req, res) => { 
   try { 
     const user = allUsers.find(user => user.username == req.params.username) 
-    res.json({ 
-      user: { 
-        name: user.name, 
-        username: user.username, 
-        bio: user.bio, 
-        profile_pic: user.profile_pic, 
-        email: user.email, 
-        password: user.password 
-      }, 
-      status: "user " + req.params.username + " has been found"
-    })
+    if (!user) { 
+      res
+      .status(400) 
+      .json({ 
+        success: false, 
+        status: "user " + req.params.username + " was not found", 
+      })
+    }
+    else {
+      res.json({ 
+        success: true, 
+        user: { 
+          name: user.name, 
+          username: user.username, 
+          bio: user.bio, 
+          profile_pic: user.profile_pic, 
+          email: user.email, 
+          password: user.password 
+        }, 
+        status: "retrieving user " + req.params.username + " succeeded"
+      })
+    } 
   } catch(err) { 
     console.error(err)
     res.status(400).json({ 
+      success: false, 
       error: err, 
       status: "retreiving user " + req.params.username + " failed" 
     })
@@ -187,17 +229,29 @@ app.get("/:username", async(req, res) => {
 app.get("/w/:id", async(req, res) => { 
   try {
     const workout = allWorkouts.find(workout => workout.id == req.params.id)
-    res.json({ 
-      workout: { 
-        workout_name: workout.workout_name,  
-        workout_description: workout.workout_description, 
-      }, 
-      status: 'workout ' + req.params.id + ' has been found!', 
-    })
+    if (!workout) { 
+      res
+      .status(400) 
+      .json({ 
+        success: false, 
+        status: "workout " + req.params.id + " was not found", 
+      })
+    }
+    else { 
+      res.json({ 
+        success: true, 
+        workout: { 
+          workout_name: workout.workout_name,  
+          workout_description: workout.workout_description, 
+        }, 
+        status: 'retrieving workout ' + req.params.id + ' succeeded', 
+      })
+    } 
   }
   catch (err) { 
     console.error(err) 
     res.status(400).json({ 
+      success: false, 
       error: err, 
       status: 'retreiving workout ' + req.params.id + ' failed'
     })
@@ -207,17 +261,29 @@ app.get("/w/:id", async(req, res) => {
 app.post("/w/:id", (req, res) => { 
   try { 
     const workout = allWorkouts.find(workout => workout.id == req.params.id)
-    //fake editing database — database integration not completed
-    workout.workout_name = req.body.workout_name
-    workout.workout_description = req.body.workout_description
-    res.json({ 
-      workout: workout, 
-      status: 'workout ' + req.params.id + ' has been edited!'
-    })
+    if (!workout) { 
+      res
+      .status(400) 
+      .json({ 
+        success: false, 
+        status: "workout " + req.params.id + " was not found", 
+      })
+    }
+    else {
+      //fake editing database — database integration not completed
+      workout.workout_name = req.body.workout_name
+      workout.workout_description = req.body.workout_description
+      res.json({ 
+        success: true, 
+        workout: workout, 
+        status: 'editing workout ' + req.params.id + ' succeeded'
+      })
+    } 
   }
   catch (err) { 
     console.error(err) 
     res.status(400).json( { 
+      success: false, 
       error: err, 
       status: 'editing workout ' + req.params.id + ' failed'
     })

@@ -50,7 +50,8 @@
     font-size: 20px; 
 }
 
-.UserProfile-info p { 
-    padding: 5px; 
+#upbio { 
+    width: 300px; 
+    overflow-wrap: break-word; 
 }
 

@@ -144,3 +144,13 @@ sans-serif;
   transition: .25s; 
   border-color: var(--main-accent-color); 
 }
+
+.error { 
+  color: red; 
+  margin: 0; 
+}
+
+.saved { 
+  margin-top: -10px; 
+  color: var(--main-accent-color)
+}

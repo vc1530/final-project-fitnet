@@ -18,3 +18,8 @@
 .UserProfile-title #myusername{ 
     font-size: 20px; 
 }
+
+#mpbio {
+    width: 300px; 
+    overflow-wrap: break-word; 
+}

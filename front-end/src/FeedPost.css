@@ -89,6 +89,8 @@
 }
 
 #bio { 
+    width: 250px; 
+    overflow-wrap: break-word; 
     margin-bottom: 0px; 
     overflow: hidden; 
     text-overflow: ellipsis; 
