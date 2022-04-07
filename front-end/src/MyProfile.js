@@ -72,7 +72,7 @@ const MyProfile = () => {
                     <p id = "myname" >{name}</p>
                     <p><i><a id="myusername" className = "User-link" href = {"/" + username}>{username}</a></i></p>
                 </div>
-                <p>{bio}</p>
+                <p id = "mpbio" >{bio}</p>
                 <div className = "blue-button"> 
                     <a className = "User-link" href="/workoutHistory">Workout History</a> 
                 </div>

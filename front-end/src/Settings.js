@@ -1,7 +1,6 @@
 import "./Settings.css"
 import Header from "./Header"
 import Footer from "./Footer" 
-import { AiFillEdit } from 'react-icons/ai'
 import React  from "react"
 import axios from "axios"
 import { useState, useEffect } from 'react'
@@ -11,7 +10,7 @@ const Settings = () => {
     let changes = 0
     //the user id is just the index of the user in mock_users for now. during database integration, 
     //we will assign real IDs to each user 
-    const uid = 0 
+    const uid = 0
 
     const [name, setName] = useState("")
     const [username, setUsername] = useState("")
@@ -39,10 +38,16 @@ const Settings = () => {
         })
     }, [changes]) 
 
+    const [nameError, setNameError] = useState("") 
+    const [usernameError, setUsernameError] = useState("") 
+    const [emailError, setEmailError] = useState("") 
+    const [passwordError, setPasswordError] = useState("") 
+    const [savedMessage, setSavedMessage] = useState("") 
+
     const handleSubmit = e => {
         e.preventDefault() // prevent the default browser form submission stuff
     
-        console.log("this is a test")
+        console.log("uploading changes to settings")
 
         //code taken from Stack Overflow 
         //https://stackoverflow.com/questions/46155/whats-the-best-way-to-validate-an-email-address-in-javascript
@@ -64,19 +69,19 @@ const Settings = () => {
 
         if (name === "") { 
             valid = false; 
-            alert("Invalid name")
+            setNameError("Invalid name") 
         } 
         if (username === "" || !validateUsername(username)) { 
             valid = false; 
-            alert ("Invalid username")
+            setUsernameError("Invalid username") 
         } 
         if (email === "" || !validateEmail(email)) { 
             valid = false; 
-            alert("Invalid email")
+            setEmailError("Invalid email") 
         } 
         if (password === "") { 
             valid = false; 
-            alert ("Invalid password") 
+            setPasswordError("Invalid password") 
         } 
 
         if (valid) { 
@@ -93,9 +98,20 @@ const Settings = () => {
                 url: `${process.env.REACT_APP_SERVER_HOSTNAME}/save-changes`,
                 data: formData,
                 headers: {"Content-Type": "multipart/form-data"},
-            }).catch(console.log).then((response) => console.log('response=', response))
-            changes ++
-            setSelectedFile(null) 
+            })
+            .catch(err => { 
+                console.error(err) 
+                console.log("saving changes in settings failed")
+            })
+            .then((response) => { 
+                console.log("saving changes in settings succeeded")
+                changes ++
+                setNameError("") 
+                setUsernameError("") 
+                setEmailError("")
+                setPasswordError("") 
+                setSavedMessage("Your information has been saved!") 
+            })
         } 
       }
 
@@ -103,8 +119,6 @@ const Settings = () => {
       const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0])
       }
-
-    console.log(selectedFile)
     
     return (
         <main className="Settings">
@@ -125,51 +139,74 @@ const Settings = () => {
                         name="image" 
                         accept="image/*" 
                         multiple={false} 
-                        onChange = {handleFileSelect} 
+                        onChange = {e => { 
+                            handleFileSelect(e) 
+                            setSavedMessage("") 
+                        }} 
                     />
                 </div>
                 <form onSubmit = {handleSubmit}>
-                    <label for="name">Name <AiFillEdit /></label>
+                    <label for="name">Name </label>
                     <input 
                         type= "text" 
                         name = "name" 
                         value = {name}
-                        onChange = {e => setName(e.target.value)}
+                        onChange = {e => { 
+                            setName(e.target.value)
+                            setSavedMessage("") 
+                        }}
                     />
-                    <label for="username">Username <AiFillEdit /></label>
+                    {nameError ? <p className="error">{nameError}</p> : ""}
+                    <label for="username">Username </label>
                     <input 
                         type= "text" 
                         name = "username" 
                         value = {username} 
-                        onChange = {e => setUsername(e.target.value)}
+                        onChange = {e => { 
+                            setUsername(e.target.value)
+                            setSavedMessage("") 
+                        }}
                     />
-                    <label for="email">Email <AiFillEdit /></label>
+                    {usernameError ? <p className="error">{usernameError}</p> : ""}
+                    <label for="email">Email </label>
                     <input 
                         type= "text" 
                         name = "email" 
                         value = {email} 
-                        onChange = {e => setEmail(e.target.value)}
+                        onChange = {e => { 
+                            setEmail(e.target.value)
+                            setSavedMessage("") 
+                        }}
                     />
-                    <label for="password">Password <AiFillEdit /></label>
+                    {emailError ? <p className="error">{emailError}</p> : ""}
+                    <label for="password">Password </label>
                     <input 
                         type= "password" 
                         name = "password" 
                         value = {password} 
-                        onChange = {e => setPassword(e.target.value)}
+                        onChange = {e => { 
+                            setPassword(e.target.value)
+                            setSavedMessage("") 
+                        }}
                     />
-                    <label for="bio">Bio <AiFillEdit /></label>
+                    {passwordError ? <p className="error">{passwordError}</p> : ""}
+                    <label for="bio">Bio </label>
                     <textarea 
                         id = "settingsbio"
                         maxlength = "432"
                         type= "text" 
                         value = {bio} 
-                        onChange = {e => setBio(e.target.value)}
+                        onChange = {e => { 
+                            setBio(e.target.value)
+                            setSavedMessage("") 
+                        }}
                     />
                     <div className = "submit-button">
                         <button>Save Changes</button>
                     </div>
                 </form>
             </body>
+            {savedMessage ? <p className = "saved">{savedMessage}</p> : ""}
             <div className = "bottom-links"> 
                 <div id = "signout-button" className = "blue-button"> 
                     <a className = "User-link" href="/">Sign Out</a> 

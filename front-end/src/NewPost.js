@@ -9,6 +9,8 @@ const NewPost = () => {
     const uid = 0 
 
     const [username, setUsername] = useState("")
+    const [postMessage, setPostMessage] = useState("") 
+
     useEffect(() => { 
         console.log("fetching data for user " + uid) 
         axios 
@@ -36,6 +38,7 @@ const NewPost = () => {
 
     const handleSubmit = e => { 
         e.preventDefault() 
+        console.log("uploading new post")
         const formData = new FormData() 
         formData.append("username", username)
         formData.append("description", description) 
@@ -51,6 +54,7 @@ const NewPost = () => {
         .then((response) => { 
             console.log("uploading new post succeeded") 
         }) 
+        setPostMessage("Your post has been uploaded!") 
     }
 
     return(
@@ -67,7 +71,10 @@ const NewPost = () => {
                         name="image" 
                         accept="image/*" 
                         multiple={false} 
-                        onChange = {uploadPicture} 
+                        onChange = {e => { 
+                            uploadPicture(e) 
+                            setPostMessage("") 
+                        }} 
                     />
                     <textarea id = "newpost-description"
                         name = "description"
@@ -75,13 +82,17 @@ const NewPost = () => {
                         value = {description} 
                         placeholder = "write a description..."
                         maxLength = "258"
-                        onChange = {e => setDesc(e.target.value)}
+                        onChange = {e => { 
+                            setDesc(e.target.value)
+                            setPostMessage("") 
+                        }}
                     />
                     <div className = "blue-button">
                         <button id = "post-button" >Post</button>
                     </div>
                 </form>
             </body>
+            {postMessage ? <p className = "saved">{postMessage}</p> : postMessage}
             <Footer 
                 title = "Create a new post" 
             />

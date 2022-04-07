@@ -27,8 +27,6 @@ const UserProfile = () => {
         })
     }, [params.username])
 
-    console.log(user.name)
-
     if (typeof user == 'undefined') 
         return (
             <main className = "UserProfile">
@@ -56,7 +54,7 @@ const UserProfile = () => {
                     <p id = "name">{user.name}</p>
                     <p><i><a id = "username" className = "User-link" href = {"/" + user.username}>{user.username}</a></i></p>
                 </div>
-                <p>{user.bio}</p>
+                <p id = "upbio">{user.bio}</p>
             </body> 
             <Footer/> 
         </main>
