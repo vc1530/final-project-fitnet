@@ -71,6 +71,7 @@ const upload = multer({ storage: storage })
 app.post("/save-changes", upload.single('image'), (req, res, next) => {
   try { 
     if (req.file) 
+      console.log('image recieved')
       console.log('size:', req.file.size)
     //the user id is just the index of the user in mock_users for now. 
     //during database integration, we will assign real IDs to each user 
