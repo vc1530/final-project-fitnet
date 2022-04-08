@@ -1,13 +1,20 @@
-.Post-box-right{
-    border-bottom-right-radius: 10px;
-    padding-left: 10px;
-    margin-left: 10px;  
-
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
+#WorkoutPost {  
+    justify-content: center; 
 }
 
+.Workout-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.MusicIcon { 
+    padding: 5px;  
+}
+
+.MusicIcon a { 
+    color: var(--main-accent-color)
+}
 
 
 

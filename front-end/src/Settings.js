@@ -151,6 +151,7 @@ const Settings = () => {
                         type= "text" 
                         name = "name" 
                         value = {name}
+                        placeholder = "Name" 
                         onChange = {e => { 
                             setName(e.target.value)
                             setSavedMessage("") 
@@ -162,6 +163,7 @@ const Settings = () => {
                         type= "text" 
                         name = "username" 
                         value = {username} 
+                        placeholder = "Username"
                         onChange = {e => { 
                             setUsername(e.target.value)
                             setSavedMessage("") 
@@ -173,6 +175,7 @@ const Settings = () => {
                         type= "text" 
                         name = "email" 
                         value = {email} 
+                        placeholder = "Email" 
                         onChange = {e => { 
                             setEmail(e.target.value)
                             setSavedMessage("") 
@@ -196,6 +199,7 @@ const Settings = () => {
                         maxlength = "432"
                         type= "text" 
                         value = {bio} 
+                        placeholder = "Enter a short bio"
                         onChange = {e => { 
                             setBio(e.target.value)
                             setSavedMessage("") 

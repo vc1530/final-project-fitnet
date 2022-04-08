@@ -243,6 +243,7 @@ app.get("/w/:id", async(req, res) => {
         workout: { 
           workout_name: workout.workout_name,  
           workout_description: workout.workout_description,
+          playlist: workout.playlist, 
           id: req.params.id 
         }, 
         status: 'retrieving workout ' + req.params.id + ' succeeded', 
@@ -258,8 +259,6 @@ app.get("/w/:id", async(req, res) => {
     })
   }
 })
-
-
 
 app.post("/w/:id", (req, res) => { 
   try { 
@@ -308,5 +307,72 @@ app.post("/w/:id", (req, res) => {
     })
   }
 }) 
+
+app.get('/p/:id', (req, res) => { 
+  try { 
+    const workout = allWorkouts.find(workout => workout.id == req.params.id)
+    if (!workout) { 
+      res
+      .status(400) 
+      .json({ 
+        success: false, 
+        status: "workout " + req.params.id + " was not found", 
+      })
+    }
+    else { 
+      if (typeof workout.playlist == "undefined") { 
+        res.json({ 
+          success: true, 
+          playlist: "", 
+          status: 'retrieving playlist for workout ' + req.params.id + ' succeeded', 
+        })
+      }
+      else 
+        res.json({ 
+          success: true, 
+          playlist: workout.playlist, 
+          status: 'retrieving playlist for workout ' + req.params.id + ' succeeded', 
+        })
+    } 
+  }
+  catch (err) { 
+    console.error(err) 
+    res.status(400).json({ 
+      success: false, 
+      error: err, 
+      status: 'retreiving playlist for workout ' + req.params.id + ' failed'
+    })
+  }
+})
+
+app.post('/p/:id', (req, res) => { 
+  try { 
+    const workout = allWorkouts.find(workout => workout.id == req.params.id)
+    if (!workout) { 
+      res
+      .status(400) 
+      .json({ 
+        success: false, 
+        status: "workout " + req.params.id + " was not found", 
+      })
+    }
+    else { 
+      workout.playlist = req.body.playlist
+      res.json({ 
+        success: true, 
+        playlist: workout.playlist, 
+        status: 'uploading playlist for workout ' + req.params.id + ' succeeded', 
+      })
+    }
+  }
+  catch (err) { 
+    console.error(err) 
+    res.status(400).json({ 
+      success: false, 
+      error: err, 
+      status: 'uploading playlist for workout ' + req.params.id + ' failed'
+    })
+  }
+})
 
 module.exports = app

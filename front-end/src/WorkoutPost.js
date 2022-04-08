@@ -1,16 +1,17 @@
 import "./WorkoutPost.css" 
-import music_picture from "./images/music.png"
-
+import { HiOutlineMusicNote } from 'react-icons/hi' 
 
 const WorkoutPost = props => {   
 
+    console.log(props.playlist)
+
     return ( 
-        <main className = "Post-box">
-            <div className="Post-box-right">
-            <img src = {music_picture} alt = "Music Link" width = "50px"/>
+        <main id = "WorkoutPost" className = "Post-box">
+            <div className="Workout-header">    
+                <b><a href = {"/w/" + props.id} className = "User-link">{props.name}</a></b>
+                {props.playlist ? <a className = "User-link" href = {props.playlist}><HiOutlineMusicNote size = "35px"/> </a> : ""} 
             </div>
             
-            <p><b><a href = {"/w/" + props.id} className = "User-link">{props.name}</a></b></p>
             <p>{props.description}</p>
         </main>
     )

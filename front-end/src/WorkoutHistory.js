@@ -22,10 +22,10 @@ const WorkoutHistory = () => {
             })
             .catch(err => { 
                 console.log("retrieval of workouts from backend failed") 
-                console.log(err)
+                console.error(err)
             })
         }, [])
-
+        
     return(
         <main className="WorkoutHistory">
             <Header 
@@ -35,8 +35,8 @@ const WorkoutHistory = () => {
             {//Add workout button goes here
             }
             <div className="backlink">
-                <a href={"../myProfile"}>{<BsArrowLeftCircle size = "30px"/>}</a>
-                <a href={"../w/new"}>{<AiOutlinePlusCircle size = "34px"/>}</a>
+                <a className = "User-link" href={"../myProfile"}>{<BsArrowLeftCircle size = "30px"/>}</a>
+                <a className = "User-link" href={"../w/new"}>{<AiOutlinePlusCircle size = "34px"/>}</a>
             </div>
             <body className = "Workout-posts">
                 {workouts?.map((workout) => ( 
@@ -45,6 +45,7 @@ const WorkoutHistory = () => {
                     name = {workout.workout_name} 
                     description = {workout.workout_description}
                     id = {workout.id}
+                    playlist = {workout.playlist}
                 /> 
                 )) 
                 }   
