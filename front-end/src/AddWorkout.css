@@ -18,6 +18,10 @@
     color: var(--main-accent-color); 
 }
 
+#playlistLink { 
+    margin-right: 10px; 
+}
+
 .TableHeader {
     margin: 20px;
     margin-bottom: 10px;

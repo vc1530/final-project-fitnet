@@ -8,6 +8,7 @@ import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { useParams } from "react-router-dom";
 import axios from "axios"
+import { HiOutlineMusicNote } from 'react-icons/hi' 
 
 const AddWorkout = () => {
     const dummyExercise = (exerciseName, numSets, numReps) => {
@@ -54,8 +55,15 @@ const AddWorkout = () => {
                 title = "Add Workout"
             /> 
             <div className="backlink">
-                <a href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
-                <a href={"../e/" + params.id}>{<AiOutlinePlusCircle size = "34px"/>}</a>
+                <a className = "User-link" href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
+                <div>
+                        <a id = "playlistLink" 
+                            className = "User-link"
+                            href = {'../p/' + params.id} >
+                            {<HiOutlineMusicNote size = "30px"/>}
+                        </a> 
+                    <a className = "User-link" href={"../e/" + params.id}>{<AiOutlinePlusCircle size = "34px"/>}</a>
+                </div>
             </div>
             <AddWorkoutInfo
                 workout_name = {workout_name} 

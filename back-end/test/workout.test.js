@@ -67,13 +67,12 @@ describe('/POST/:id workout', () => {
 describe('/POST/:new workout', () => {
     it('should generate a new workout', (done) => {
         chai.request(server)
-        .post('w/new')
+        .post('/w/new')
         .send({
             workout_name: "new workout name!", 
             workout_description: "new workout description!", 
         })
         .end((err,res) => {
-            console.log(res)
             res.should.have.status(200);
             res.body.should.be.a("object")
             res.body.should.have.property("workout")

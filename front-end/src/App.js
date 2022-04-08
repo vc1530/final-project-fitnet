@@ -28,39 +28,17 @@ const App = () => {
         <Route path="/addExercise" element={<AddExercise />} />
         <Route path="/addWorkout" element={<AddWorkout />} />
         <Route path= "/Feed" element = {<Feed />} />
-        <Route path="/w/:id" element = {<AddWorkout/>}/> 
         <Route path="/:username" element={<UserProfile />} />
         <Route path="/workoutHistory" element={<WorkoutHistory />} />
         <Route path="/myProfile" element={<MyProfile />} /> 
         <Route path="/Playlists" element={<Playlists />} />
         <Route path="/Settings" element={<Settings />} />
-        <Route path = "e/:id" element = {<AddExercise/>} />
+        <Route path="/w/:id" element = {<AddWorkout />}/> 
+        <Route path = "/e/:id" element = {<AddExercise />} />
+        <Route path = "/p/:id" element = {<Playlists />} /> 
       </Routes>
     </Router>
   )
 }
-
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
 
 export default App
