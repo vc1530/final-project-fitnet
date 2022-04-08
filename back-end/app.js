@@ -242,7 +242,8 @@ app.get("/w/:id", async(req, res) => {
         success: true, 
         workout: { 
           workout_name: workout.workout_name,  
-          workout_description: workout.workout_description, 
+          workout_description: workout.workout_description,
+          id: req.params.id 
         }, 
         status: 'retrieving workout ' + req.params.id + ' succeeded', 
       })
@@ -258,27 +259,45 @@ app.get("/w/:id", async(req, res) => {
   }
 })
 
+
+
 app.post("/w/:id", (req, res) => { 
   try { 
-    const workout = allWorkouts.find(workout => workout.id == req.params.id)
-    if (!workout) { 
-      res
-      .status(400) 
-      .json({ 
-        success: false, 
-        status: "workout " + req.params.id + " was not found", 
+    if(req.params.id == 'new') {
+      let new_id = Date.now()
+      const workout = {
+        id: new_id,
+        workout_name: req.body.workout_name,
+        workout_description: req.body.workout_description
+      }
+      allWorkouts.unshift(workout)
+      res.json({
+        success: true,
+        workout: workout,
+        status: 'added workout ' + workout.id + 'to database'
       })
     }
     else {
-      //fake editing database — database integration not completed
-      workout.workout_name = req.body.workout_name
-      workout.workout_description = req.body.workout_description
-      res.json({ 
-        success: true, 
-        workout: workout, 
-        status: 'editing workout ' + req.params.id + ' succeeded'
-      })
-    } 
+      const workout = allWorkouts.find(workout => workout.id == req.params.id)
+      if (!workout) { 
+        res
+        .status(400) 
+        .json({ 
+          success: false, 
+          status: "workout " + req.params.id + " was not found", 
+        })
+      }
+      else {
+        //fake editing database — database integration not completed
+        workout.workout_name = req.body.workout_name
+        workout.workout_description = req.body.workout_description
+        res.json({ 
+          success: true, 
+          workout: workout, 
+          status: 'editing workout ' + req.params.id + ' succeeded'
+        })
+      } 
+    }
   }
   catch (err) { 
     console.error(err) 

@@ -1,8 +1,11 @@
 import "./WorkoutHistory.css"
+// import myProfile from "./MyProfile"
 import WorkoutPost from "./WorkoutPost"
 import Header from "./Header"
 import Footer from "./Footer" 
 import { useState, useEffect} from 'react'
+import { BsArrowLeftCircle } from 'react-icons/bs'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 import axios from "axios"
 
 const WorkoutHistory = () => {
@@ -29,6 +32,12 @@ const WorkoutHistory = () => {
                 url = "./WorkoutHistory" 
                 title = "Workout History"
             /> 
+            {//Add workout button goes here
+            }
+            <div className="backlink">
+                <a href={"../myProfile"}>{<BsArrowLeftCircle size = "30px"/>}</a>
+                <a href={"../w/new"}>{<AiOutlinePlusCircle size = "34px"/>}</a>
+            </div>
             <body className = "Workout-posts">
                 {workouts?.map((workout) => ( 
                 <WorkoutPost 

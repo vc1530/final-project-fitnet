@@ -2,3 +2,10 @@
     align-items: center;
     margin-bottom: 100px; 
 }
+.backlink {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    width: 350px;
+}

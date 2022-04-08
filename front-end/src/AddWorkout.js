@@ -27,18 +27,24 @@ const AddWorkout = () => {
     let params = useParams(); 
 
     useEffect(() => { 
-        console.log("retrieving workout " + params.id) 
-        axios 
-        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + params.id) 
-        .then(res => { 
-            setName(res.data.workout.workout_name)
-            setDesc(res.data.workout.workout_description) 
-            console.log("successful retrieval of workout " + params.id + " from database")
-        })
-        .catch(err => { 
-            console.log("retrieval of workout " + params.id + " from backend failed") 
-            console.log(err)
-        })
+        if(params.id === 'new') {
+            console.log("New workout, no retrieval")
+            console.log("This should say 'new': " + params.id)
+        }
+        else{
+            console.log("retrieving workout " + params.id) 
+            axios 
+            .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + params.id) 
+            .then(res => { 
+                setName(res.data.workout.workout_name)
+                setDesc(res.data.workout.workout_description) 
+                console.log("successful retrieval of workout " + params.id + " from database")
+            })
+            .catch(err => { 
+                console.log("retrieval of workout " + params.id + " from backend failed") 
+                console.log(err)
+            })
+        }
     }, [params.id]) 
 
     return (

@@ -20,8 +20,6 @@ const AddWorkoutInfo = props => {
     */
     const submitForm = e => {
       e.preventDefault() // prevent normal browser submit behavior
-      //NEEDS axios stuff here
-      console.log("NYI: submitForm, AddWorkoutInfo.js")
       axios
         .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + props.id, { 
           workout_name: workout_name,
