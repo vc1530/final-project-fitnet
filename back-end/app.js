@@ -1,47 +1,39 @@
-// database
-const mongoose = require('mongoose');
+require("dotenv").config({ silent: true })
 
-// add this to files 
-// import mongoose from 'mongoose';
-
-// import and instantiate express
-const express = require("express") // CommonJS import style!
-const app = express() // instantiate an Express object
+const express = require("express") 
+const app = express() 
 const path = require("path")
 const port = 3000 
 
-// import some useful middleware
-const multer = require("multer") // middleware to handle HTTP POST requests with file uploads
-const cors = require("cors")
-const axios = require("axios") // middleware for making requests to APIs
-const morgan = require("morgan") // middleware for nice logging of incoming HTTP requests
+const mongoose = require('mongoose');
 
-//mock databases 
+mongoose
+  .connect(`${process.env.DB_CONNECTION_STRING}`)
+  .then(data => console.log(`Connected to MongoDB`))
+  .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
+
+const multer = require("multer") 
+const cors = require("cors")
+const axios = require("axios") 
+const morgan = require("morgan") 
+
 const allWorkouts = require("./mock_workouts.json")
 const allPosts = require("./mock_posts.json") 
 const allUsers = require("./mock_users.json") 
 
-require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
+app.use(morgan("dev")) 
 
-// use the morgan middleware to log all incoming http requests
-app.use(morgan("dev")) // morgan has a few logging default styles - dev is a nice concise color-coded style
-
-// use express's builtin body-parser middleware to parse any data included in a request
-app.use(express.json()) // decode JSON-formatted incoming POST data
-app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
+app.use(express.json()) 
+app.use(express.urlencoded({ extended: true })) 
 
 app.use(cors()) 
 
-// make 'public' directory publicly readable with static content
 app.use("/static", express.static("public"))
 
-//Route for root link to the website
 app.get("/", (req, res) => {
     res.send("This is the root directory link for our app")
 })
 
-//const storage = multer.memoryStorage()
-//enable file uploads saved to disk in a directory named 'public/uploads'
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
      cb(null, "public/uploads")
@@ -61,7 +53,6 @@ const upload = multer({ storage: storage })
 app.post("/save-changes", upload.single('image'), async(req, res) => {
   try { 
     if (req.file) 
-      console.log('image recieved')
       console.log('size:', req.file.size)
     //the user id is just the index of the user in mock_users for now. 
     //during database integration, we will assign real IDs to each user 
