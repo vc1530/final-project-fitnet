@@ -1,3 +1,9 @@
+// database
+const mongoose = require('mongoose');
+
+// add this to files 
+// import mongoose from 'mongoose';
+
 // import and instantiate express
 const express = require("express") // CommonJS import style!
 const app = express() // instantiate an Express object
