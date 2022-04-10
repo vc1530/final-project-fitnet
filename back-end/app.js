@@ -12,6 +12,8 @@ mongoose
   .then(data => console.log(`Connected to MongoDB`))
   .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
 
+const { Post } = require('./models/Post') 
+
 const multer = require("multer") 
 const cors = require("cors")
 const axios = require("axios") 
@@ -93,9 +95,10 @@ app.post("/save-changes", upload.single('image'), async(req, res) => {
 
 app.get("/posts", async(req, res) => { 
   try { 
+    const posts = await Post.find({}) 
     res.json({ 
       success: true, 
-      posts: allPosts, 
+      posts: posts, 
       status: 'retrieving posts from database succeeded', 
     })
   }
@@ -127,18 +130,23 @@ app.get("/workouts", async(req, res) => {
   }
 }) 
 
-app.post("/new-post", upload.single('image'), (req, res) =>{
+app.post("/new-post", upload.single('image'), async(req, res) =>{
   try {  
-    //fake editing database — database integration not completed
-    allPosts.unshift({ 
+    const post = await Post.create({ 
       username: req.body.username, 
       description: req.body.description, 
-      //dummy picture until data base integration completed
       picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
-   })
-    res.json({ 
+    })
+    //fake editing database — database integration not completed
+  //   allPosts.unshift({ 
+  //     username: req.body.username, 
+  //     description: req.body.description, 
+  //     //dummy picture until data base integration completed
+  //     picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
+  //  })
+    return res.json({ 
       success: true, 
-      newpost: req.body, 
+      newpost: post, 
       status: "uploading new post succeeded" 
     }) 
   } catch (err) { 

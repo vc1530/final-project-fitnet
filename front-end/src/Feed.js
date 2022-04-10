@@ -30,7 +30,7 @@ const Feed = () => {
                 title = "Feed"
             />  
             <body className = "Feed-posts">
-                    {posts.map((post) => ( 
+                    {posts.slice(0).reverse().map((post) => ( 
                         <FeedPost 
                             username = {post?.username} 
                             picture = {post?.picture} 
