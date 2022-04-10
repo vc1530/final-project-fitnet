@@ -13,6 +13,7 @@ mongoose
   .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
 
 const { Post } = require('./models/Post') 
+const { User } = require('./models/User')
 
 const multer = require("multer") 
 const cors = require("cors")
@@ -99,6 +100,25 @@ app.get("/posts", async(req, res) => {
     res.json({ 
       success: true, 
       posts: posts, 
+      status: 'retrieving posts from database succeeded', 
+    })
+  }
+  catch (err) { 
+    console.error(err) 
+    res.status(400).json({ 
+      success: false, 
+      error: err, 
+      status: "retrieving posts from database failed", 
+    })
+  }
+})
+
+app.get("/users", async(req, res) => { 
+  try { 
+    const users = await User.find({}) 
+    res.json({ 
+      success: true, 
+      users: users, 
       status: 'retrieving posts from database succeeded', 
     })
   }
