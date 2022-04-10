@@ -132,6 +132,23 @@ app.get("/users", async(req, res) => {
   }
 })
 
+app.get("/new-user", async(req, res) => { 
+  const user = await User.create({ 
+    name: "Sydney", 
+    username: "sjp655", 
+    bio:"...", 
+    email:"sjp655@nyu.edu",
+    password:"password",
+    profile_pic: "http://dummyimage.com/140x100.png/cc0000/ffffff"
+  })
+  return res.json ({ 
+    success: true, 
+    user: user, 
+    status: "yay it worked", 
+  })
+})
+
+
 app.get("/workouts", async(req, res) => { 
   try { 
     res.json({ 
