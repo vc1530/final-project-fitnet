@@ -11,19 +11,21 @@ import axios from "axios"
 import { HiOutlineMusicNote } from 'react-icons/hi' 
 
 const AddWorkout = () => {
-    const dummyExercise = (exercise_name, num_sets, num_reps) => {
+    const dummyExercise = (exercise_name, num_sets, num_reps, index_value) => {
         const name = exercise_name
         const sets = num_sets
         const reps = num_reps
-        return {name, sets, reps}
+        const index = index_value
+        return {name, sets, reps, index}
     }
 
-    const dummy1 = dummyExercise("Pushups", 3, 15)
-    const dummy2 = dummyExercise("Pullups", 3, 15)
-    const dummy3 = dummyExercise("Squats", 3, 15)
+    // const dummy1 = dummyExercise("Pushups", 3, 15)
+    // const dummy2 = dummyExercise("Pullups", 3, 15)
+    // const dummy3 = dummyExercise("Squats", 3, 15)
 
     const [workout_name, setName] = useState("") 
-    const [workout_description, setDesc] = useState("") 
+    const [workout_description, setDesc] = useState("")
+    const [exercises, setExercises] = useState([]) 
 
     let params = useParams(); 
 
@@ -39,6 +41,7 @@ const AddWorkout = () => {
             .then(res => { 
                 setName(res.data.workout.workout_name)
                 setDesc(res.data.workout.workout_description) 
+                setExercises(res.data.workout.exercises)
                 console.log("successful retrieval of workout " + params.id + " from database")
             })
             .catch(err => { 
@@ -47,6 +50,14 @@ const AddWorkout = () => {
             })
         }
     }, [params.id]) 
+
+    function addExercise() {
+        console.log("Starting addExercise function")
+        alert('You clicked me!');
+        let filler = dummyExercise("", "", "", exercises.length + 1)
+        console.log(filler)
+        exercises.append(filler)
+    }
 
     return (
         <main className="AddWorkout">
@@ -76,21 +87,26 @@ const AddWorkout = () => {
                 <div>Sets</div>
                 <div>Reps</div>
             </h5>
-            <Exercise
-                exercise_name={dummy1.name}
-                num_sets={dummy1.sets}
-                num_reps={dummy1.reps}
-            />
-            <Exercise
-                exercise_name={dummy1.name}
-                num_sets={dummy1.sets}
-                num_reps={dummy1.reps}
-            />
-            <Exercise
-                exercise_name={dummy1.name}
-                num_sets={dummy1.sets}
-                num_reps={dummy1.reps}
-            />
+            
+            <div>
+                {exercises?.map((exercise, index) => ( 
+                <Exercise  
+                    id = {params.id}
+                    index = {index}
+                    exercise_name = {exercise.exercise_name} 
+                    num_sets = {exercise.num_sets}
+                    num_reps = {exercise.num_reps}
+                /> 
+                )) 
+                }   
+            </div>
+            <button onclick={addExercise}>
+                {<AiOutlinePlusCircle size = "30px"/>}
+                {/* <div>{<AiOutlinePlusCircle size = "30px"/>}</div> */}
+            </button>
+            {/* <div className="AddExercise">
+                <a className = "User-link" href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
+            </div> */}
             <Footer
             />
             {/* <p>

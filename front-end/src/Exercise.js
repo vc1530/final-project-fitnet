@@ -9,22 +9,25 @@ const Exercise = props => {
     const [exercise_name, setName] = useState("")
     const [num_sets, setSets] = useState("")
     const [num_reps, setReps] = useState("")
+    const [index, setIndex] = useState("")
     const [saveColor, setSaveColor] = useState("") 
 
     useEffect(() => { 
         setName(props.exercise_name) 
         setSets(props.num_sets)
         setReps(props.num_reps)
+        setIndex(props.index)
         setSaveColor("1px solid grey") 
-      }, [props.exercise_name, props.num_sets, props.num_reps])
+      }, [props.exercise_name, props.num_sets, props.num_reps, props.index])
 
     const submitForm = e => {
         e.preventDefault() // prevent normal browser submit behavior
         axios
-          .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + props.id, { //Change this to exercise, index
+          .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + props.id + `/e/` + props.index, { 
             exercise_name: exercise_name,
             num_sets: num_sets,  
-            num_reps: num_reps
+            num_reps: num_reps,
+            index: index
           })
           .catch((err) => { 
             console.error(err) 
@@ -37,11 +40,6 @@ const Exercise = props => {
       }
     // Props should have exercise name, numSets, numReps
     return (
-        // <div className="Exercise">
-        //     <div className="ExerciseName">{exerciseName}</div>
-        //     <div className="ExerciseSets">{numSets}</div>
-        //     <div className="ExerciseReps">{numReps}</div>
-        // </div>
         <form className="Exercise" onSubmit={submitForm}>
             {/* style={{border: saveColor}} */}
             <input

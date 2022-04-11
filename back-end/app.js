@@ -7,13 +7,13 @@ const port = 3000
 
 const mongoose = require('mongoose');
 
-mongoose
-  .connect(`${process.env.DB_CONNECTION_STRING}`)
-  .then(data => console.log(`Connected to MongoDB`))
-  .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
+// mongoose
+//   .connect(`${process.env.DB_CONNECTION_STRING}`)
+//   .then(data => console.log(`Connected to MongoDB`))
+//   .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
 
-const { Post } = require('./models/Post') 
-const { User } = require('./models/User')
+// const { Post } = require('./models/Post') 
+// const { User } = require('./models/User')
 
 const multer = require("multer") 
 const cors = require("cors")
@@ -28,6 +28,9 @@ app.use(morgan("dev"))
 
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
+
+const bodyParser= require('body-parser');
+app.use(bodyParser.urlencoded());
 
 app.use(cors()) 
 
@@ -287,7 +290,8 @@ app.get("/w/:id", async(req, res) => {
           workout_name: workout.workout_name,  
           workout_description: workout.workout_description,
           playlist: workout.playlist, 
-          id: req.params.id 
+          id: req.params.id, 
+          exercises: workout.exercises
         }, 
         status: 'retrieving workout ' + req.params.id + ' succeeded', 
       })
@@ -350,6 +354,42 @@ app.post("/w/:id", (req, res) => {
     })
   }
 }) 
+
+app.post('w/:id/e/:index', (req, res) => {
+  console.log("handling add exercise")
+  console.log(req.params)
+  try{
+    const workout = allWorkouts.find(workout => workout.id == req.params.id)
+    if(!workout) {
+      res
+      .status(400)
+      .json({
+        success: false,
+        status: "workout " + req.params.id + "was not found",
+      })
+    }
+    else {
+      if(!workout.exercises.find(exercise => exercise.index == req.params.index)) {
+        res
+        .status(400)
+        .json({
+          success: false,
+          status: "exercise " + req.params.index + " was not found in workout " + req.params.id,
+        })
+      }
+      else{
+        res.json({
+          success: true,
+          status: 'editing exercise ' + req.params.index + ' of workout ' + req.params.id,
+        })
+      }
+      
+    }
+  }
+  catch (err) {
+
+  }
+})
 
 app.get('/p/:id', (req, res) => { 
   try { 

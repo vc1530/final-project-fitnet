@@ -38,3 +38,13 @@
 .TableHeader > * {
     width: 35px;
 }
+.AddExercise {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin: 10px;
+    border: none;
+    color: rgb(76, 78, 228);
+    background-color: white;
+}
