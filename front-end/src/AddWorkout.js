@@ -11,10 +11,10 @@ import axios from "axios"
 import { HiOutlineMusicNote } from 'react-icons/hi' 
 
 const AddWorkout = () => {
-    const dummyExercise = (exerciseName, numSets, numReps) => {
-        const name = exerciseName
-        const sets = numSets
-        const reps = numReps
+    const dummyExercise = (exercise_name, num_sets, num_reps) => {
+        const name = exercise_name
+        const sets = num_sets
+        const reps = num_reps
         return {name, sets, reps}
     }
 
@@ -77,19 +77,19 @@ const AddWorkout = () => {
                 <div>Reps</div>
             </h5>
             <Exercise
-                exerciseName={dummy1.name}
-                numSets={dummy1.sets}
-                numReps={dummy1.reps}
+                exercise_name={dummy1.name}
+                num_sets={dummy1.sets}
+                num_reps={dummy1.reps}
             />
             <Exercise
-                exerciseName={dummy2.name}
-                numSets={dummy2.sets}
-                numReps={dummy2.reps}
+                exercise_name={dummy1.name}
+                num_sets={dummy1.sets}
+                num_reps={dummy1.reps}
             />
             <Exercise
-                exerciseName={dummy3.name}
-                numSets={dummy3.sets}
-                numReps={dummy3.reps}
+                exercise_name={dummy1.name}
+                num_sets={dummy1.sets}
+                num_reps={dummy1.reps}
             />
             <Footer
             />

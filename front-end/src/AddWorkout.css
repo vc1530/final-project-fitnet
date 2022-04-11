@@ -26,14 +26,15 @@
     margin: 20px;
     margin-bottom: 10px;
     width: 200px;
+    font-size: 12px;
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
 }
 .TableHeader :first-child {
-    width: 120px;
+    width: 95px;
 }
 .TableHeader > * {
-    width: 40px;
+    width: 35px;
 }
