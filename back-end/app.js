@@ -234,45 +234,6 @@ app.get('/uid/:uid', async(req, res) => {
   }
 }) 
 
-app.get("/login", async(req, res) => {
-  try {
-    const user = allUsers.find(user => user.username == req.params.username)
-    if (!user) {
-      res
-      .status(400)
-      .json({
-        success: false,
-        status: "user " + req.params.username + " was not found",
-      })
-    } else if(user.password != req.params.password) {
-      res.json({
-        success: false,
-        status: "wrong username and password "
-      })
-    } else {
-      res.json({
-        success: true,
-        user: {
-          name: user.name,
-          username: user.username,
-          bio: user.bio,
-          profile_pic: user.profile_pic,
-          email: user.email,
-          password: user.password
-        },
-        status: "retrieving user " + req.params.username + " succeeded"
-      })
-    }
-  } catch(err) {
-    console.error(err)
-    res.status(400).json({
-      success: false,
-      error: err,
-      status: "retreiving user " + req.params.username + " failed"
-    })
-  }
-})
-
 app.get("/:username", async(req, res) => { 
   try { 
     const user = allUsers.find(user => user.username == req.params.username) 
