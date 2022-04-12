@@ -57,7 +57,7 @@ const AddWorkout = () => {
 
     const addExercise = () => {
         console.log("Starting addExercise function")
-        const filler = dummyExercise(num_exercises, "", "", "")
+        const filler = dummyExercise(num_exercises, "Foo", "1", "1")
         console.log(filler)
         // exercises.append(filler)
         setExercises([...exercises, filler])
