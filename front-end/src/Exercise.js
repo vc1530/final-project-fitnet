@@ -7,23 +7,50 @@ const Exercise = props => {
     // Give each exercise an index w/in the array to pass to database
     
     const [exercise_name, setName] = useState("")
+    const [saved_name, setSavedName] = useState("")
+
     const [num_sets, setSets] = useState("")
+    const [saved_sets, setSavedSets] = useState("")
+    
     const [num_reps, setReps] = useState("")
+    const [saved_reps, setSavedReps] = useState("")
+
     const [index, setIndex] = useState("")
+    const [saved_index, setSavedIndex] = useState("")
+
     const [saveColor, setSaveColor] = useState("") 
 
+    
+
     useEffect(() => { 
-        setName(props.exercise_name) 
+        setName(props.exercise_name)
+        setSavedName(exercise_name) 
+
         setSets(props.num_sets)
+        setSavedSets(num_sets)
+
         setReps(props.num_reps)
+        setSavedReps(num_reps)
+
         setIndex(props.index)
+        setSavedIndex(index)
+
         setSaveColor("1px solid grey") 
       }, [props.exercise_name, props.num_sets, props.num_reps, props.index])
 
+    function updateSaved() {
+        setSavedName(exercise_name)
+        setSavedSets(num_sets)
+        setSavedReps(num_reps)
+        setSavedIndex(saved_index)
+        setSaveColor("1px solid grey")
+    }
+
     const submitForm = e => {
         e.preventDefault() // prevent normal browser submit behavior
+        console.log("POST request for exercise, front end side.\nID: " + props.id + "\tindex: " + props.index)
         axios
-          .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + props.id + `/e/` + props.index, { 
+          .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + props.id + `/` + props.index, { 
             exercise_name: exercise_name,
             num_sets: num_sets,  
             num_reps: num_reps,
@@ -31,12 +58,12 @@ const Exercise = props => {
           })
           .catch((err) => { 
             console.error(err) 
-            console.log("editing workout " + props.id + " has failed")
+            console.log("Front end: editing exercise " + props.index + " of workout " + props.id + " has failed")
           })
           .then((response) => { 
-            console.log("editing workout " + props.id + " has succeeded")
+            console.log("Frond end: editing exercise " + props.index + " of workout " + props.id + " has succeeded")
           })
-          setSaveColor("1px solid grey") 
+        //   setSaveColor("1px solid grey")
       }
     // Props should have exercise name, numSets, numReps
     return (
@@ -81,12 +108,16 @@ const Exercise = props => {
                 // disabled={!(exercise_name && num_sets && num_reps)} 
                 disabled={ // Every input needs a value, and at least one needs to differ from database
                     !((exercise_name && num_sets && num_reps) && 
-                    ((exercise_name !== props.exercise_name) || 
-                    (num_sets !== props.num_sets) ||
-                    (num_reps !== props.num_reps)))
+                    ((exercise_name !== saved_name) || 
+                    (num_sets !== saved_sets) ||
+                    (num_reps !== saved_reps)))
                 }
                 value="Save" 
                 color={saveColor}
+                onClick={e => {
+                submitForm(e);
+                updateSaved();
+                }}
             />
             {/* {savedMessage ? <p id = "awiSaved" className = "saved">{savedMessage}</p> : ""} */}
       </form>

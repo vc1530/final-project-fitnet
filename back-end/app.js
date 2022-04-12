@@ -355,7 +355,7 @@ app.post("/w/:id", (req, res) => {
   }
 }) 
 
-app.post('w/:id/e/:index', (req, res) => {
+app.post('/we/:id/:index', (req, res) => {
   console.log("handling add exercise")
   console.log(req.params)
   try{
@@ -380,14 +380,19 @@ app.post('w/:id/e/:index', (req, res) => {
       else{
         res.json({
           success: true,
-          status: 'editing exercise ' + req.params.index + ' of workout ' + req.params.id,
+          status: 'editing exercise ' + req.params.index + ' of workout ' + req.params.id + 'successful',
         })
       }
       
     }
   }
   catch (err) {
-
+    console.error(err) 
+    res.status(400).json( { 
+      success: false, 
+      error: err, 
+      status: 'editing exercise ' + req.params.index + ' of workout ' + req.params.id + 'failed',
+    })
   }
 })
 
