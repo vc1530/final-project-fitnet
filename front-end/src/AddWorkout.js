@@ -6,6 +6,7 @@ import Footer from "./Footer"
 import { useState, useEffect } from 'react'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
+import { AiOutlineMinusCircle } from 'react-icons/ai'
 import { useParams } from "react-router-dom";
 import axios from "axios"
 import { HiOutlineMusicNote } from 'react-icons/hi' 
@@ -54,8 +55,6 @@ const AddWorkout = () => {
         }
     }, [params.id]) 
 
-    const filler = dummyExercise(exercises.length, "", "", "")
-
     const addExercise = () => {
         console.log("Starting addExercise function")
         const filler = dummyExercise(num_exercises, "", "", "")
@@ -63,6 +62,32 @@ const AddWorkout = () => {
         // exercises.append(filler)
         setExercises([...exercises, filler])
         setNumExercises(num_exercises + 1)
+        axios
+            .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/` + num_exercises, filler)
+            .catch((err) => {
+                console.error(err)
+                console.log("Front end: Failed to add new exercise")
+            })
+            .then((response) => {
+                console.log("Front end: added new exercise")
+            })
+    }
+    const removeExercise = () => {
+        console.log("Starting removeExercise function")
+        console.log("New value for exercises array: " + exercises.slice(1, num_exercises).length)
+        setExercises(exercises.slice(1,num_exercises))
+        setNumExercises(num_exercises - 1)
+        axios
+            .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/-1`)
+            .catch((err) => {
+                console.error(err)
+                console.log("Front end: Failed to remove exercise " + num_exercises)
+            })
+            .then((response) => {
+                console.log("Front end: removed exercise " + num_exercises)
+                setExercises(exercises.slice(1,num_exercises))
+                setNumExercises(num_exercises - 1)
+            })
     }
 
     return (
@@ -73,14 +98,18 @@ const AddWorkout = () => {
             /> 
             <div className="backlink">
                 <a className = "User-link" href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
-                <div>
+                {/* <div>
                         <a id = "playlistLink" 
                             className = "User-link"
                             href = {'../p/' + params.id} >
                             {<HiOutlineMusicNote size = "30px"/>}
                         </a> 
                     <a className = "User-link" href={"../e/" + params.id}>{<AiOutlinePlusCircle size = "34px"/>}</a>
-                </div>
+                </div> */}
+                <a  className = "User-link"
+                    href = {'../p/' + params.id} >
+                    {<HiOutlineMusicNote size = "30px"/>}
+                 </a> 
             </div>
             <AddWorkoutInfo
                 workout_name = {workout_name} 
@@ -106,9 +135,15 @@ const AddWorkout = () => {
                 )) 
                 }   
             </div>
-            <button onClick={addExercise}>
-                {<AiOutlinePlusCircle size = "30px"/>}
-            </button>
+            <div>
+                <button onClick={removeExercise}>
+                    {<AiOutlineMinusCircle size = "30px"/>}
+                </button>
+                <button onClick={addExercise}>
+                    {<AiOutlinePlusCircle size = "30px"/>}
+                </button>
+                
+            </div>
             {/* <div className="AddExercise">
                 <a className = "User-link" href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
             </div> */}

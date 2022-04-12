@@ -369,12 +369,18 @@ app.post('/we/:id/:index', (req, res) => {
       })
     }
     else {
+      if(req.params.index == -1) {
+        res
+        .json({
+          success: true,
+          status: "exercise " + workout.exercises.length + "was successfully removed"
+        })
+      }
       if(!workout.exercises.find(exercise => exercise.index == req.params.index)) {
         res
-        .status(400)
         .json({
-          success: false,
-          status: "exercise " + req.params.index + " was not found in workout " + req.params.id,
+          success: true,
+          status: "exercise " + req.params.index + " added to workout " + req.params.id,
         })
       }
       else{

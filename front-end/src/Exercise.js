@@ -24,16 +24,16 @@ const Exercise = props => {
 
     useEffect(() => { 
         setName(props.exercise_name)
-        setSavedName(exercise_name) 
+        setSavedName(props.exercise_name) 
 
         setSets(props.num_sets)
-        setSavedSets(num_sets)
+        setSavedSets(props.num_sets)
 
         setReps(props.num_reps)
-        setSavedReps(num_reps)
+        setSavedReps(props.num_reps)
 
         setIndex(props.index)
-        setSavedIndex(index)
+        setSavedIndex(props.index)
 
         setSaveColor("1px solid grey") 
       }, [props.exercise_name, props.num_sets, props.num_reps, props.index])
@@ -61,7 +61,7 @@ const Exercise = props => {
             console.log("Front end: editing exercise " + props.index + " of workout " + props.id + " has failed")
           })
           .then((response) => { 
-            console.log("Frond end: editing exercise " + props.index + " of workout " + props.id + " has succeeded")
+            console.log("Front end: editing exercise " + props.index + " of workout " + props.id + " has succeeded")
           })
         //   setSaveColor("1px solid grey")
       }
@@ -85,7 +85,7 @@ const Exercise = props => {
                 type="text"
                 name = "num_sets"
                 value = {num_sets}
-                placeholder = {"Sets"}
+                placeholder = {"S"}
                 onChange={e => { 
                     setSets(e.target.value)
                     setSaveColor("rgb(76, 78, 228)") 
@@ -96,7 +96,7 @@ const Exercise = props => {
                 type="text"
                 name = "num_reps"
                 value = {num_reps}
-                placeholder = {"Reps"}
+                placeholder = {"R"}
                 onChange={e => { 
                     setReps(e.target.value)
                     setSaveColor("rgb(76, 78, 228)") 
