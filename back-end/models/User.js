@@ -1,8 +1,13 @@
+const { interfaces } = require('mocha')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema(
   {
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -20,6 +25,7 @@ const userSchema = new Schema(
         required: true,
       },
     profile_pic: {
+      data: Buffer,
       type: String,
       required: true,
     },
