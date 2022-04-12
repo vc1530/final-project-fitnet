@@ -1,25 +1,29 @@
 .Exercise {
-    /* margin: 20px; */
     width: 200px;
-    border: 1px solid black;
     display: flex; 
     align-items: center;
     flex-direction: row;
 }
 .ExerciseName {
-    margin: 5px;
-    width: 140px;
-    flex: 1 1 auto;
-    border-right: 1px solid black;
+    margin-right: 5px;
+    width: 80px;
+    font-size: 12px;
+    flex: 2 100px;
 }
 .ExerciseSets {
-    margin: 5px;
-    width: 30px;
-    flex: 1 1 auto;
-    border-right: 1px solid black;
+    margin-right: 5px;
+    width: 15px;
+    font-size: 12px;
+    flex: 1;
 }
 .ExerciseReps {
-    margin: 5px;
-    width: 30px;
-    flex: 1 1 auto;
+    margin-right: 5px;
+    width: 15px;
+    font-size: 12px;
+    flex: 1;
+}
+.ExerciseSubmit {
+    width: 40px;
+    font-size: 12px;
+    flex: 1;
 }

@@ -6,24 +6,29 @@ import Footer from "./Footer"
 import { useState, useEffect } from 'react'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
+import { AiOutlineMinusCircle } from 'react-icons/ai'
 import { useParams } from "react-router-dom";
 import axios from "axios"
 import { HiOutlineMusicNote } from 'react-icons/hi' 
 
 const AddWorkout = () => {
-    const dummyExercise = (exerciseName, numSets, numReps) => {
-        const name = exerciseName
-        const sets = numSets
-        const reps = numReps
-        return {name, sets, reps}
+    const dummyExercise = (index_value, exercise_name, num_sets, num_reps) => {
+        const index = index_value
+        const name = exercise_name
+        const sets = num_sets
+        const reps = num_reps
+        
+        return {index, name, sets, reps}
     }
 
-    const dummy1 = dummyExercise("Pushups", 3, 15)
-    const dummy2 = dummyExercise("Pullups", 3, 15)
-    const dummy3 = dummyExercise("Squats", 3, 15)
+    // const dummy1 = dummyExercise("Pushups", 3, 15)
+    // const dummy2 = dummyExercise("Pullups", 3, 15)
+    // const dummy3 = dummyExercise("Squats", 3, 15)
 
     const [workout_name, setName] = useState("") 
-    const [workout_description, setDesc] = useState("") 
+    const [workout_description, setDesc] = useState("")
+    const [exercises, setExercises] = useState([]) 
+    const [num_exercises, setNumExercises] = useState("")
 
     let params = useParams(); 
 
@@ -39,6 +44,8 @@ const AddWorkout = () => {
             .then(res => { 
                 setName(res.data.workout.workout_name)
                 setDesc(res.data.workout.workout_description) 
+                setExercises(res.data.workout.exercises)
+                setNumExercises(res.data.workout.exercises.length)
                 console.log("successful retrieval of workout " + params.id + " from database")
             })
             .catch(err => { 
@@ -48,6 +55,41 @@ const AddWorkout = () => {
         }
     }, [params.id]) 
 
+    const addExercise = () => {
+        console.log("Starting addExercise function")
+        const filler = dummyExercise(num_exercises, "Foo", "1", "1")
+        console.log(filler)
+        // exercises.append(filler)
+        setExercises([...exercises, filler])
+        setNumExercises(num_exercises + 1)
+        axios
+            .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/` + num_exercises, filler)
+            .catch((err) => {
+                console.error(err)
+                console.log("Front end: Failed to add new exercise")
+            })
+            .then((response) => {
+                console.log("Front end: added new exercise")
+            })
+    }
+    const removeExercise = () => {
+        console.log("Starting removeExercise function")
+        console.log("New value for exercises array: " + exercises.slice(1, num_exercises).length)
+        setExercises(exercises.slice(1,num_exercises))
+        setNumExercises(num_exercises - 1)
+        axios
+            .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/-1`)
+            .catch((err) => {
+                console.error(err)
+                console.log("Front end: Failed to remove exercise " + num_exercises)
+            })
+            .then((response) => {
+                console.log("Front end: removed exercise " + num_exercises)
+                setExercises(exercises.slice(1,num_exercises))
+                setNumExercises(num_exercises - 1)
+            })
+    }
+
     return (
         <main className="AddWorkout">
             <Header
@@ -56,14 +98,18 @@ const AddWorkout = () => {
             /> 
             <div className="backlink">
                 <a className = "User-link" href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
-                <div>
+                {/* <div>
                         <a id = "playlistLink" 
                             className = "User-link"
                             href = {'../p/' + params.id} >
                             {<HiOutlineMusicNote size = "30px"/>}
                         </a> 
                     <a className = "User-link" href={"../e/" + params.id}>{<AiOutlinePlusCircle size = "34px"/>}</a>
-                </div>
+                </div> */}
+                <a  className = "User-link"
+                    href = {'../p/' + params.id} >
+                    {<HiOutlineMusicNote size = "30px"/>}
+                 </a> 
             </div>
             <AddWorkoutInfo
                 workout_name = {workout_name} 
@@ -76,21 +122,31 @@ const AddWorkout = () => {
                 <div>Sets</div>
                 <div>Reps</div>
             </h5>
-            <Exercise
-                exerciseName={dummy1.name}
-                numSets={dummy1.sets}
-                numReps={dummy1.reps}
-            />
-            <Exercise
-                exerciseName={dummy2.name}
-                numSets={dummy2.sets}
-                numReps={dummy2.reps}
-            />
-            <Exercise
-                exerciseName={dummy3.name}
-                numSets={dummy3.sets}
-                numReps={dummy3.reps}
-            />
+            
+            <div>
+                {exercises?.map((exercise, index) => ( 
+                <Exercise  
+                    id = {params.id}
+                    index = {index}
+                    exercise_name = {exercise.exercise_name} 
+                    num_sets = {exercise.num_sets}
+                    num_reps = {exercise.num_reps}
+                /> 
+                )) 
+                }   
+            </div>
+            <div>
+                <button onClick={removeExercise}>
+                    {<AiOutlineMinusCircle size = "30px"/>}
+                </button>
+                <button onClick={addExercise}>
+                    {<AiOutlinePlusCircle size = "30px"/>}
+                </button>
+                
+            </div>
+            {/* <div className="AddExercise">
+                <a className = "User-link" href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
+            </div> */}
             <Footer
             />
             {/* <p>
