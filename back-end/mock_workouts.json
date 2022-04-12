@@ -1,11 +1,43 @@
 [{
     "id": "e9b50fcd-3df2-4dd4-bce4-0d8ab6cb0d1d",
     "workout_name": "ac fusce",
-    "workout_description": "Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus."
+    "workout_description": "Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
+    "exercises": [{
+        "index": 0,
+        "exercise_name": "Pushups",
+        "num_sets": 3,
+        "num_reps": 15
+      }, {
+        "index": 1,
+        "exercise_name": "Pushups",
+        "num_sets": 3,
+        "num_reps": 15
+      },{
+        "index": 2,
+        "exercise_name": "Pushups",
+        "num_sets": 3,
+        "num_reps": 15
+    }]
   }, {
     "id": "af469a46-fb5c-4022-9ae2-bee01897d3fb",
     "workout_name": "eget tincidunt eget",
-    "workout_description": "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti."
+    "workout_description": "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
+    "exercises": [{
+        "index": 0,
+        "exercise_name": "Pushups",
+        "num_sets": 3,
+        "num_reps": 15
+      }, {
+        "index": 1,
+        "exercise_name": "Pushups",
+        "num_sets": 3,
+        "num_reps": 15
+      },{
+        "index": 2,
+        "exercise_name": "Pushups",
+        "num_sets": 3,
+        "num_reps": 15
+    }]
   }, {
     "id": "1aa4e013-b4f4-47c9-a7f7-e6f3244ee692",
     "workout_name": "nonummy",
