@@ -53,30 +53,38 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
+
 app.post("/save-changes", upload.single('image'), async(req, res) => {
   try { 
     if (req.file) 
       console.log('size:', req.file.size)
     //the user id is just the index of the user in mock_users for now. 
     //during database integration, we will assign real IDs to each user 
+
     const user = allUsers[req.body.uid] 
+    const User = await User.findOne({ _id: req.params._id })
+
     if (!user) { 
       res
       .status(400) 
       .json({
         success: false, 
-        status: "user " + req.params.id + " was not found",
+        status: "user " + req.params._id + " was not found",
       })
     }
     else {
-      //fake editing of user's information 
-      user.name = req.body.name
-      user.username = req.body.username 
-      user.bio = req.body.bio 
-      user.email = req.body.email 
-      user.password = req.body.password 
-      //don't worry about uploading pics for now 
-      //user.profile_pic = req.file
+      //editing of user's information 
+      user = new User({ // does this create a new user in database vs editing their info 
+        name: req.body.name,
+        username: req.body.username,
+        bio: req.body.bio,
+        email: req.body.email,
+        password: req.body.password,
+        profile_pic: req.file,
+      })
+      await user.save()
+      res.send(user)
+  
       res.json({ 
         success: true, 
         user: user, 
@@ -93,6 +101,7 @@ app.post("/save-changes", upload.single('image'), async(req, res) => {
     })
   }
 })
+module.exports = this.router
 
 app.get("/posts", async(req, res) => { 
   try { 
@@ -134,12 +143,13 @@ app.get("/users", async(req, res) => {
 
 app.get("/new-user", async(req, res) => { 
   const user = await User.create({ 
+  // id??
     name: "Sydney", 
     username: "sjp655", 
     bio:"...", 
     email:"sjp655@nyu.edu",
     password:"password",
-    profile_pic: "http://dummyimage.com/140x100.png/cc0000/ffffff"
+    // profile_pic: "http://dummyimage.com/140x100.png/cc0000/ffffff"
   })
   return res.json ({ 
     success: true, 
