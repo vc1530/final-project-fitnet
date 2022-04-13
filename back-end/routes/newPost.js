@@ -1,8 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-const path = requre("path")
 const router = express.Router();
-const multer = require("multer") 
 
 const { Post } = require('../models/Post') 
 
@@ -21,29 +19,7 @@ const storage = multer.diskStorage({
     },
   })
   
-  const upload = multer({ storage: storage })
-
-const imageHandler = (event) => {
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append('image', file)
-    fetch('http://localhost:3000/api/image',{
-      method: 'POST',
-      body: formData,
-      headers:{
-        'Accept': 'multipart/form-data',
-      },
-      credentials: 'include',
-    })
-    .then(res=>res.json())
-    .then(res =>{
-      setUploadStatus(res.msg);
-  
-    })
-    .catch(error=>{
-      console.error(error)
-    })
-  }
+const upload = multer({ storage: storage })
 
 router.post("/new-post", upload.single('image'), async(req, res) =>{
     try {  
