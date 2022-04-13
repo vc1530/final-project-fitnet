@@ -22,28 +22,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-const imageHandler = (event) => {
-  const file = event.target.files[0];
-  const formData = new FormData();
-  formData.append('image', file)
-  fetch('http://localhost:3000/api/image',{
-    method: 'POST',
-    body: formData,
-    headers:{
-      'Accept': 'multipart/form-data',
-    },
-    credentials: 'include',
-  })
-  .then(res=>res.json())
-  .then(res =>{
-    setUploadStatus(res.msg);
-
-  })
-  .catch(error=>{
-    console.error(error)
-  })
-}
-
 router.post("/post", upload.single('image'),(req, res, err) => {
   if(!req.file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)){
     res.send({msg: 'Only image files (jpg, jpeg, png) are allowed!'})
