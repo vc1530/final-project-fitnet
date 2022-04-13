@@ -7,13 +7,13 @@ const port = 3000
 
 const mongoose = require('mongoose');
 
-// mongoose
-//   .connect(`${process.env.DB_CONNECTION_STRING}`)
-//   .then(data => console.log(`Connected to MongoDB`))
-//   .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
+mongoose
+  .connect(`${process.env.DB_CONNECTION_STRING}`)
+  .then(data => console.log(`Connected to MongoDB`))
+  .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
 
-// const { Post } = require('./models/Post') 
-// const { User } = require('./models/User')
+const { Post } = require('./models/Post') 
+const { User } = require('./models/User')
 
 const multer = require("multer") 
 const cors = require("cors")
