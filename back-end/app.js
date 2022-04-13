@@ -28,25 +28,6 @@ const allWorkouts = require("./mock_workouts.json")
 const allPosts = require("./mock_posts.json") 
 const allUsers = require("./mock_users.json") 
 
-const register = require('./routes/register') 
-const posts = require('./routes/posts')
-const workouts = require('./routes/workouts') 
-const workout = require('./routes/workout') 
-const playlists = require('./routes/playlists') 
-const users = require('./routes/users') 
-
-app.use('/', register) 
-app.use('/', posts)  
-app.use('/', workouts) 
-app.use('/', workout)
-app.use('/', playlists)
-app.use('/', users) 
-
-app.use("/static", express.static("public"))
-
-app.get("/", (req, res) => {
-    res.send("This is the root directory link for our app")
-})
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -62,56 +43,8 @@ const storage = multer.diskStorage({
     cb(null, newName)
   },
 })
+
 const upload = multer({ storage: storage })
-
-app.post("/save-changes", upload.single('image'), async(req, res) => {
-  try { 
-    if (req.file) 
-      console.log('size:', req.file.size)
-    //the user id is just the index of the user in mock_users for now. 
-    //during database integration, we will assign real IDs to each user 
-
-    const user = allUsers[req.body.uid] 
-    const User = await User.findOne({ _id: req.params._id })
-
-    if (!user) { 
-      res
-      .status(400) 
-      .json({
-        success: false, 
-        status: "user " + req.params._id + " was not found",
-      })
-    }
-    else {
-      //editing of user's information 
-      user = new User({ // does this create a new user in database vs editing their info 
-        name: req.body.name,
-        username: req.body.username,
-        bio: req.body.bio,
-        email: req.body.email,
-        password: req.body.password,
-        profile_pic: req.file,
-      })
-      await user.save()
-      res.send(user)
-  
-      res.json({ 
-        success: true, 
-        user: user, 
-        status: "saving changes in settings succeeded",   
-      })
-    } 
-  }
-  catch (err) { 
-    console.error(err) 
-    res.status(400).json({ 
-      success: false, 
-      error: err, 
-      status: "saving changes in settings failed", 
-    })
-  }
-})
-module.exports = this.router
 
 const imageHandler = (event) => {
   const file = event.target.files[0];
@@ -159,5 +92,27 @@ app.post("/post", upload.single('image'),(req, res, err) => {
     });
   }
 });
+
+const settings = require('./routes/settings') 
+const register = require('./routes/register') 
+const posts = require('./routes/posts')
+const workouts = require('./routes/workouts') 
+const workout = require('./routes/workout') 
+const playlists = require('./routes/playlists') 
+const users = require('./routes/users') 
+
+app.use('/', settings) 
+app.use('/', register) 
+app.use('/', posts)  
+app.use('/', workouts) 
+app.use('/', workout)
+app.use('/', playlists)
+app.use('/', users) 
+
+app.use("/static", express.static("public"))
+
+app.get("/", (req, res) => {
+    res.send("This is the root directory link for our app")
+})
 
 module.exports = app
