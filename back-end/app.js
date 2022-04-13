@@ -5,6 +5,18 @@ const app = express()
 const path = require("path")
 const port = 3000 
 
+const multer = require("multer") 
+const cors = require("cors")
+const axios = require("axios") 
+const morgan = require("morgan") 
+const bodyParser= require('body-parser');
+
+app.use(morgan("dev")) 
+app.use(express.json()) 
+app.use(express.urlencoded({ extended: true })) 
+app.use(bodyParser.urlencoded());
+app.use(cors()) 
+
 const mongoose = require('mongoose');
 
 mongoose
@@ -12,33 +24,10 @@ mongoose
   .then(data => console.log(`Connected to MongoDB`))
   .catch(err => console.error(`Failed to connect to MongoDB: ${err}`))
 
-const { Post } = require('./models/Post') 
-const { User } = require('./models/User')
-
-const multer = require("multer") 
-const cors = require("cors")
-const axios = require("axios") 
-const morgan = require("morgan") 
-
 const allWorkouts = require("./mock_workouts.json")
 const allPosts = require("./mock_posts.json") 
 const allUsers = require("./mock_users.json") 
 
-app.use(morgan("dev")) 
-
-app.use(express.json()) 
-app.use(express.urlencoded({ extended: true })) 
-
-const bodyParser= require('body-parser');
-app.use(bodyParser.urlencoded());
-
-app.use(cors()) 
-
-app.use("/static", express.static("public"))
-
-app.get("/", (req, res) => {
-    res.send("This is the root directory link for our app")
-})
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -54,8 +43,8 @@ const storage = multer.diskStorage({
     cb(null, newName)
   },
 })
-const upload = multer({ storage: storage })
 
+const upload = multer({ storage: storage })
 
 const imageHandler = (event) => {
   const file = event.target.files[0];
@@ -104,365 +93,26 @@ app.post("/post", upload.single('image'),(req, res, err) => {
   }
 });
 
-app.get("/posts", async(req, res) => { 
-  try { 
-    const posts = await Post.find({}) 
-    res.json({ 
-      success: true, 
-      posts: posts, 
-      status: 'retrieving posts from database succeeded', 
-    })
-  }
-  catch (err) { 
-    console.error(err) 
-    res.status(400).json({ 
-      success: false, 
-      error: err, 
-      status: "retrieving posts from database failed", 
-    })
-  }
-})
+const settings = require('./routes/settings') 
+const register = require('./routes/register') 
+const posts = require('./routes/posts')
+const workouts = require('./routes/workouts') 
+const workout = require('./routes/workout') 
+const playlists = require('./routes/playlists') 
+const users = require('./routes/users') 
 
+app.use('/', settings) 
+app.use('/', register) 
+app.use('/', posts)  
+app.use('/', workouts) 
+app.use('/', workout)
+app.use('/', playlists)
+app.use('/', users) 
 
-app.get("/workouts", async(req, res) => { 
-  try { 
-    res.json({ 
-      success: true, 
-      workouts: allWorkouts, 
-      status: 'retrieving workouts from database succeeded', 
-    })
-  }
-  catch (err) { 
-    console.error(err) 
-    res.status(400).json({ 
-      success: false, 
-      error: err, 
-      status: 'retrieving workouts from database failed', 
-    })
-  }
-}) 
+app.use("/static", express.static("public"))
 
-app.post("/new-post", upload.single('image'), async(req, res) =>{
-  try {  
-    const post = await Post.create({ 
-      username: req.body.username, 
-      description: req.body.description, 
-      picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
-    })
-    //fake editing database — database integration not completed
-  //   allPosts.unshift({ 
-  //     username: req.body.username, 
-  //     description: req.body.description, 
-  //     //dummy picture until data base integration completed
-  //     picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
-  //  })
-    return res.json({ 
-      success: true, 
-      newpost: post, 
-      status: "uploading new post succeeded" 
-    }) 
-  } catch (err) { 
-    console.error(err) 
-    res.status(400).json({ 
-      success: false, 
-      error: err, 
-      status: 'uploading new post failed', 
-    })
-  }
-})
-
-//more secure way of retrieving a user's information 
-//used for settings and myprofile
-app.get('/uid/:uid', async(req, res) => { 
-  try { 
-    const user = allUsers[req.params.uid]
-    if (!user) { 
-      res
-      .status(400) 
-      .json({
-        success: false, 
-        status: "user " + req.params.id + " was not found",
-      })
-    }
-    else 
-      res.json( { 
-        success: true, 
-        user: { 
-          name: user.name, 
-          username: user.username, 
-          bio: user.bio, 
-          profile_pic: user.profile_pic, 
-          email: user.email, 
-          password: user.password 
-        }, 
-        status: "retrieving user " + req.params.id + " succeeded"
-      })
-  } catch(err) { 
-    console.error(err)
-    res
-    .status(400)
-    .json({ 
-      success: false, 
-      error: err, 
-      status: "retreiving user " + req.params.id + " failed" 
-    })
-  }
-}) 
-
-app.get("/:username", async(req, res) => { 
-  try { 
-    const user = allUsers.find(user => user.username == req.params.username) 
-    if (!user) { 
-      res
-      .status(400) 
-      .json({ 
-        success: false, 
-        status: "user " + req.params.username + " was not found", 
-      })
-    }
-    else {
-      res.json({ 
-        success: true, 
-        user: { 
-          name: user.name, 
-          username: user.username, 
-          bio: user.bio, 
-          profile_pic: user.profile_pic, 
-          email: user.email, 
-          password: user.password 
-        }, 
-        status: "retrieving user " + req.params.username + " succeeded"
-      })
-    } 
-  } catch(err) { 
-    console.error(err)
-    res.status(400).json({ 
-      success: false, 
-      error: err, 
-      status: "retreiving user " + req.params.username + " failed" 
-    })
-  }
-})
-
-app.get("/w/:id", async(req, res) => { 
-  try {
-    const workout = allWorkouts.find(workout => workout.id == req.params.id)
-    if (!workout) { 
-      res
-      .status(400) 
-      .json({ 
-        success: false, 
-        status: "workout " + req.params.id + " was not found", 
-      })
-    }
-    else { 
-      res.json({ 
-        success: true, 
-        workout: { 
-          workout_name: workout.workout_name,  
-          workout_description: workout.workout_description,
-          playlist: workout.playlist, 
-          id: req.params.id, 
-          exercises: workout.exercises
-        }, 
-        status: 'retrieving workout ' + req.params.id + ' succeeded', 
-      })
-    } 
-  }
-  catch (err) { 
-    console.error(err) 
-    res.status(400).json({ 
-      success: false, 
-      error: err, 
-      status: 'retreiving workout ' + req.params.id + ' failed'
-    })
-  }
-})
-
-app.post("/w/:id", (req, res) => { 
-  try { 
-    if(req.params.id == 'new') {
-      let new_id = Date.now()
-      const workout = {
-        id: new_id,
-        workout_name: req.body.workout_name,
-        workout_description: req.body.workout_description
-      }
-      allWorkouts.unshift(workout)
-      res.json({
-        success: true,
-        workout: workout,
-        status: 'added workout ' + workout.id + 'to database'
-      })
-    }
-    else {
-      const workout = allWorkouts.find(workout => workout.id == req.params.id)
-      if (!workout) { 
-        res
-        .status(400) 
-        .json({ 
-          success: false, 
-          status: "workout " + req.params.id + " was not found", 
-        })
-      }
-      else {
-        //fake editing database — database integration not completed
-        workout.workout_name = req.body.workout_name
-        workout.workout_description = req.body.workout_description
-        res.json({ 
-          success: true, 
-          workout: workout, 
-          status: 'editing workout ' + req.params.id + ' succeeded'
-        })
-      } 
-    }
-  }
-  catch (err) { 
-    console.error(err) 
-    res.status(400).json( { 
-      success: false, 
-      error: err, 
-      status: 'editing workout ' + req.params.id + ' failed'
-    })
-  }
-}) 
-
-app.post('/we/:id/:index', (req, res) => {
-  console.log("handling add exercise")
-  console.log(req.params)
-  try{
-    const workout = allWorkouts.find(workout => workout.id == req.params.id)
-    if(!workout) {
-      res
-      .status(400)
-      .json({
-        success: false,
-        status: "workout " + req.params.id + "was not found",
-      })
-    }
-    else {
-      if(req.params.index == -1) {
-        res
-        .json({
-          success: true,
-          status: "exercise " + workout.exercises.length + "was successfully removed"
-        })
-      }
-      if(!workout.exercises.find(exercise => exercise.index == req.params.index)) {
-        res
-        .json({
-          success: true,
-          status: "exercise " + req.params.index + " added to workout " + req.params.id,
-        })
-      }
-      else{
-        res.json({
-          success: true,
-          status: 'editing exercise ' + req.params.index + ' of workout ' + req.params.id + 'successful',
-        })
-      }
-      
-    }
-  }
-  catch (err) {
-    console.error(err) 
-    res.status(400).json( { 
-      success: false, 
-      error: err, 
-      status: 'editing exercise ' + req.params.index + ' of workout ' + req.params.id + 'failed',
-    })
-  }
-})
-
-app.get('/p/:id', (req, res) => { 
-  try { 
-    const workout = allWorkouts.find(workout => workout.id == req.params.id)
-    if (!workout) { 
-      res
-      .status(400) 
-      .json({ 
-        success: false, 
-        status: "workout " + req.params.id + " was not found", 
-      })
-    }
-    else { 
-      if (typeof workout.playlist == "undefined") { 
-        res.json({ 
-          success: true, 
-          playlist: "", 
-          status: 'retrieving playlist for workout ' + req.params.id + ' succeeded', 
-        })
-      }
-      else 
-        res.json({ 
-          success: true, 
-          playlist: workout.playlist, 
-          status: 'retrieving playlist for workout ' + req.params.id + ' succeeded', 
-        })
-    } 
-  }
-  catch (err) { 
-    console.error(err) 
-    res.status(400).json({ 
-      success: false, 
-      error: err, 
-      status: 'retreiving playlist for workout ' + req.params.id + ' failed'
-    })
-  }
-})
-
-app.post('/users/register', (req, res) => {
-  try {
-    const user = User.findOne({email: req.body.email }).then(user => {
-      if(user) {
-        return res.status(400).json({
-          success: false,
-          status: 'Email already exists.'
-        })
-      } else {
-        const newUser = new User({
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          email: req.body.email,
-          password: req.body.password
-        });
-        newUser.save().then(user => res.json(user)).catch(err => console.log(err));
-      }
-    })
-  }
-  catch(err) {
-    console.error(err)
-  }
-})
-
-app.post('/p/:id', (req, res) => { 
-  try { 
-    const workout = allWorkouts.find(workout => workout.id == req.params.id)
-    if (!workout) { 
-      res
-      .status(400) 
-      .json({ 
-        success: false, 
-        status: "workout " + req.params.id + " was not found", 
-      })
-    }
-    else { 
-      workout.playlist = req.body.playlist
-      res.json({ 
-        success: true, 
-        playlist: workout.playlist, 
-        status: 'uploading playlist for workout ' + req.params.id + ' succeeded', 
-      })
-    }
-  }
-  catch (err) { 
-    console.error(err) 
-    res.status(400).json({ 
-      success: false, 
-      error: err, 
-      status: 'uploading playlist for workout ' + req.params.id + ' failed'
-    })
-  }
+app.get("/", (req, res) => {
+    res.send("This is the root directory link for our app")
 })
 
 module.exports = app
