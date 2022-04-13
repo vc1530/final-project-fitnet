@@ -26,73 +26,13 @@ mongoose
 
 const allWorkouts = require("./mock_workouts.json")
 const allPosts = require("./mock_posts.json") 
-const allUsers = require("./mock_users.json") 
+const allUsers = require("./mock_users.json")
 
+const { Post } = require('./models/Post') 
+const { User } = require('./models/User')
+const { Workout, Exercise } = require('./models/Workout') 
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-     cb(null, "public/uploads")
-  },
-  filename: function (req, file, cb) {
-    // take apart the uploaded file's name so we can create a new one based on it
-    const extension = path.extname(file.originalname)
-    const basenameWithoutExtension = path.basename(file.originalname, extension)
-    // create a new filename with a timestamp in the middle
-    const newName = `${basenameWithoutExtension}-${Date.now()}${extension}`
-    // tell multer to use this new filename for the uploaded file
-    cb(null, newName)
-  },
-})
-
-const upload = multer({ storage: storage })
-
-const imageHandler = (event) => {
-  const file = event.target.files[0];
-  const formData = new FormData();
-  formData.append('image', file)
-  fetch('http://localhost:3000/api/image',{
-    method: 'POST',
-    body: formData,
-    headers:{
-      'Accept': 'multipart/form-data',
-    },
-    credentials: 'include',
-  })
-  .then(res=>res.json())
-  .then(res =>{
-    setUploadStatus(res.msg);
-
-  })
-  .catch(error=>{
-    console.error(error)
-  })
-}
-
-app.post("/post", upload.single('image'),(req, res, err) => {
-  if(!req.file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)){
-    res.send({msg: 'Only image files (jpg, jpeg, png) are allowed!'})
-  }
-  else{
-    const image = req.file.filename;
-    const id = 1;
-    const sqlInsert = "UPDATE images SET 'image' = ? WHERE id = ?;"
-    RTCPeerConnection.query(sqlInsert,[image, id], (err, result)=>{
-      if(err){
-        console.log(err)
-        res.send({
-          msg: err
-        })
-      }
-      if(result){
-        res.send({
-          data: result,
-          msg: 'Your image has been updated!'
-        });
-      }
-    });
-  }
-});
-
+const newPost = require('./routes/newPost')
 const settings = require('./routes/settings') 
 const register = require('./routes/register') 
 const posts = require('./routes/posts')
@@ -101,6 +41,7 @@ const workout = require('./routes/workout')
 const playlists = require('./routes/playlists') 
 const users = require('./routes/users') 
 
+app.use('/', newPost) 
 app.use('/', settings) 
 app.use('/', register) 
 app.use('/', posts)  
@@ -113,6 +54,75 @@ app.use("/static", express.static("public"))
 
 app.get("/", (req, res) => {
     res.send("This is the root directory link for our app")
+})
+
+let i = 0
+
+function createExercise(name, sets, reps) { 
+  const exercise = new Exercise({ 
+    index: i, 
+    exercise_name: name, 
+    num_sets: sets, 
+    num_reps: reps, 
+  })
+  exercise.save() 
+  i ++
+  return exercise 
+}
+
+function createWorkout(name, desc, exercises) { 
+  const workout = new Workout({ 
+    workout_name: name, 
+    workout_description: desc, 
+    exercises: exercises, 
+  })
+  workout.save()
+  return workout 
+}
+
+function createUser(name, username, bio, email, password, workouts) { 
+  const user = new User({ 
+    name: name, 
+    username: username, 
+    bio: bio, 
+    email: email, 
+    profile_pic: "http://dummyimage.com/200x100.png/5fa2dd/ffffff", 
+    password: password, 
+    workouts: workouts, 
+  })
+  user.save() 
+  return user 
+}
+
+app.get("/test/new-user", async(req, res) => {
+  const exercise = createExercise("first test exercise", 3, 3) 
+  const workout = createWorkout("first test workout", "first test workout desc", [exercise]) 
+  const user = createUser("Vanessa", "vc1530", "this is vanessa", "vc1530@nyu.edu", "idk", [workout])
+  return res.json({ 
+    success: true, 
+    status: "new user created", 
+    user: user, 
+  })
+ })
+
+app.get("/test/new-workout", async(req, res) => { 
+  const exercise = await Exercise.create({ 
+    index: 0, 
+    exercise_name: "pushups", 
+    num_sets: 3, 
+    num_reps: 3, 
+  })
+  const workout = await Workout.create({ 
+    workout_name: "new workout", 
+    workout_description: "my new workout", 
+    exercises: [exercise], 
+  })
+  return res.json({ 
+    id: workout.__id, 
+    success: true, 
+    status: "creating new workout worked", 
+    workout: workout, 
+  })
 })
 
 module.exports = app

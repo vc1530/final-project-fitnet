@@ -24,10 +24,6 @@ const exerciseSchema = new Schema(
 )
 const workoutSchema = new Schema (
     {
-        _id: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-        },
         workout_name: {
             type: String,
             required: true,
@@ -44,7 +40,8 @@ const workoutSchema = new Schema (
 )
 
 const Workout = mongoose.model('Workout', workoutSchema)
+const Exercise = mongoose.model('Exercise', exerciseSchema) 
 
 module.exports = {
-    Workout,
+    Workout, Exercise, 
   }

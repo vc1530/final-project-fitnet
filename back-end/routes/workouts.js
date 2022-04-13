@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const allWorkouts = require("../mock_workouts.json")
 
-router.get("/workouts", async(req, res) => { 
+const { User } = require('../models/User')
+const { Workout } = require('../models/Workout') 
+
+router.get("/workouts", async(req, res) => {
     try { 
       res.json({ 
         success: true, 
