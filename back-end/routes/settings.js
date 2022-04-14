@@ -5,6 +5,7 @@ const allUsers = require("../mock_users.json")
 
 const { User } = require('../models/User') 
 
+// do we need this? 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
      cb(null, "public/uploads")
@@ -19,9 +20,7 @@ const storage = multer.diskStorage({
     cb(null, newName)
   },
 })
-
 const upload = multer({ storage: storage })
-
 
 router.get("/users", async(req, res) => { 
     try { 
@@ -43,16 +42,9 @@ router.get("/users", async(req, res) => {
   })
 
 router.post("/save-changes", upload.single('image'), async(req, res) => {
-    try { 
-      // if (req.file) 
-      //   console.log('size:', req.file.size)
-  
-      //the user id is just the index of the user in mock_users for now. 
-      //during database integration, we will assign real IDs to each user 
-  
-      const user = allUsers[req.body.uid] 
-      const User = await User.findOne({ _id: req.params._id })
-  
+    //   const user = allUsers[req.body.uid] 
+    const user = await User.findById({ _id})
+    try {
       if (!user) { 
         res
         .status(400) 
