@@ -41,10 +41,9 @@ const WorkoutHistory = () => {
             <body className = "Workout-posts">
                 {workouts?.map((workout) => ( 
                 <WorkoutPost 
-                    picture = {workout.picture} 
                     name = {workout.workout_name} 
                     description = {workout.workout_description}
-                    id = {workout.id}
+                    id = {workout._id}
                     playlist = {workout.playlist}
                 /> 
                 )) 
