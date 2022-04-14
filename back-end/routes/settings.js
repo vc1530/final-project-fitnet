@@ -41,46 +41,101 @@ router.get("/users", async(req, res) => {
     }
   })
 
-router.post("/save-changes", upload.single('image'), async(req, res) => {
-    //   const user = allUsers[req.body.uid] 
-    const user = await User.findById({ _id})
-    try {
-      if (!user) { 
-        res
-        .status(400) 
-        .json({
-          success: false, 
-          status: "user " + req.params._id + " was not found",
-        })
-      }
-      else {
-        //editing of user's information 
-        user = new User({ // does this create a new user in database vs editing their info 
-          name: req.body.name,
-          username: req.body.username,
-          bio: req.body.bio,
-          email: req.body.email,
-          password: req.body.password,
-          profile_pic: req.file,
-        })
-        await user.save()
-        res.send(user)
+// router.post("/save-changes", upload.single('image'), async(req, res) => {
+//     //   const user = allUsers[req.body.uid] 
+//     const user = await User.findById({ _id})
+//     try {
+//       if (!user) { 
+//         res
+//         .status(400) 
+//         .json({
+//           success: false, 
+//           status: "user " + req.params._id + " was not found",
+//         })
+//       }
+//       else {
+//         //editing of user's information 
+//         user = new User({ // does this create a new user in database vs editing their info 
+//           name: req.body.name,
+//           username: req.body.username,
+//           bio: req.body.bio,
+//           email: req.body.email,
+//           password: req.body.password,
+//           profile_pic: req.file,
+//         })
+//         await user.save()
+//         res.send(user)
     
-        res.json({ 
+//         res.json({ 
+//           success: true, 
+//           user: user, 
+//           status: "saving changes in settings succeeded",   
+//         })
+//       } 
+//     }
+//     catch (err) { 
+//       console.error(err) 
+//       res.status(400).json({ 
+//         success: false, 
+//         error: err, 
+//         status: "saving changes in settings failed", 
+//       })
+//     }
+//   })
+
+//   module.exports = router
+
+router.post("/save-changes", upload.single('image'), async(req, res) =>{
+    try {
+        const _id = '625763d1974d42cfce0fa342' 
+        const user = await User.findById(_id)
+        if (!user) { 
+            res
+            .status(400) 
+            .json({
+              success: false, 
+              status: "user " + req.params._id + " was not found",
+            })
+        }
+        if(req.params.id == 'new') { 
+            const user = await User.create({ 
+                name: req.body.name,
+                username: req.body.username,
+                bio: req.body.bio,
+                email: req.body.email,
+                password: req.body.password,
+                profile_pic: req.file,
+              })
+              await user.save()
+              res.send(user)
+               res.json({ 
           success: true, 
           user: user, 
           status: "saving changes in settings succeeded",   
         })
-      } 
-    }
-    catch (err) { 
-      console.error(err) 
-      res.status(400).json({ 
-        success: false, 
-        error: err, 
-        status: "saving changes in settings failed", 
-      })
-    }
-  })
+        }
+        else { // if user is already there then we edit there info??
+            user.name = req.body.name
+            user.username = req.body.username
+            user.bio = req.body.bio
+            user.email = req.body.email
+            user.password = req.body.password
+            user.profile_pic = req.file
+            await user.save()
 
-  module.exports = router
+            res.json({ 
+                success: true, 
+                user: user, 
+                status: 'editing user ' + req.params.id + ' succeeded'
+              })
+        }
+    } 
+    catch (err) {
+        console.error(err)
+        res.status(400).json( {
+            success: false,
+            error: err,
+            status: 'editing user ' + req.params.name + ' failed'
+        })
+    }
+})
