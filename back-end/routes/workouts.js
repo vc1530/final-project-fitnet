@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const allWorkouts = require("../mock_workouts.json")
 
 const { User } = require('../models/User')
 
@@ -8,7 +7,6 @@ router.get("/workouts", async(req, res) => {
     //use a random user in the database for now 
     const _id = '625763d1974d42cfce0fa342' 
     const user = await User.findById(_id)
-    console.log(user.workouts) 
     try { 
       res.json({ 
         success: true, 
