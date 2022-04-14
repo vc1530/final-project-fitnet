@@ -3,8 +3,6 @@ import { HiOutlineMusicNote } from 'react-icons/hi'
 
 const WorkoutPost = props => {   
 
-    console.log(props.playlist)
-
     return ( 
         <main id = "WorkoutPost" className = "Post-box">
             <div className="Workout-header">    
@@ -15,7 +13,6 @@ const WorkoutPost = props => {
             <p>{props.description}</p>
         </main>
     )
-
 }
 
 export default WorkoutPost

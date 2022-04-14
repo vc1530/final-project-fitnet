@@ -2,9 +2,12 @@ const express = require("express");
 const router = express.Router();
 const allWorkouts = require("../mock_workouts.json")
 
+const { Workout } = require('../models/Workout')
+const { User } = require('../models/User') 
+
 router.get("/w/:id", async(req, res) => { 
     try {
-      const workout = allWorkouts.find(workout => workout.id == req.params.id)
+      const workout = await Workout.findById(req.params.id)
       if (!workout) { 
         res
         .status(400) 
@@ -20,7 +23,7 @@ router.get("/w/:id", async(req, res) => {
             workout_name: workout.workout_name,  
             workout_description: workout.workout_description,
             playlist: workout.playlist, 
-            id: req.params.id, 
+            id: workout._id, 
             exercises: workout.exercises
           }, 
           status: 'retrieving workout ' + req.params.id + ' succeeded', 
@@ -37,16 +40,18 @@ router.get("/w/:id", async(req, res) => {
     }
   })
   
-  router.post("/w/:id", (req, res) => { 
+  router.post("/w/:id", async(req, res) => { 
     try { 
-      if(req.params.id == 'new') {
-        let new_id = Date.now()
-        const workout = {
-          id: new_id,
+      //use a random user in the database for now
+      const _id = '625763d1974d42cfce0fa342' 
+      const user = await User.findById(_id)
+      if(req.params.id == 'new') { 
+        const workout = await Workout.create({ 
           workout_name: req.body.workout_name,
           workout_description: req.body.workout_description
-        }
-        allWorkouts.unshift(workout)
+        })
+        user.workouts.unshift(workout) 
+        await user.save() 
         res.json({
           success: true,
           workout: workout,
@@ -54,7 +59,7 @@ router.get("/w/:id", async(req, res) => {
         })
       }
       else {
-        const workout = allWorkouts.find(workout => workout.id == req.params.id)
+        const workout = await Workout.findById(req.params.id)
         if (!workout) { 
           res
           .status(400) 
@@ -64,9 +69,16 @@ router.get("/w/:id", async(req, res) => {
           })
         }
         else {
-          //fake editing database — database integration not completed
           workout.workout_name = req.body.workout_name
           workout.workout_description = req.body.workout_description
+          await workout.save() 
+
+          const index = user.workouts.indexOf(
+            user.workouts.find(workout => workout._id == req.params.id)
+          )
+          user.workouts[index]= workout 
+          await user.save() 
+
           res.json({ 
             success: true, 
             workout: workout, 

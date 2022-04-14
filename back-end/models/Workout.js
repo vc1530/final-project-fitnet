@@ -24,6 +24,10 @@ const exerciseSchema = new Schema(
 )
 const workoutSchema = new Schema (
     {
+        // id: { 
+        //     type: mongoose.Schema.Types.ObjectId, 
+        //     required: true, 
+        // },
         workout_name: {
             type: String,
             required: true,
@@ -36,6 +40,10 @@ const workoutSchema = new Schema (
             type: [exerciseSchema],
             required: true,
         },
+        playlist: { 
+            type: String, 
+            required: false, 
+        }
     }
 )
 

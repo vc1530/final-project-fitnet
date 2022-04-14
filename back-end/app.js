@@ -97,7 +97,13 @@ function createUser(name, username, bio, email, password, workouts) {
 app.get("/test/new-user", async(req, res) => {
   const exercise = createExercise("first test exercise", 3, 3) 
   const workout = createWorkout("first test workout", "first test workout desc", [exercise]) 
-  const user = createUser("Vanessa", "vc1530", "this is vanessa", "vc1530@nyu.edu", "idk", [workout])
+  const user = createUser(
+    "Kayleigh Smith", 
+    "kaykay", 
+    "this is once again vanessa testing", 
+    "kayleigh@nyu.edu", 
+    "idk", 
+    [workout])
   return res.json({ 
     success: true, 
     status: "new user created", 
