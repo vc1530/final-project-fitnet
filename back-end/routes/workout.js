@@ -42,10 +42,10 @@ router.get("/w/:id", async(req, res) => {
   
   router.post("/w/:id", async(req, res) => { 
     try { 
+      //use a random user in the database for now
       const _id = '625763d1974d42cfce0fa342' 
       const user = await User.findById(_id)
-      if(req.params.id == 'new') {
-        //use a random user in the database for now 
+      if(req.params.id == 'new') { 
         const workout = await Workout.create({ 
           workout_name: req.body.workout_name,
           workout_description: req.body.workout_description
