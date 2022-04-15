@@ -26,7 +26,22 @@ const Playlists = () => {
 
     const validatePlaylist = playlist => { 
         if (playlist === "") return true 
-        return /^(spotify:|https:\/\/[a-z]+\.spotify\.com\/)/.test(playlist)
+        if (playlist.substring(0, 25) !== "https://open.spotify.com/") 
+            return false 
+        //rest of the playlist excluding "https://open.spotify.com/"
+        let rest = playlist.substring(25, playlist.length) 
+        let i = rest.indexOf('/') 
+        let type = rest.substring(0, i + 1)
+        if (type !== 'album/' && 
+            type !== 'playlist/' && 
+            type !== 'track/' && 
+            type !== 'episode/' && 
+            type !== 'show/'
+            )
+            return false; 
+        if (rest.substring(i + 1).length === 0) 
+            return false 
+        return true 
     }
 
     useEffect(() => { 
