@@ -148,7 +148,7 @@ const AddWorkout = () => {
                     onClick={deleteWorkout} 
                     className="deleteWorkoutButton" 
                 >
-                    <a className="deleteWorkoutButton" href={"../workoutHistory"}>Delete Workout</a>
+                    {/* <a className="deleteWorkoutButton" href={"../workoutHistory"}>Delete Workout</a> */}
                 </button>
             </div>
             <Footer/>

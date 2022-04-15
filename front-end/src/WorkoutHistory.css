@@ -9,3 +9,8 @@
     flex-direction: row;
     width: 350px;
 }
+.newWorkoutButton {
+    border: white;
+    background-color: white;
+    color: var(--main-accent-color)
+}
