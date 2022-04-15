@@ -13,6 +13,21 @@ const Playlists = () => {
     const [playlist, setPlaylist] = useState("") 
     const [savedMessage, setSavedMessage] = useState("") 
     const [errorMessage, setErrorMessage] = useState("") 
+    const [displayPlaylist, setDisplayPlaylist] = useState("") 
+
+    const embedPlaylist = playlist => { 
+        console.log(playlist) 
+        let newURI = playlist.substring(0, 25) + "embed/" + playlist.substring(25, playlist.length) 
+        let i = newURI.indexOf('?') 
+        if (i === -1) return newURI 
+        newURI = newURI.substring(0, i) 
+        return newURI 
+    }
+
+    const validatePlaylist = playlist => { 
+        if (playlist === "") return true 
+        return /^(spotify:|https:\/\/[a-z]+\.spotify\.com\/)/.test(playlist)
+    }
 
     useEffect(() => { 
         console.log("fetching playlist for workout " + params.id) 
@@ -20,6 +35,7 @@ const Playlists = () => {
             .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/p/` + params.id)
             .then (res => { 
                 setPlaylist(res.data.playlist) 
+                if (res.data.playlist) setDisplayPlaylist(embedPlaylist(res.data.playlist)) 
                 console.log("successful retrieval of playlist for workout " + params.id) 
             })
             .catch(err => { 
@@ -31,10 +47,10 @@ const Playlists = () => {
     const handleSubmit = e => { 
         e.preventDefault() 
         console.log("uploading playlist to workout " + params.id) 
-        if (playlist === "") { 
+        if (!validatePlaylist(playlist)) { 
             setErrorMessage("Invalid URL") 
         }
-        else { 
+       else { 
             axios   
                 .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/p/` + params.id, { 
                     playlist: playlist,
@@ -45,7 +61,8 @@ const Playlists = () => {
                 })
                 .then((res) => { 
                     console.log("uploading playlist for workout " + params.id + " succeeded")
-                    setSavedMessage('Your playlist has been uploaded!')
+                    setSavedMessage('Your playlist has been saved!')
+                    if (playlist) setDisplayPlaylist(embedPlaylist(playlist))
                 })
         }
     }
@@ -80,6 +97,7 @@ const Playlists = () => {
             </body>
             {savedMessage ? <p className = "saved">{savedMessage}</p> : ""}
             {errorMessage ? <p id = "invalidURL" className = "error">{errorMessage}</p> : ""}
+            {displayPlaylist ? <iframe title = "playlist" src ={displayPlaylist} width="340" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> : ""} 
             <Footer 
                 title = "Playlists" 
             /> 
