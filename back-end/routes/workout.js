@@ -95,11 +95,15 @@ router.get("/w/:id", async(req, res) => {
     }
   }) 
   
-  router.post('/we/:id/:index', (req, res) => {
+  router.post('/we/:id/:index', async(req, res) => {
     console.log("handling add exercise")
     console.log(req.params)
     try{
-      const workout = allWorkouts.find(workout => workout.id == req.params.id)
+      //use a random user in the database for now
+      const _id = '625763d1974d42cfce0fa342' 
+      const user = await User.findById(_id)
+      
+      const workout =  user.workouts.find(req.params.id);
       if(!workout) {
         res
         .status(400)
