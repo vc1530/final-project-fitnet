@@ -90,6 +90,19 @@ const AddWorkout = () => {
             })
     }
 
+    const deleteWorkout = () => {
+        console.log("Starting deleteWorkout function")
+        axios
+            .delete(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + params.id)
+            .catch((err) => {
+                console.error(err)
+                console.log("Front end: Failed to remove workout " + params.id)
+            })
+            .then((response) => {
+                console.log("Front end: removed workout " + params.id)
+            })
+    }
+
     return (
         <main className="AddWorkout">
             <Header
@@ -142,7 +155,14 @@ const AddWorkout = () => {
                 <button onClick={addExercise}>
                     {<AiOutlinePlusCircle size = "30px"/>}
                 </button>
-                
+            </div>
+            <div>
+                <button 
+                    onClick={deleteWorkout} 
+                    className="deleteWorkoutButton" 
+                >
+                    <a className="deleteWorkoutButton" href={"../workoutHistory"}>Delete Workout</a>
+                </button>
             </div>
             {/* <div className="AddExercise">
                 <a className = "User-link" href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
