@@ -5,6 +5,7 @@ const allUsers = require("../mock_users.json")
 
 const { User } = require('../models/User') 
 
+// do we need this? 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
      cb(null, "public/uploads")
@@ -19,9 +20,7 @@ const storage = multer.diskStorage({
     cb(null, newName)
   },
 })
-
 const upload = multer({ storage: storage })
-
 
 router.get("/users", async(req, res) => { 
     try { 
@@ -42,53 +41,84 @@ router.get("/users", async(req, res) => {
     }
   })
 
-router.post("/save-changes", upload.single('image'), async(req, res) => {
-    try { 
-      // if (req.file) 
-      //   console.log('size:', req.file.size)
-  
-      //the user id is just the index of the user in mock_users for now. 
-      //during database integration, we will assign real IDs to each user 
-  
-      const user = allUsers[req.body.uid] 
-      const User = await User.findOne({ _id: req.params._id })
-  
-      if (!user) { 
-        res
-        .status(400) 
-        .json({
-          success: false, 
-          status: "user " + req.params._id + " was not found",
-        })
-      }
-      else {
-        //editing of user's information 
-        user = new User({ // does this create a new user in database vs editing their info 
-          name: req.body.name,
-          username: req.body.username,
-          bio: req.body.bio,
-          email: req.body.email,
-          password: req.body.password,
-          profile_pic: req.file,
-        })
-        await user.save()
-        res.send(user)
+// router.post("/save-changes", upload.single('image'), async(req, res) => {
+//     //   const user = allUsers[req.body.uid] 
+//     const user = await User.findById({ _id})
+//     try {
+//       if (!user) { 
+//         res
+//         .status(400) 
+//         .json({
+//           success: false, 
+//           status: "user " + req.params._id + " was not found",
+//         })
+//       }
+//       else {
+//         //editing of user's information 
+//         user = new User({ // does this create a new user in database vs editing their info 
+//           name: req.body.name,
+//           username: req.body.username,
+//           bio: req.body.bio,
+//           email: req.body.email,
+//           password: req.body.password,
+//           profile_pic: req.file,
+//         })
+//         await user.save()
+//         res.send(user)
     
-        res.json({ 
-          success: true, 
-          user: user, 
-          status: "saving changes in settings succeeded",   
-        })
-      } 
-    }
-    catch (err) { 
-      console.error(err) 
-      res.status(400).json({ 
-        success: false, 
-        error: err, 
-        status: "saving changes in settings failed", 
-      })
-    }
-  })
+//         res.json({ 
+//           success: true, 
+//           user: user, 
+//           status: "saving changes in settings succeeded",   
+//         })
+//       } 
+//     }
+//     catch (err) { 
+//       console.error(err) 
+//       res.status(400).json({ 
+//         success: false, 
+//         error: err, 
+//         status: "saving changes in settings failed", 
+//       })
+//     }
+//   })
 
-  module.exports = router
+router.post("/save-changes", upload.single('image'), async(req, res) =>{
+    try {
+        const _id = '625763d1974d42cfce0fa342' 
+        const user = await User.findById(_id)
+        if (!user) { 
+            res
+            .status(400) 
+            .json({
+              success: false, 
+              status: "user " + _id + " was not found",
+            })
+        }
+        else { // if user is already there then we edit there info??
+            user.name = req.body.name
+            user.username = req.body.username
+            user.bio = req.body.bio
+            user.email = req.body.email
+            user.password = req.body.password
+            user.profile_pic = req.file
+            await user.save()
+
+            res.json({ 
+                success: true, 
+                user: user, 
+                status: 'editing user ' + req.params.id + ' succeeded'
+              })
+        }
+    } 
+    catch (err) {
+        console.error(err)
+        res.status(400).json( {
+            success: false,
+            error: err,
+            status: 'editing user ' + req.params.name + ' failed'
+        })
+    }
+})
+
+module.exports = router
