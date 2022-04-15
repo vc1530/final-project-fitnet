@@ -83,8 +83,6 @@ router.get("/users", async(req, res) => {
 //     }
 //   })
 
-//   module.exports = router
-
 router.post("/save-changes", upload.single('image'), async(req, res) =>{
     try {
         const _id = '625763d1974d42cfce0fa342' 
@@ -94,25 +92,8 @@ router.post("/save-changes", upload.single('image'), async(req, res) =>{
             .status(400) 
             .json({
               success: false, 
-              status: "user " + req.params._id + " was not found",
+              status: "user " + _id + " was not found",
             })
-        }
-        if(req.params.id == 'new') { 
-            const user = await User.create({ 
-                name: req.body.name,
-                username: req.body.username,
-                bio: req.body.bio,
-                email: req.body.email,
-                password: req.body.password,
-                profile_pic: req.file,
-              })
-              await user.save()
-              res.send(user)
-               res.json({ 
-          success: true, 
-          user: user, 
-          status: "saving changes in settings succeeded",   
-        })
         }
         else { // if user is already there then we edit there info??
             user.name = req.body.name
@@ -139,3 +120,5 @@ router.post("/save-changes", upload.single('image'), async(req, res) =>{
         })
     }
 })
+
+module.exports = router

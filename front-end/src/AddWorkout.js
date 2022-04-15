@@ -42,7 +42,6 @@ const AddWorkout = () => {
             axios 
             .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + params.id) 
             .then(res => { 
-                console.log(res.data.workout) 
                 setName(res.data.workout.workout_name)
                 setDesc(res.data.workout.workout_description) 
                 setExercises(res.data.workout.exercises)
