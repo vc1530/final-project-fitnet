@@ -76,7 +76,7 @@ const AddWorkout = () => {
         // setExercises(exercises.slice(1,num_exercises))
         // setNumExercises(num_exercises - 1)
         axios
-            .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/-1`)
+            .delete(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/` + num_exercises)
             .catch((err) => {
                 console.error(err)
                 console.log("Front end: Failed to remove exercise " + num_exercises)
@@ -84,9 +84,11 @@ const AddWorkout = () => {
             .then((res) => {
                 console.log("Front end: removed exercise " + num_exercises)
                 console.log(res)
+                console.log(res.data.exercises.length)
                 setExercises(res.data.exercises)
-                setNumExercises(res.data.exercises.length - 1)
-                console.log("New value for exercises array: " + exercises.length)
+                setNumExercises(res.data.exercises.length)
+                console.log("New value for exercises array: " + num_exercises)
+                console.log("Sanity check exercises.length: " + exercises.length)
             })
     }
 

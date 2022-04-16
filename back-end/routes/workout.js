@@ -135,32 +135,33 @@ router.post('/we/:id/:index', async (req, res) => {
         //Exercises array is valid
         console.log('edit exercise: exercise array is valid');
         const workoutIndex = user.workouts.findIndex((workout) => workout._id == req.params.id);
-        if (req.params.index == -1) {
-          console.log('handling exercise deletion');
-          let updatedExercises = exercises.slice(1, exercises.length);
-          user.workouts[workoutIndex].exercises = updatedExercises;
-          await user.save();
-          let check_user = await User.findById(_id);
-          let check_exercise = check_user.workouts[workoutIndex].exercises.find((exercise) =>
-            compare_exercise_data(exercise, req.body)
-          );
-          console.log('delete exercise DB update:');
-          console.log(check_exercise);
-          if (check_exercise) {
-            console.log('delete exercise failed: database did not update');
-          }
-          console.log(
-            'exercise ' +
-              workout.exercises.length +
-              ' was successfully removed from workout ' +
-              req.params.id
-          );
-          res.json({
-            success: true,
-            status: 'exercise ' + workout.exercises.length + ' was successfully removed',
-            exercises: user.workouts[workoutIndex].exercises,
-          });
-        } else if (!workout.exercises.find((exercise) => exercise.index == req.params.index)) {
+        // if (req.params.index == -1) {
+        //   console.log('handling exercise deletion');
+        //   let updatedExercises = exercises.slice(1, exercises.length);
+        //   user.workouts[workoutIndex].exercises = updatedExercises;
+        //   await user.save();
+        //   let check_user = await User.findById(_id);
+        //   let check_exercise = check_user.workouts[workoutIndex].exercises.find((exercise) =>
+        //     compare_exercise_data(exercise, req.body)
+        //   );
+        //   console.log('delete exercise DB update:');
+        //   console.log(check_exercise);
+        //   if (check_exercise) {
+        //     console.log('delete exercise failed: database did not update');
+        //   }
+        //   console.log(
+        //     'exercise ' +
+        //       workout.exercises.length +
+        //       ' was successfully removed from workout ' +
+        //       req.params.id
+        //   );
+        //   res.json({
+        //     success: true,
+        //     status: 'exercise ' + workout.exercises.length + ' was successfully removed',
+        //     exercises: user.workouts[workoutIndex].exercises,
+        //   });
+        // } else
+        if (!workout.exercises.find((exercise) => exercise.index == req.params.index)) {
           console.log('handling add exercise');
           console.log('req.body: ');
           console.log(req.body);
@@ -314,6 +315,70 @@ router.delete('/w/:id', async (req, res) => {
         res.json({
           success: true,
           status: 'successfully deleted workout' + req.params.id,
+        });
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      success: false,
+      error: err,
+      status: 'deleting workout ' + req.params.id + 'failed',
+    });
+  }
+});
+
+router.delete('/we/:id/:index', async (req, res) => {
+  console.log('handling delete exercise');
+  try {
+    console.log(req.params);
+    const _id = '625763d1974d42cfce0fa342';
+    let user = await User.findById(_id);
+
+    const workout = user.workouts.find((workout) => workout._id == req.params.id);
+    if (!workout) {
+      console.log('delete exercise failed: workout ' + req.params.id + 'was not found');
+      res.status(400).json({
+        success: false,
+        status: 'workout ' + req.params.id + 'was not found',
+      });
+    } else {
+      //Workout is valid
+      console.log('delete exercise: workout is valid');
+      const exercises = workout.exercises;
+      if (!exercises) {
+        console.log(
+          'delete exercise failed: could not find exercises array in workout ' + workout._id
+        );
+        res.status(400).json({
+          success: false,
+          status: 'could not find exercises array in workout' + workout._id,
+        });
+      } else {
+        //Exercises array is valid
+        const workoutIndex = user.workouts.findIndex((workout) => workout._id == req.params.id);
+        let updatedExercises = exercises.slice(1, exercises.length);
+        user.workouts[workoutIndex].exercises = updatedExercises;
+        await user.save();
+        let check_user = await User.findById(_id);
+        let check_exercise = check_user.workouts[workoutIndex].exercises.find((exercise) =>
+          compare_exercise_data(exercise, req.body)
+        );
+        console.log('delete exercise DB update:');
+        console.log(check_exercise);
+        if (check_exercise) {
+          console.log('delete exercise failed: database did not update');
+        }
+        console.log(
+          'exercise ' +
+            workout.exercises.length +
+            ' was successfully removed from workout ' +
+            req.params.id
+        );
+        res.json({
+          success: true,
+          status: 'exercise ' + workout.exercises.length + ' was successfully removed',
+          exercises: user.workouts[workoutIndex].exercises,
         });
       }
     }
