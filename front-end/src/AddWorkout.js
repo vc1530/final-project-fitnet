@@ -55,33 +55,38 @@ const AddWorkout = () => {
         console.log("Starting addExercise function")
         const filler = dummyExercise(num_exercises, "Foo", "1", "1")
         console.log(filler)
-        setExercises([...exercises, filler])
-        setNumExercises(num_exercises + 1)
+        // setExercises([...exercises, filler])
+        // setNumExercises(num_exercises + 1)
         axios
             .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/` + num_exercises, filler)
             .catch((err) => {
                 console.error(err)
                 console.log("Front end: Failed to add new exercise")
             })
-            .then((response) => {
+            .then((res) => {
                 console.log("Front end: added new exercise")
+                console.log(res.data)
+                setExercises(res.data.exercises)
+                setNumExercises(res.data.exercises.length)
             })
     }
     const removeExercise = () => {
         console.log("Starting removeExercise function")
-        console.log("New value for exercises array: " + exercises.slice(1, num_exercises).length)
-        setExercises(exercises.slice(1,num_exercises))
-        setNumExercises(num_exercises - 1)
+        // console.log("New value for exercises array: " + exercises.slice(1, num_exercises).length)
+        // setExercises(exercises.slice(1,num_exercises))
+        // setNumExercises(num_exercises - 1)
         axios
             .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/-1`)
             .catch((err) => {
                 console.error(err)
                 console.log("Front end: Failed to remove exercise " + num_exercises)
             })
-            .then((response) => {
+            .then((res) => {
                 console.log("Front end: removed exercise " + num_exercises)
-                setExercises(exercises.slice(1,num_exercises))
-                setNumExercises(num_exercises - 1)
+                console.log(res)
+                setExercises(res.data.exercises)
+                setNumExercises(res.data.exercises.length - 1)
+                console.log("New value for exercises array: " + exercises.length)
             })
     }
 
@@ -93,8 +98,14 @@ const AddWorkout = () => {
                 console.error(err)
                 console.log("Front end: Failed to remove workout " + params.id)
             })
-            .then((response) => {
-                console.log("Front end: removed workout " + params.id)
+            .then((res) => {
+                console.log(res)
+                if(!(res.success)) {
+                    console.log("Front end: removed workout " + params.id)
+                }
+                else {
+                    console.log("Front end: Failed to remove workout " + params.id)
+                }
             })
     }
 
@@ -148,7 +159,7 @@ const AddWorkout = () => {
                     onClick={deleteWorkout} 
                     className="deleteWorkoutButton" 
                 >
-                    {/* <a className="deleteWorkoutButton" href={"../workoutHistory"}>Delete Workout</a> */}
+                    <a className="deleteWorkoutButton" href={"../workoutHistory"}>Delete Workout</a>
                 </button>
             </div>
             <Footer/>

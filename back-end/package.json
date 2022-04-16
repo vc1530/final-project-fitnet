@@ -127,6 +127,7 @@
     "path-to-regexp": "^0.1.7",
     "picomatch": "^2.3.1",
     "prepend-http": "^2.0.0",
+    "prettier": "^2.6.2",
     "process-nextick-args": "^2.0.1",
     "proxy-addr": "^2.0.7",
     "pstree.remy": "^1.1.8",
