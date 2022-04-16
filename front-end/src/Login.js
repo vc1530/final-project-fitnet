@@ -9,8 +9,8 @@ function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const [submitted, setSubmitted] = useState(false)
-    const [fieldsFilled, setFieldsFilled] = useState(false)
+    const [usernameError, setUsernameError] = useState('') 
+    const [passwordError, setPasswordError] = useState('') 
 
     const changeUsername = (e) => { 
         setUsername(e.target.value); 
@@ -20,36 +20,31 @@ function Login() {
         setPassword(e.target.value); 
     }
 
-    const handleSubmit = () => {
-        if (username === '' || password === '') {
-            setFieldsFilled(false)
-        } else {
-            setFieldsFilled(true)
-            setSubmitted(true)
-        }
-    }
+    const handleSubmit = e => {
 
-    const handleClick = e => {
         e.preventDefault()
-
         const formData = new FormData();
+        formData.append("Hello", "HELLLOOO"); 
         formData.append("username", username);
         formData.append("password", password);
-
-        axios({
-            method: "POST",
-            url: `${process.env.REACT_APP_SERVER_HOSTNAME}/loginVerify`,
-            data: formData,
-            headers: {"Content-Type": "multipart/form-data"},
+        console.log(formData.get("username")) 
+        axios
+        .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/loginVerify`, 
+        { 
+            username: username, 
+            password: password, 
         })
         .then(res => {
-            console.log(res.data);
+            console.log("user " + username + " has been logged in") 
         })
         .catch(err => { 
             console.error(err);
             console.log("Log In Failed");
+            if (err.response?.status === 401) 
+                setUsernameError("Username does not exist") 
+            if (err.response?.status === 402) 
+                setPasswordError("Wrong password") 
         })
-
     }
 
     return (
@@ -62,26 +57,38 @@ function Login() {
             <body id="Login-info" className = "Post-box">
                 <h1>Log in to FitNet</h1>
                 <h2>Don't have an account? Register <a className = "User-link" href="/SignUp"> here</a>.</h2>
-                <form id="Login-form">
+                <form onSubmit = {handleSubmit} id="Login-form">
                     <label>Username</label>
                     <input 
+                        name = "username" 
                         type="text" 
+                        value = {username} 
                         className="form-control" 
                         placeholder="Username" 
-                        onChange = {changeUsername}
+                        onChange = {e => { 
+                            changeUsername(e) 
+                            setUsernameError('') 
+                        }}
                     />
+                    {usernameError ? <p className = "error">{usernameError}</p> : ""}
                     <label>Password</label>
                     <input 
-                        type="text" 
+                        name = "password" 
+                        type="password" 
+                        value = {password} 
                         className="form-control" 
                         placeholder="Password" 
-                        onChange = {changePassword}
+                        onChange = {e => { 
+                            changePassword(e) 
+                            setPasswordError('') 
+                        }}
                     />
+                    {passwordError ? <p className = "error">{passwordError}</p> : ""}
                     <h4><a className = "User-link" href ="/ForgotPassword">Forgot your password?</a></h4>
+                    <div className = "submit-button" >
+                        <button>Login</button>
+                    </div> 
                 </form>
-                <div className = "submit-button" >
-                    <button onClick = {handleClick}>Login</button>
-                </div> 
             </body>
         </main>
     )

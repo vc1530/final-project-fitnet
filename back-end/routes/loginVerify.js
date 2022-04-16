@@ -3,17 +3,24 @@ const router = express.Router();
 
 const { User } = require('../models/User') 
 
-router.post('/loginVerify', (req, res) => {
+router.post('/loginVerify', async(req, res) => {
     try {
-        const user = User.findOne({email: req.body.email, password: req.body.password }).then(user => {
+        const user = await User.findOne({username: req.body.username})
+        .then(user => {
         if(!user) {
-          return res.json({
+          return res.status(401).json({
             success: false,
-            status: 'Email and Password Combo Wrong.'
+            status: 'An account with this username does not exist.'
           })
         } else {
-            return res.json({ 
+          if (user.password !== req.body.password) 
+            return res.status(402).json({ 
+              success: false, 
+              status: "Wrong password" 
+            })
+          else return res.json({ 
                 success: true, 
+                user: user, 
                 status: "user verified" 
             }) 
         }
@@ -21,6 +28,10 @@ router.post('/loginVerify', (req, res) => {
     }
     catch(err) {
       console.error(err)
+      res.status(400).json({ 
+        success: false, 
+        status: "Login in failed"
+      })
     }
   })
 
