@@ -5,10 +5,10 @@ import Footer from "./Footer"
 import { useState, useEffect } from 'react'
 import axios from "axios"
 
-
 const MyProfile = () => {
 
-    const uid = 0 
+    //default user until we finish login 
+    const _id = "62570c4071b5c02be1b2d71d"
 
     const [name, setName] = useState("") 
     const [username, setUsername] = useState("") 
@@ -16,49 +16,20 @@ const MyProfile = () => {
     const [profile_pic, setProfile_pic] = useState("")
 
     useEffect(() => { 
-        console.log("fetching profile for user " + uid) 
-        axios.get(`${process.env.REACT_APP_SERVER_HOSTNAME}/uid/` + uid) 
+        console.log("fetching profile for user " + _id) 
+        axios.get(`${process.env.REACT_APP_SERVER_HOSTNAME}/uid/` + _id) 
         .then(res => { 
             setName(res.data.user.name) 
             setUsername(res.data.user.username) 
             setBio(res.data.user.bio) 
             setProfile_pic(res.data.user.profile_pic) 
-            console.log("successful retrieval of user " + uid + " from database")
+            console.log("successful retrieval of user " + _id + " from database")
         })
         .catch(err => { 
             console.error(err) 
-            console.log("failed retrieval of user " + uid + " from database")
+            console.log("failed retrieval of user " + _id + " from database")
         })
     }, [])
-
-    // const dummyProfile = (profileName, profileUsername, profileBio) => {
-    //     const name = profileName
-    //     const username = profileUsername
-    //     const bio = profileBio
-    //     return {name, username, bio}
-    // }
-
-    // const profile1 = dummyProfile("John Smith", "JS10", "I am 20")
-    // const profile2 = dummyProfile("Joe Shmo", "JS11", "I am 21")
-    // const profile3 = dummyProfile("Daniel Oh", "DO9", "I am 22")
-
-    // const [profiles, setProfiles] = useState({}) 
-
-    // let params = useParams(); 
-
-    // useEffect(() => { 
-    //     console.log("retrieving profile " + params.id) 
-    //     axios 
-    //     .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + params.id) 
-    //     .then(res => { 
-    //         setProfiles(res.data.profiles)
-    //         console.log("successful retrieval of profile information " + params.id + " from database")
-    //     })
-    //     .catch(err => { 
-    //         console.log("retrieval of profile inoformation " + params.id + " from backend failed") 
-    //         console.log(err)
-    //     })
-    // }, [params.id]) 
 
     return(
         <main className="MyProfile">

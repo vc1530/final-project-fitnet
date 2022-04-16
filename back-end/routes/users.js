@@ -27,7 +27,7 @@ router.get("/users", async(req, res) => {
 //used for settings and myprofile
 router.get('/uid/:uid', async(req, res) => { 
     try { 
-      const user = allUsers[req.params.uid]
+      const user = await User.findById(req.params.uid) 
       if (!user) { 
         res
         .status(400) 

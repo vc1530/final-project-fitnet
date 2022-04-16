@@ -44,8 +44,10 @@ router.get("/users", async(req, res) => {
   })
 
 
-const lookUpUser = async(res, cb) => {
-    const _id = '625763d1974d42cfce0fa342'
+const lookUpUser = async(req, cb) => {
+    //const _id = '625763d1974d42cfce0fa342'
+    console.log(req.body) 
+    const _id = req.body._id 
     const user = await User.findById(_id)
     if (!user) {
         res
@@ -61,14 +63,15 @@ const lookUpUser = async(res, cb) => {
 
 router.post("/save-changes", upload.single('image'), async(req, res) =>{
     try {
-        lookUpUser(res, async(user) => {
+        lookUpUser(req, async(user) => {
             user.name = req.body.name
             user.username = req.body.username
             user.bio = req.body.bio
             user.email = req.body.email
             user.password = req.body.password
             //console.log(req.file)
-            user.profile_pic = await fs.readFile(req.file.path)
+            if (req.file) 
+              user.profile_pic = await fs.readFile(req.file.path)
             await user.save()
 
             res.json({ 
