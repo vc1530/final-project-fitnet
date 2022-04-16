@@ -10,8 +10,7 @@ const Playlists = () => {
 
     let params = useParams()
 
-    const [playlist, setPlaylist] = useState("") 
-    const [savedMessage, setSavedMessage] = useState("") 
+    const [playlist, setPlaylist] = useState("")  
     const [errorMessage, setErrorMessage] = useState("") 
     const [displayPlaylist, setDisplayPlaylist] = useState("") 
 
@@ -76,8 +75,8 @@ const Playlists = () => {
                 })
                 .then((res) => { 
                     console.log("uploading playlist for workout " + params.id + " succeeded")
-                    setSavedMessage('Your playlist has been saved!')
                     if (playlist) setDisplayPlaylist(embedPlaylist(playlist))
+                    else setDisplayPlaylist("") 
                 })
         }
     }
@@ -100,8 +99,7 @@ const Playlists = () => {
                         value = {playlist}
                         placeholder = "Enter a playlist URL" 
                         onChange = {e => { 
-                            setPlaylist(e.target.value)
-                            setSavedMessage("") 
+                            setPlaylist(e.target.value) 
                             setErrorMessage("") 
                         }}
                     />
@@ -110,7 +108,6 @@ const Playlists = () => {
                     </div>
                 </form>
             </body>
-            {savedMessage ? <p className = "saved">{savedMessage}</p> : ""}
             {errorMessage ? <p id = "invalidURL" className = "error">{errorMessage}</p> : ""}
             {displayPlaylist ? <iframe title = "playlist" src ={displayPlaylist} width="340" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> : ""} 
             <Footer 
