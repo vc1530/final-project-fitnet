@@ -151,7 +151,7 @@ const SignUp = () => {
                             setSavedMessage("") 
                         }} 
                         value = {username} 
-                        type="text" 
+                        type="password" 
                         className="form-control" 
                         placeholder="Username" 
                     />
