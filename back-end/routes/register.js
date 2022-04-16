@@ -3,27 +3,35 @@ const router = express.Router();
 
 const { User } = require('../models/User') 
 
-router.post('/register', (req, res) => {
+router.post('/register', async(req, res) => {
   try {
-    const user = User.findOne({email: req.body.email }).then(user => {
-      if(user) {
-        return res.status(400).json({
+    const user = await User.findOne({email: req.body.email})
+    if(user) {
+      return res.status(401).json({
+        success: false,
+        status: 'Email already exists.'
+      })
+    } else { 
+      const user = await User.findOne({username: req.body.username}) 
+      if (user) { 
+        return res.status(402).json({ 
           success: false,
-          status: 'Email already exists.'
+          status: 'Username already exists.'
         })
-      } else {
-        const newUser = new User({
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          email: req.body.email,
-          username: req.body.username,
-          password: req.body.password,
-          profile_pic: "empty",
-          bio: "bio123",
-          name: "empty"
-        });
-        newUser.save().then(user => res.json(user)).catch(err => console.log(err));
       }
+    }
+    const newUser = await User.create({
+      name: req.body.firstName + " " + req.body.lastName, 
+      username: req.body.username,
+      bio: "",
+      email: req.body.email,
+      password: req.body.password,
+      profile_pic: "",
+    })
+    return res.json({ 
+      success: true, 
+      status: "User" + req.body.username + " successfully register", 
+      user: newUser, 
     })
   }
   catch(err) {
