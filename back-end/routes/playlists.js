@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const allWorkouts = require("../mock_workouts.json")
 
-router.get('/p/:id', (req, res) => { 
+const { Workout } = require('../models/Workout') 
+
+router.get('/p/:id', async(req, res) => { 
     try { 
-      const workout = allWorkouts.find(workout => workout.id == req.params.id)
+      const workout = await Workout.findById(req.params.id) 
       if (!workout) { 
         res
         .status(400) 
@@ -39,9 +40,9 @@ router.get('/p/:id', (req, res) => {
     }
   })
 
-router.post('/p/:id', (req, res) => { 
+router.post('/p/:id', async(req, res) => { 
     try { 
-      const workout = allWorkouts.find(workout => workout.id == req.params.id)
+      const workout = await Workout.findById(req.params.id) 
       if (!workout) { 
         res
         .status(400) 
@@ -52,6 +53,7 @@ router.post('/p/:id', (req, res) => {
       }
       else { 
         workout.playlist = req.body.playlist
+        await workout.save() 
         res.json({ 
           success: true, 
           playlist: workout.playlist, 
