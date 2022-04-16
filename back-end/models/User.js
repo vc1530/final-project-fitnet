@@ -20,7 +20,7 @@ const userSchema = new Schema(
     },
     bio: {
       type: String,
-      required: true,
+      required: false,
     },
     email: { 
       type: String, 
@@ -33,7 +33,7 @@ const userSchema = new Schema(
     profile_pic: {
       data: Buffer,
       type: String,
-      required: true,
+      required: false,
     },
     workouts: { 
       type: Array, 
