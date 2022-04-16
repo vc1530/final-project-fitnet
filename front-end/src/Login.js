@@ -2,7 +2,7 @@ import "./Login.css"
 import Header from "./Header"
 import { useState } from 'react'
 import { AiOutlineLeft } from 'react-icons/ai'
-
+import axios from "axios"
 
 function Login() {
 
@@ -29,8 +29,27 @@ function Login() {
         }
     }
 
-    function handleClick () { 
-        window.location.replace('Feed')
+    const handleClick = e => {
+        e.preventDefault()
+
+        const formData = new FormData();
+        formData.append("username", username);
+        formData.append("password", password);
+
+        axios({
+            method: "POST",
+            url: `${process.env.REACT_APP_SERVER_HOSTNAME}/loginVerify`,
+            data: formData,
+            headers: {"Content-Type": "multipart/form-data"},
+        })
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => { 
+            console.error(err);
+            console.log("Log In Failed");
+        })
+
     }
 
     return (
