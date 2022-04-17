@@ -4,14 +4,18 @@ import Footer from "./Footer"
 import React  from "react"
 import axios from "axios"
 import { useState, useEffect } from 'react'
+import { Navigate } from "react-router-dom"
+import blankpic from "./images/blank_profile.jpg"
 
 const Settings = () => {
 
     let changes = 0
 
-    //default user until we finish login 
-    const _id = '62570c4071b5c02be1b2d71d'
+    const jwtToken = localStorage.getItem("token") 
 
+    const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true) 
+
+    const [uid, setUid] = useState("") 
     const [name, setName] = useState("")
     const [username, setUsername] = useState("")
     const [bio, setBio] = useState("")
@@ -20,23 +24,24 @@ const Settings = () => {
     const [selectedFile, setSelectedFile] = useState(null)
     
     useEffect(() => { 
-        console.log("fetching data for user " + _id) 
-        axios 
-        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/uid/` + _id)
-        .then (res => { 
+        axios.get(`${process.env.REACT_APP_SERVER_HOSTNAME}/myinfo`, { 
+            headers: { Authorization: `JWT ${jwtToken}` }
+        })
+        .then(res => { 
+            setUid(res.data.user._id) 
             setName(res.data.user.name) 
             setUsername(res.data.user.username) 
-            setBio(res.data.user.bio)
+            setBio(res.data.user.bio) 
             setEmail(res.data.user.email) 
             setPassword(res.data.user.password) 
-            setSelectedFile(res.data.user.profile_pic)
-            console.log("successful retrieval of user " + _id + " from database")
+            setSelectedFile(res.data.user.profile_pic) 
         })
-        .catch (err => { 
+        .catch(err => { 
             console.error(err) 
-            console.log("failed retrieval of user " + _id + " from database")
+            console.log("Invalid token") 
+            setIsLoggedIn(false) 
         })
-    }, [changes]) 
+    }, [changes])
 
     const [nameError, setNameError] = useState("") 
     const [usernameError, setUsernameError] = useState("") 
@@ -86,7 +91,7 @@ const Settings = () => {
 
         if (valid) { 
             const formData = new FormData();
-            formData.append("_id", _id)
+            formData.append("uid", uid)
             formData.append("name", name);
             formData.append("username", username);
             formData.append("bio", bio);
@@ -120,110 +125,112 @@ const Settings = () => {
         setSelectedFile(event.target.files[0])
       }
     
-    return (
-        <main className="Settings">
-            <Header 
-                url = "./Settings" 
-                title = "Settings"
-            /> 
-            <body id = "Settings-info" className="Post-box"> 
-                <div id = "Settings-top"> 
-                    <img 
-                        id = "settingspic" 
-                        src = "http://dummyimage.com/200x100.png/5fa2dd/ffffff"
-                        alt = "me!"
-                    /> 
-                    {/* added to this */}
-                    <input 
-                        type="file" 
-                        name="image" 
-                        accept="image/*" 
-                        multiple={false} 
-                        onChange = {e => { 
-                            handleFileSelect(e) 
-                            setSavedMessage("") 
-                        }} 
-                    />
-                </div>
-                <form onSubmit = {handleSubmit}>
-                    <label for="name">Name </label>
-                    <input 
-                        type= "text" 
-                        name = "name" 
-                        value = {name}
-                        placeholder = "Name" 
-                        onChange = {e => { 
-                            setName(e.target.value)
-                            setSavedMessage("") 
-                        }}
-                    />
-                    {nameError ? <p className="error">{nameError}</p> : ""}
-                    <label for="username">Username </label>
-                    <input 
-                        type= "text" 
-                        name = "username" 
-                        value = {username} 
-                        placeholder = "Username"
-                        onChange = {e => { 
-                            setUsername(e.target.value)
-                            setSavedMessage("") 
-                        }}
-                    />
-                    {usernameError ? <p className="error">{usernameError}</p> : ""}
-                    <label for="email">Email </label>
-                    <input 
-                        type= "text" 
-                        name = "email" 
-                        value = {email} 
-                        placeholder = "Email" 
-                        onChange = {e => { 
-                            setEmail(e.target.value)
-                            setSavedMessage("") 
-                        }}
-                    />
-                    {emailError ? <p className="error">{emailError}</p> : ""}
-                    <label for="password">Password </label>
-                    <input 
-                        type= "password" 
-                        name = "password" 
-                        value = {password} 
-                        onChange = {e => { 
-                            setPassword(e.target.value)
-                            setSavedMessage("") 
-                        }}
-                    />
-                    {passwordError ? <p className="error">{passwordError}</p> : ""}
-                    <label for="bio">Bio </label>
-                    <textarea 
-                        id = "settingsbio"
-                        maxlength = "432"
-                        type= "text" 
-                        value = {bio} 
-                        placeholder = "Enter a short bio"
-                        onChange = {e => { 
-                            setBio(e.target.value)
-                            setSavedMessage("") 
-                        }}
-                    />
-                    <div className = "submit-button">
-                        <button>Save Changes</button>
+    if (isLoggedIn) 
+        return (
+            <main className="Settings">
+                <Header 
+                    url = "./Settings" 
+                    title = "Settings"
+                /> 
+                <body id = "Settings-info" className="Post-box"> 
+                    <div id = "Settings-top"> 
+                        <img 
+                            id = "settingspic" 
+                            src = {selectedFile ? selectedFile : blankpic}
+                            alt = "me!"
+                        /> 
+                        {/* added to this */}
+                        <input 
+                            type="file" 
+                            name="image" 
+                            accept="image/*" 
+                            multiple={false} 
+                            onChange = {e => { 
+                                handleFileSelect(e) 
+                                setSavedMessage("") 
+                            }} 
+                        />
                     </div>
-                </form>
-            </body>
-            {savedMessage ? <p className = "saved">{savedMessage}</p> : ""}
-            <div className = "bottom-links"> 
-                <div id = "signout-button" className = "blue-button"> 
-                    <a className = "User-link" href="/">Sign Out</a> 
+                    <form onSubmit = {handleSubmit}>
+                        <label for="name">Name </label>
+                        <input 
+                            type= "text" 
+                            name = "name" 
+                            value = {name}
+                            placeholder = "Name" 
+                            onChange = {e => { 
+                                setName(e.target.value)
+                                setSavedMessage("") 
+                            }}
+                        />
+                        {nameError ? <p className="error">{nameError}</p> : ""}
+                        <label for="username">Username </label>
+                        <input 
+                            type= "text" 
+                            name = "username" 
+                            value = {username} 
+                            placeholder = "Username"
+                            onChange = {e => { 
+                                setUsername(e.target.value)
+                                setSavedMessage("") 
+                            }}
+                        />
+                        {usernameError ? <p className="error">{usernameError}</p> : ""}
+                        <label for="email">Email </label>
+                        <input 
+                            type= "text" 
+                            name = "email" 
+                            value = {email} 
+                            placeholder = "Email" 
+                            onChange = {e => { 
+                                setEmail(e.target.value)
+                                setSavedMessage("") 
+                            }}
+                        />
+                        {emailError ? <p className="error">{emailError}</p> : ""}
+                        <label for="password">Password </label>
+                        <input 
+                            type= "password" 
+                            name = "password" 
+                            value = {password} 
+                            onChange = {e => { 
+                                setPassword(e.target.value)
+                                setSavedMessage("") 
+                            }}
+                        />
+                        {passwordError ? <p className="error">{passwordError}</p> : ""}
+                        <label for="bio">Bio </label>
+                        <textarea 
+                            id = "settingsbio"
+                            maxlength = "432"
+                            type= "text" 
+                            value = {bio} 
+                            placeholder = "Enter a short bio"
+                            onChange = {e => { 
+                                setBio(e.target.value)
+                                setSavedMessage("") 
+                            }}
+                        />
+                        <div className = "submit-button">
+                            <button>Save Changes</button>
+                        </div>
+                    </form>
+                </body>
+                {savedMessage ? <p className = "saved">{savedMessage}</p> : ""}
+                <div className = "bottom-links"> 
+                    <div id = "signout-button" className = "blue-button"> 
+                        <a className = "User-link" href="/">Sign Out</a> 
+                    </div>
+                    <div id = "deleteaccount-button" className = "blue-button"> 
+                        <a  className = "User-link" href="/">Delete Account</a> 
+                    </div>
                 </div>
-                <div id = "deleteaccount-button" className = "blue-button"> 
-                    <a  className = "User-link" href="/">Delete Account</a> 
-                </div>
-            </div>
-            <Footer 
-                title = "Settings" 
-            /> 
-        </main>
-    )
+                <Footer 
+                    title = "Settings" 
+                /> 
+            </main>
+        )
+    else return <Navigate to="/login?error=protected" /> 
 }
 
 export default Settings

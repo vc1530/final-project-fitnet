@@ -45,10 +45,8 @@ router.get("/users", async(req, res) => {
 
 
 const lookUpUser = async(req, cb) => {
-    //const _id = '625763d1974d42cfce0fa342'
-    console.log(req.body) 
-    const _id = req.body._id 
-    const user = await User.findById(_id)
+    const id = req.body.uid 
+    const user = await User.findById(id)
     if (!user) {
         res
         .status(400)
@@ -89,12 +87,6 @@ router.post("/save-changes", upload.single('image'), async(req, res) =>{
             status: 'editing user ' + req.params.name + ' failed'
         })
     }
-})
-
-router.get("/myprofile", async(req, res) =>{
-    lookUpUser(res, async(user) => {
-        res.json(user)
-    })
 })
 
 module.exports = router

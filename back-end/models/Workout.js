@@ -34,7 +34,7 @@ const workoutSchema = new Schema (
         },
         workout_description: {
             type: String,
-            required: true,
+            required: false,
         },
         exercises: {
             type: [exerciseSchema],
