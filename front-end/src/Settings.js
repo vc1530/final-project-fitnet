@@ -8,9 +8,9 @@ import { useState, useEffect } from 'react'
 const Settings = () => {
 
     let changes = 0
-    //the user id is just the index of the user in mock_users for now. during database integration, 
-    //we will assign real IDs to each user 
-    const uid = 0
+
+    //default user until we finish login 
+    const _id = '62570c4071b5c02be1b2d71d'
 
     const [name, setName] = useState("")
     const [username, setUsername] = useState("")
@@ -20,9 +20,9 @@ const Settings = () => {
     const [selectedFile, setSelectedFile] = useState(null)
     
     useEffect(() => { 
-        console.log("fetching data for user " + uid) 
+        console.log("fetching data for user " + _id) 
         axios 
-        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/uid/` + uid)
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/uid/` + _id)
         .then (res => { 
             setName(res.data.user.name) 
             setUsername(res.data.user.username) 
@@ -30,11 +30,11 @@ const Settings = () => {
             setEmail(res.data.user.email) 
             setPassword(res.data.user.password) 
             setSelectedFile(res.data.user.profile_pic)
-            console.log("successful retrieval of user " + uid + " from database")
+            console.log("successful retrieval of user " + _id + " from database")
         })
         .catch (err => { 
             console.error(err) 
-            console.log("failed retrieval of user " + uid + " from database")
+            console.log("failed retrieval of user " + _id + " from database")
         })
     }, [changes]) 
 
@@ -86,7 +86,7 @@ const Settings = () => {
 
         if (valid) { 
             const formData = new FormData();
-            formData.append("uid", 0)
+            formData.append("_id", _id)
             formData.append("name", name);
             formData.append("username", username);
             formData.append("bio", bio);
