@@ -10,7 +10,7 @@ router.get('/w/:id', async (req, res) => {
   try {
     console.log('handling get workout ' + req.params.id);
     //use a random user in the database for now
-    const _id = '625763d1974d42cfce0fa342';
+    const _id = '625c55be0defc54d0f1f1511';
     let user = await User.findById(_id);
     const workout = user.workouts.find((workout) => workout._id == req.params.id);
     if (!workout) {

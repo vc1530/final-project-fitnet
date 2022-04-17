@@ -5,8 +5,14 @@ const { User } = require('../models/User');
 
 router.get('/workouts', async (req, res) => {
   //use a random user in the database for now
-  const _id = '625763d1974d42cfce0fa342';
-  const user = await User.findById(_id);
+  // const _id = '625763d1974d42cfce0fa342';
+  console.log('Got to /workouts. Printing res');
+  console.log(res.body);
+  const user = await User.findById(req.params._id);
+  console.log('User.workouts assign');
+  // const workouts = user.workouts;
+  console.log('user workouts data');
+  console.log(user);
   try {
     res.json({
       success: true,
