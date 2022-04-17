@@ -1,5 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken")
+const passport = require("passport")
+router.use(passport.initialize())
+const { jwtOptions, jwtStrategy } = require("../jwt-config.js") 
+passport.use(jwtStrategy)
 
 const { User } = require('../models/User') 
 
@@ -18,11 +23,16 @@ router.post('/loginVerify', async(req, res) => {
               success: false, 
               status: "Wrong password" 
             })
-          else return res.json({ 
+          else { 
+            const payload = { id: user._id }
+            const token = jwt.sign(payload, jwtOptions.secretOrKey)
+            return res.json({ 
                 success: true, 
-                user: user, 
+                token: token, 
+                id: user._id, 
                 status: "user verified" 
             }) 
+          } 
         }
       })
     }
