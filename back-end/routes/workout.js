@@ -45,14 +45,14 @@ router.get("/w/:id", async(req, res) => {
       const user = await User.findById(req.body.uid)
       if(req.params.id == 'new') { 
         const workout = await Workout.create({ 
-          workout_name: req.body.workout_name,
-          workout_description: req.body.workout_description
+          workout_name: "",//req.body.workout_name,
+          workout_description: "",//req.body.workout_description
         })
         user.workouts.unshift(workout) 
         await user.save() 
         res.json({
           success: true,
-          workout: workout,
+          workouts: user.workouts,
           status: 'added workout ' + workout.id + 'to database'
         })
       }
@@ -103,7 +103,7 @@ router.get("/w/:id", async(req, res) => {
       const _id = '625763d1974d42cfce0fa342' 
       const user = await User.findById(_id)
       
-      const workout =  user.workouts.find(req.params.id);
+      const workout =  await Workout.findById(req.params.id);
       if(!workout) {
         res
         .status(400)

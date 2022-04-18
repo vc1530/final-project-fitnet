@@ -21,10 +21,6 @@ const AddWorkout = () => {
         return {index, name, sets, reps}
     }
 
-    // const dummy1 = dummyExercise("Pushups", 3, 15)
-    // const dummy2 = dummyExercise("Pullups", 3, 15)
-    // const dummy3 = dummyExercise("Squats", 3, 15)
-
     const [workout_name, setName] = useState("") 
     const [workout_description, setDesc] = useState("")
     const [exercises, setExercises] = useState([]) 
@@ -33,11 +29,11 @@ const AddWorkout = () => {
     let params = useParams(); 
 
     useEffect(() => { 
-        if(params.id === 'new') {
-            console.log("New workout, no retrieval")
-            console.log("This should say 'new': " + params.id)
-        }
-        else{
+        // if(params.id === 'new') {
+        //     console.log("New workout, no retrieval")
+        //     console.log("This should say 'new': " + params.id)
+        // }
+        // else{
             console.log("retrieving workout " + params.id) 
             axios 
             .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/` + params.id) 
@@ -52,14 +48,13 @@ const AddWorkout = () => {
                 console.log("retrieval of workout " + params.id + " from backend failed") 
                 console.log(err)
             })
-        }
+        // }
     }, [params.id]) 
 
     const addExercise = () => {
         console.log("Starting addExercise function")
         const filler = dummyExercise(num_exercises, "Foo", "1", "1")
         console.log(filler)
-        // exercises.append(filler)
         setExercises([...exercises, filler])
         setNumExercises(num_exercises + 1)
         axios
@@ -111,14 +106,6 @@ const AddWorkout = () => {
             /> 
             <div className="backlink">
                 <a className = "User-link" href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
-                {/* <div>
-                        <a id = "playlistLink" 
-                            className = "User-link"
-                            href = {'../p/' + params.id} >
-                            {<HiOutlineMusicNote size = "30px"/>}
-                        </a> 
-                    <a className = "User-link" href={"../e/" + params.id}>{<AiOutlinePlusCircle size = "34px"/>}</a>
-                </div> */}
                 <a  className = "User-link"
                     href = {'../p/' + params.id} >
                     {<HiOutlineMusicNote size = "30px"/>}
@@ -164,15 +151,7 @@ const AddWorkout = () => {
                     <a className="deleteWorkoutButton" href={"../workoutHistory"}>Delete Workout</a>
                 </button>
             </div>
-            {/* <div className="AddExercise">
-                <a className = "User-link" href={"../workoutHistory"}>{<BsArrowLeftCircle size = "30px"/>}</a>
-            </div> */}
-            <Footer
-            />
-            {/* <p>
-                <Link to='/addExercise'>Add Exercise</Link>
-            </p> */}
-
+            <Footer/>
         </main>
         
         
