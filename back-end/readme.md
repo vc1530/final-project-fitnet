@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/software-assignments-spring2022/final-project-fitnet/tree/master.svg?style=shield)](https://circleci.com/gh/software-assignments-spring2022/final-project-fitnet/tree/master)
+
 ## Building and testing 
 * `npm install ` will install all dependencies listen in the `package.json` file
 * `npm start` is one way to start the server - it will require you to manually restart whenever you change the code
