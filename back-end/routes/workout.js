@@ -110,13 +110,13 @@ const compare_exercise_data = (e1, e2) =>
   e1.num_reps == e2.num_reps;
 
 router.post('/we/:id/:index', async (req, res) => {
-  console.log('handling add exercise');
-  console.log(req.params);
+  //console.log('handling add exercise');
+  //console.log(req.params);
   try {
     console.log(`edit exercise: finding user ${req.body.uid}`);
     const user = await User.findById(req.body.uid);
-    console.log('edit exercise: printing user');
-    console.log(user);
+    //console.log('edit exercise: printing user');
+    //console.log(user);
     const workout = user.workouts.find((w) => w._id == req.params.id);
     if (!workout) {
       console.log(`edit exercise failed: workout ${req.params.id} was not found`);
@@ -126,7 +126,7 @@ router.post('/we/:id/:index', async (req, res) => {
       });
     } else {
       // Workout is valid
-      console.log('edit exercise: workout is valid');
+      //console.log('edit exercise: workout is valid');
       const exercises = workout.exercises;
       if (!exercises) {
         console.log(
@@ -147,16 +147,18 @@ router.post('/we/:id/:index', async (req, res) => {
           const updatedWorkout = user.workouts[workoutIndex];
           const newExercise = await Exercise.create({
             index: req.body.exercise.index,
-            exercise_name: req.body.exercise.exercise_name,
-            num_sets: req.body.exercise.num_sets,
-            num_reps: req.body.exercise.num_reps,
+            exercise_name: req.body.exercise.name,
+            num_sets: req.body.exercise.sets,
+            num_reps: req.body.exercise.reps,
           });
+          console.log(newExercise)
           updatedWorkout.exercises = [...exercises, newExercise];
           // let updatedExercises = [...exercises, req.body];
           // console.log('updatedExercises: ');
           // console.log(updatedExercises);
           user.workouts[workoutIndex] = updatedWorkout;
           await user.save();
+          //console.log(user.workouts)
           // console.log('user.workouts[workoutIndex].exercises after save:');
           // console.log(user.workouts[workoutIndex].exercises);
           const check_user = await User.findById(req.body.uid);
@@ -165,6 +167,7 @@ router.post('/we/:id/:index', async (req, res) => {
           // console.log('check_user exercises:');
           // console.log(check_user.workouts[workoutIndex].exercises);
           const check_exercise = check_user.workouts[workoutIndex].exercises[exercises.length];
+          console.log(user.workouts) 
           console.log('check_exercise: ');
           console.log(check_exercise);
           console.log('req.body');
