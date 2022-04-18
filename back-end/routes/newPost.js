@@ -6,16 +6,11 @@ const { Post } = require('../models/Post')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-       cb(null, "public/uploads")
+       cb(null, "./")
     },
     filename: function (req, file, cb) {
-      // take apart the uploaded file's name so we can create a new one based on it
-      const extension = path.extname(file.originalname)
-      const basenameWithoutExtension = path.basename(file.originalname, extension)
-      // create a new filename with a timestamp in the middle
-      const newName = `${basenameWithoutExtension}-${Date.now()}${extension}`
-      // tell multer to use this new filename for the uploaded file
-      cb(null, newName)
+      const ext = file.mimetype.split("/")[1];
+      cb(null, 'uploads/${file.originalname}-${Date.now().${ext}}');
     },
   })
   
@@ -47,7 +42,7 @@ router.post("/new-post", upload.single('image'), async(req, res) =>{
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append('image', file)
-    fetch('http://localhost:3000/api/image',{
+    fetch('http://localhost:3000/new-post',{
       method: 'POST',
       body: formData,
       headers:{
