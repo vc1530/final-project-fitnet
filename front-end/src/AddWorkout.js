@@ -79,10 +79,10 @@ const AddWorkout = () => {
     // setExercises([...exercises, filler])
     // setNumExercises(num_exercises + 1)
     axios
-      .post(
-        `${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/` + num_exercises,
-        filler
-      )
+      .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/` + num_exercises, {
+        exercise: filler,
+        uid: uid,
+      })
       .catch((err) => {
         console.error(err);
         console.log('Front end: Failed to add new exercise');
