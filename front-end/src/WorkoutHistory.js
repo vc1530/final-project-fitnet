@@ -11,6 +11,7 @@ import { Navigate } from 'react-router-dom';
 
 const WorkoutHistory = () => {
   const jwtToken = localStorage.getItem('token');
+  const [uid, setUid] = useState('');
 
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
 
@@ -24,6 +25,7 @@ const WorkoutHistory = () => {
       })
       .then((res) => {
         setWorkouts(res.data.user.workouts);
+        setUid(res.data.user._id);
       })
       .catch((err) => {
         console.error(err);
@@ -50,11 +52,12 @@ const WorkoutHistory = () => {
   const addWorkout = () => {
     console.log('WorkoutHistory.js: addWorkout function begin');
     axios
-      .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/new`)
+      .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/w/new`, { uid: uid })
       .then((res) => {
         // Update list of workouts
         setWorkouts(res.data.workouts);
-        setNewWorkoutRoute('/w/' + res.data.workouts[0]._id);
+        window.location.href = `/w/${res.data.workouts[0]._id}`;
+        // setNewWorkoutRoute('/w/' + res.data.workouts[0]._id);
       })
       .catch((err) => {
         console.log("WorkoutHistory.js: couldn't add a new workout");
@@ -70,11 +73,14 @@ const WorkoutHistory = () => {
           <a className="User-link" href={'../myProfile'}>
             {<BsArrowLeftCircle size="30px" />}
           </a>
-          <Link to={addWorkout} href={newWorkoutRoute}>
+          {/* <Link to={addWorkout} href={newWorkoutRoute}>
             <a href={newWorkoutRoute}>
               <AiOutlinePlusCircle size="34px" />
             </a>
-          </Link>
+          </Link> */}
+          <button onClick={addWorkout}>
+            <AiOutlinePlusCircle size="34px" />
+          </button>
         </div>
         <body className="Workout-posts">
           {workouts?.map((workout) => (
