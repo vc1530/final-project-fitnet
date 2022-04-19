@@ -17,7 +17,13 @@
     /* margin: 20px; */
     color: var(--main-accent-color); 
 }
-
+.deleteWorkoutButton {
+    margin-top: 20px;
+    background-color: rgb(240, 103, 103);
+}
+.deleteWorkoutButton a {
+    color: black;
+}
 .TableHeader {
     margin: 20px;
     margin-bottom: 10px;
