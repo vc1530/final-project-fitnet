@@ -110,13 +110,13 @@ const compare_exercise_data = (e1, e2) =>
   e1.num_reps == e2.num_reps;
 
 router.post('/we/:id/:index', async (req, res) => {
-  //console.log('handling add exercise');
-  //console.log(req.params);
+  // console.log('handling add exercise');
+  // console.log(req.params);
   try {
     console.log(`edit exercise: finding user ${req.body.uid}`);
     const user = await User.findById(req.body.uid);
-    //console.log('edit exercise: printing user');
-    //console.log(user);
+    // console.log('edit exercise: printing user');
+    // console.log(user);
     const workout = user.workouts.find((w) => w._id == req.params.id);
     if (!workout) {
       console.log(`edit exercise failed: workout ${req.params.id} was not found`);
@@ -126,7 +126,7 @@ router.post('/we/:id/:index', async (req, res) => {
       });
     } else {
       // Workout is valid
-      //console.log('edit exercise: workout is valid');
+      // console.log('edit exercise: workout is valid');
       const exercises = workout.exercises;
       if (!exercises) {
         console.log(
@@ -134,13 +134,14 @@ router.post('/we/:id/:index', async (req, res) => {
         );
         res.status(400).json({
           success: false,
-          status: `could not find exercises array in workout${workout._id}`,
+          status: `could not find exercises array in workout ${workout._id}`,
         });
       } else {
         // Exercises array is valid
         console.log('edit exercise: exercise array is valid');
         const workoutIndex = user.workouts.findIndex((w) => w._id == req.params.id);
         if (!workout.exercises.find((exercise) => exercise.index == req.params.index)) {
+          // Add exercise
           console.log('handling add exercise');
           console.log('req.body: ');
           console.log(req.body);
@@ -151,14 +152,14 @@ router.post('/we/:id/:index', async (req, res) => {
             num_sets: req.body.exercise.sets,
             num_reps: req.body.exercise.reps,
           });
-          console.log(newExercise)
+          console.log(newExercise);
           updatedWorkout.exercises = [...exercises, newExercise];
           // let updatedExercises = [...exercises, req.body];
           // console.log('updatedExercises: ');
           // console.log(updatedExercises);
           user.workouts[workoutIndex] = updatedWorkout;
           await user.save();
-          //console.log(user.workouts)
+          // console.log(user.workouts)
           // console.log('user.workouts[workoutIndex].exercises after save:');
           // console.log(user.workouts[workoutIndex].exercises);
           const check_user = await User.findById(req.body.uid);
@@ -167,14 +168,14 @@ router.post('/we/:id/:index', async (req, res) => {
           // console.log('check_user exercises:');
           // console.log(check_user.workouts[workoutIndex].exercises);
           const check_exercise = check_user.workouts[workoutIndex].exercises[exercises.length];
-          console.log(user.workouts) 
-          console.log('check_exercise: ');
-          console.log(check_exercise);
-          console.log('req.body');
-          console.log(req.body);
+          // console.log(user.workouts);
+          // console.log('check_exercise: ');
+          // console.log(check_exercise);
+          // console.log('req.body.exercise');
+          // console.log(req.body.exercise);
           console.log('compare_exercise_data');
-          console.log(compare_exercise_data(check_exercise, req.body));
-          if (!compare_exercise_data(check_exercise, req.body)) {
+          console.log(compare_exercise_data(check_exercise, newExercise));
+          if (!compare_exercise_data(check_exercise, newExercise)) {
             console.log(`Failed to add exercise to workout ${req.params.id}`);
             res.json({
               success: false,
@@ -203,7 +204,7 @@ router.post('/we/:id/:index', async (req, res) => {
           // console.log(updatedWorkout);
           user.workouts[workoutIndex] = updatedWorkout;
           await user.save();
-          const check_user = await User.findById(req.params.uid);
+          const check_user = await User.findById(req.body.uid);
           const check_exercise = check_user.workouts[workoutIndex].exercises[exerciseIndex];
           // let input = req.body;
           // console.log('check_exercise');
@@ -256,7 +257,7 @@ router.delete('/w/:uid/:id', async (req, res) => {
     const user = await User.findById(req.params.uid);
     const workout = user.workouts.find((w) => w._id == req.params.id);
     if (!workout) {
-      console.log(`Failed to delete workout: workout ${req.params.id}not found`);
+      console.log(`Failed to delete workout: workout ${req.params.id} not found`);
       res.status(400).json({
         success: false,
         status: `Unable to find workout ${req.params.id} for deletion`,
@@ -284,7 +285,7 @@ router.delete('/w/:uid/:id', async (req, res) => {
         console.log(`Successfully deleted workout ${req.params.id}`);
         res.json({
           success: true,
-          status: `successfully deleted workout${req.params.id}`,
+          status: `successfully deleted workout ${req.params.id}`,
         });
       }
     }
@@ -298,22 +299,26 @@ router.delete('/w/:uid/:id', async (req, res) => {
   }
 });
 
-router.delete('/we/:id/:index', async (req, res) => {
+// Delete exercise
+router.delete('/we/:uid/:id/:index', async (req, res) => {
   console.log('handling delete exercise');
   try {
     console.log(req.params);
-    const user = await User.findById(req.body.id);
+    const user = await User.findById(req.params.uid);
 
     const workout = user.workouts.find((w) => w._id == req.params.id);
+    // console.log('Printing workout');
+    // console.log(workout);
     if (!workout) {
-      console.log(`delete exercise failed: workout ${req.params.id}was not found`);
+      console.log(`delete exercise failed: workout ${req.params.id} was not found`);
       res.status(400).json({
         success: false,
-        status: `workout ${req.params.id}was not found`,
+        status: `workout ${req.params.id} was not found`,
       });
     } else {
       // Workout is valid
       console.log('delete exercise: workout is valid');
+      const workoutIndex = user.workouts.findIndex((w) => w._id == req.params.id);
       const exercises = workout.exercises;
       if (!exercises) {
         console.log(
@@ -321,17 +326,28 @@ router.delete('/we/:id/:index', async (req, res) => {
         );
         res.status(400).json({
           success: false,
-          status: `could not find exercises array in workout${workout._id}`,
+          status: `could not find exercises array in workout ${workout._id}`,
         });
       } else {
         // Exercises array is valid
-        const workoutIndex = user.workouts.findIndex((w) => w._id == req.params.id);
-        const updatedExercises = exercises.slice(1, exercises.length);
-        user.workouts[workoutIndex].exercises = updatedExercises;
+        const updatedExercises = exercises.slice(0, exercises.length - 1);
+        console.log(
+          `exercises.length: ${exercises.length}\tupdatedExercises.length: ${updatedExercises.length}`
+        );
+        console.log(updatedExercises);
+        const updatedWorkout = user.workouts[workoutIndex];
+        updatedWorkout.exercises = updatedExercises;
+        user.workouts[workoutIndex] = updatedWorkout;
+        console.log(
+          `user.workouts[workoutIndex].exercises.length: ${user.workouts[workoutIndex].exercises.length}`
+        );
         await user.save();
-        const check_user = await User.findById(req.body.uid);
-        const check_exercise = check_user.workouts[workoutIndex].exercises.find((exercise) =>
-          compare_exercise_data(exercise, req.body)
+        console.log(
+          `user.workouts[workoutIndex].exercises.length after save: ${user.workouts[workoutIndex].exercises.length}`
+        );
+        const check_user = await User.findById(req.params.uid);
+        const check_exercise = check_user.workouts[workoutIndex].exercises.find(
+          (exercise) => exercise.index > updatedExercises.length
         );
         console.log('delete exercise DB update:');
         console.log(check_exercise);

@@ -100,7 +100,7 @@ const AddWorkout = () => {
     // setExercises(exercises.slice(1,num_exercises))
     // setNumExercises(num_exercises - 1)
     axios
-      .delete(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/` + params.id + `/` + num_exercises)
+      .delete(`${process.env.REACT_APP_SERVER_HOSTNAME}/we/${uid}/${params.id}/${num_exercises}`)
       .catch((err) => {
         console.error(err);
         console.log('Front end: Failed to remove exercise ' + num_exercises);
