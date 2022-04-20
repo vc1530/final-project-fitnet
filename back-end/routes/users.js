@@ -4,6 +4,32 @@ const allUsers = require("../mock_users.json")
 
 const { User } = require('../models/User')
 
+router.post("/users/delete", async(req, res) => {
+  try {
+    const user = await User.findOne({username: req.body.username})
+    if(user) {
+      deletedUser = await User.findOneAndDelete({username: req.body.username})
+      res.json({
+        success: true,
+        status: "successfully removed user from database",
+        user: deletedUser
+      })
+    } else {
+      res.json({
+        success:false,
+        status: "user does not exist in the database"
+      })
+    }
+  } catch (err) {
+    console.error(err) 
+      res.status(400).json({ 
+        success: false, 
+        error: err, 
+        status: "unable to remove user from the database.",
+      })
+  }
+})
+
 router.get("/users", async(req, res) => { 
     try { 
       const users = await User.find({}) 
