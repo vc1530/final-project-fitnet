@@ -124,6 +124,24 @@ const Settings = () => {
       const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0])
       }
+      
+      const handleDelete = e => {
+        
+        console.log("attempting to delete" + username + " from the database")
+
+        axios
+        .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/users/delete` , {
+            username: username
+            })
+        .then((res) => {
+            console.log("Succesfully removed account from the database.");
+            })
+        .catch((err) => {
+            console.error(err)
+            console.log("Unable to remove user from the database.")
+            })
+        }
+
     
     if (isLoggedIn) 
         return (
@@ -221,7 +239,7 @@ const Settings = () => {
                     <div id = "signout-button" className = "blue-button"> 
                         <a className = "User-link" href="/">Sign Out</a> 
                     </div>
-                    <div id = "deleteaccount-button" className = "blue-button"> 
+                    <div id = "deleteaccount-button" className = "blue-button" onClick={handleDelete}> 
                         <a  className = "User-link" href="/">Delete Account</a> 
                     </div>
                 </div>
