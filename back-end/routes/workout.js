@@ -13,7 +13,7 @@ router.use(
   })
 );
 
-const { Workout, Exercise } = require('../models/Workout');
+const { Exercise } = require('../models/Workout');
 const { User } = require('../models/User');
 // const { check } = require('prettier');
 
@@ -57,10 +57,13 @@ router.post('/w/:id', async (req, res) => {
   try {
     const user = await User.findById(req.body.uid);
     if (req.params.id == 'new') {
-      const workout = await Workout.create({
-        workout_name: 'New Workout', // req.body.workout_name,
-        workout_description: 'Description', // req.body.workout_description
-      });
+      const workout = { 
+        _id: Date.now(), 
+        workout_name: 'New Workout', 
+        workout_description: 'Description',
+        exercises: [],  
+        playlist: '', 
+      }
       user.workouts.unshift(workout);
       await user.save();
       res.json({
@@ -69,17 +72,16 @@ router.post('/w/:id', async (req, res) => {
         status: `added workout ${workout.id} to database`,
       });
     } else {
-      const workout = await Workout.findById(req.params.id);
+      const workout = user.workouts.find(w => w._id == req.params.id) 
       if (!workout) {
         res.status(400).json({
           success: false,
           status: `workout ${req.params.id} was not found`,
         });
       } else {
+
         workout.workout_name = req.body.workout_name;
         workout.workout_description = req.body.workout_description;
-        await workout.save();
-
         const index = user.workouts.indexOf(user.workouts.find((w) => w._id == req.params.id));
         user.workouts[index] = workout;
         await user.save();
