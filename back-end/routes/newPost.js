@@ -1,88 +1,72 @@
-const express = require("express");
-const multer = require("multer");
-const router = express.Router();
+const express = require('express')
+const multer = require('multer')
+const mongoose = require('mongoose')
+const uuidv4 = require('uuid/v4')
+const router = express.Router()
 
 const { Post } = require('../models/Post') 
 
+const DIR = './public/';
+
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-       cb(null, "./")
+    destination: (req, file, cb) => {
+        cb(null, DIR);
     },
-    filename: function (req, file, cb) {
-      const ext = file.mimetype.split("/")[1];
-      cb(null, 'uploads/${file.originalname}-${Date.now().${ext}}');
-    },
-  })
-  
-const upload = multer({ storage: storage })
-
-router.post("/new-post", upload.single('image'), async(req, res) =>{
-    try {  
-      const post = await Post.create({ 
-        username: req.body.username, 
-        description: req.body.description, 
-        picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
-      })
-      return res.json({ 
-        success: true, 
-        newpost: post, 
-        status: "uploading new post succeeded" 
-      }) 
-    } catch (err) { 
-      console.error(err) 
-      res.status(400).json({ 
-        success: false, 
-        error: err, 
-        status: 'uploading new post failed', 
-      })
+    filename: (req, file, cb) => {
+        const fileName = file.originalname.toLowerCase().split(' ').join('-');
+        cb(null, uuidv4() + '-' + fileName)
     }
-  })
+});
 
-  const imageHandler = (event) => {
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append('image', file)
-    fetch('http://localhost:3000/new-post',{
-      method: 'POST',
-      body: formData,
-      headers:{
-        'Accept': 'multipart/form-data',
-      },
-      credentials: 'include',
-    })
-    .then(res=>res.json())
-    .then(res =>{
-      setUploadStatus(res.msg);
-  
-    })
-    .catch(error=>{
-      console.error(error)
-    })
-  }
-  
-  router.post("/post", upload.single('image'),(req, res, err) => {
-    if(!req.file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)){
-      res.send({msg: 'Only image files (jpg, jpeg, png) are allowed!'})
-    }
-    else{
-      const image = req.file.filename;
-      const id = 1;
-      const sqlInsert = "UPDATE images SET 'image' = ? WHERE id = ?;"
-      RTCPeerConnection.query(sqlInsert,[image, id], (err, result)=>{
-        if(err){
-          console.log(err)
-          res.send({
-            msg: err
-          })
+var upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
         }
-        if(result){
-          res.send({
-            data: result,
-            msg: 'Your image has been updated!'
-          });
-        }
-      });
     }
-  });
+});
 
-module.exports = router; 
+// User model
+
+router.post('/posts', upload.array('imgCollection', 6), (req, res, next) => {
+    const reqFiles = [];
+    const url = req.protocol + '://' + req.get('host')
+    for (var i = 0; i < req.files.length; i++) {
+        reqFiles.push(url + '/public/' + req.files[i].filename)
+    }
+
+    const user = new User({
+        _id: new mongoose.Types.ObjectId(),
+        imgCollection: reqFiles
+    });
+
+    user.save().then(result => {
+        res.status(201).json({
+            message: "Done upload!",
+            userCreated: {
+                _id: result._id,
+                imgCollection: result.imgCollection
+            }
+        })
+    }).catch(err => {
+        console.log(err),
+            res.status(500).json({
+                error: err
+            });
+    })
+})
+
+router.get("/posts", (req, res, next) => {
+    User.find().then(data => {
+        res.status(200).json({
+            message: "User list retrieved successfully!",
+            users: data
+        });
+    });
+});
+
+module.exports = router;
