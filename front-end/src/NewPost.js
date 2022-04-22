@@ -15,13 +15,13 @@ const NewPost = () => {
         console.log("fetching data for user " + 
         jwtToken) 
         axios 
-        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/posts`, { 
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/myinfo`, { 
             headers: { Authorization: `JWT ${jwtToken}` }
         })
         .then (res => { 
-            setUsername(res.data.username) 
+            setUsername(res.data.user.username) 
             console.log("successful retrieval of user " + 
-            jwtToken + " from database")
+            username + " from database")
         })
         .catch (err => { 
             console.error(err) 
