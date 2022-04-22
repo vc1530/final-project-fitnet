@@ -1,71 +1,48 @@
+const appendField = require('append-field');
 const express = require('express')
 const multer = require('multer')
-const mongoose = require('mongoose')
-const uuidv4 = require('uuid/v4')
 const router = express.Router()
-
 const { Post } = require('../models/Post') 
-
-const DIR = './public/';
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, DIR);
+        cb(null, 'uploads')
     },
-    filename: (req, file, cb) => {
-        const fileName = file.originalname.toLowerCase().split(' ').join('-');
-        cb(null, uuidv4() + '-' + fileName)
+    filename: (req, file, cb) =>{
+        cb(null, file.fieldname + '-' + Date.now())
     }
 });
 
-var upload = multer({
-    storage: storage,
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
-            cb(null, true);
-        } else {
-            cb(null, false);
-            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+const upload = multer({storage:storage});
+
+router.get('/new-post', (req, res)=>{
+    imgModel.find({}, (err, items)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else{
+            res.render('imagesPage', {items:items});
+        }
+    });
+});
+
+router.post('/new-post', upload.single('image'), (req, res, next)=>{
+    var obj = {
+        name: req.body.name,
+        desc: req.body.desc,
+        img:{
+            data: file.readFileSync(path.join(__dirname + '/upload/' + req.file.filename)),
+            contentType: 'image/jpg'
         }
     }
-});
-
-// User model
-
-router.post('/posts', upload.array('imgCollection', 6), (req, res, next) => {
-    const reqFiles = [];
-    const url = req.protocol + '://' + req.get('host')
-    for (var i = 0; i < req.files.length; i++) {
-        reqFiles.push(url + '/public/' + req.files[i].filename)
-    }
-
-    const user = new User({
-        _id: new mongoose.Types.ObjectId(),
-        imgCollection: reqFiles
-    });
-
-    user.save().then(result => {
-        res.status(201).json({
-            message: "Done upload!",
-            userCreated: {
-                _id: result._id,
-                imgCollection: result.imgCollection
-            }
-        })
-    }).catch(err => {
-        console.log(err),
-            res.status(500).json({
-                error: err
-            });
-    })
-})
-
-router.get("/posts", (req, res, next) => {
-    User.find().then(data => {
-        res.status(200).json({
-            message: "User list retrieved successfully!",
-            users: data
-        });
+    imgModel.creat(obj, (err, item)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect('new-post');
+        }
     });
 });
 
