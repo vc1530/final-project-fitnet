@@ -21,6 +21,7 @@ const Settings = () => {
     const [bio, setBio] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [profile_pic, setProfile_pic] = useState("") 
     const [selectedFile, setSelectedFile] = useState(null)
     
     useEffect(() => { 
@@ -34,7 +35,10 @@ const Settings = () => {
             setBio(res.data.user.bio) 
             setEmail(res.data.user.email) 
             setPassword(res.data.user.password) 
-            setSelectedFile(res.data.user.profile_pic) 
+            if (res.data.user.profile_pic) { 
+                setProfile_pic(res.data.user.profile_pic)
+                console.log(profile_pic)  
+            } 
         })
         .catch(err => { 
             console.error(err) 
@@ -132,9 +136,7 @@ const Settings = () => {
       }
       
       const handleDelete = e => {
-        
         console.log("attempting to delete" + username + " from the database")
-
         axios
         .post(`${process.env.REACT_APP_SERVER_HOSTNAME}/users/delete` , {
             username: username
@@ -159,8 +161,8 @@ const Settings = () => {
                 <body id = "Settings-info" className="Post-box"> 
                     <div id = "Settings-top"> 
                         <img 
-                            id = "settingspic" 
-                            src = {selectedFile ? selectedFile : blankpic}
+                            id = "settingspic"
+                            ng-src={profile_pic.data ? `data:image/png;base64,${profile_pic.data}`: blankpic}
                             alt = "me!"
                         /> 
                         {/* added to this */}
