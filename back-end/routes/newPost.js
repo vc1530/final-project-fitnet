@@ -30,17 +30,29 @@ router.get('/newPost', (req, res)=>{
 });
 
 router.post('/newPost', upload.single('image'), async(req, res, next)=>{
-    const newPost = await Post.create({
+    try { 
+      const newPost = await Post.create({
         username: req.body.username,
         description: req.body.description,
-    })
-    if(req.file){
-        newPost.picture = {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: `image/png` 
-        }
-        await newPost.save()
-    }    
+      })
+      if(req.file){
+          newPost.picture = {
+              data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+              contentType: `image/png` 
+          }
+          await newPost.save()
+      }   
+      res.json({ 
+        success:true, 
+        status:`post has been uploaded`, 
+        newpost: newPost, 
+      })
+    }  catch (err) { 
+      res.status(400).json({ 
+        success: false, 
+        status: `uploading post failed`, 
+      })
+    }
     /*
     console.log(upload)
     console.log("////////////////")
