@@ -14,7 +14,7 @@ const postSchema = new Schema(
         picture: { 
             data: Buffer,
             contentType: String,
-            required: false,
+            required: false, 
         },
     }, 
 )

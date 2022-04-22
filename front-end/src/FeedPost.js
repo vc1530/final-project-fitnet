@@ -27,8 +27,13 @@ const FeedPost = props => {
     }
 
     const arrayBufferToBase64 = buffer => {
-        const base64String = btoa(String.fromCharCode(...new Uint8Array(buffer)));
-        return base64String 
+        var binary = '';
+        var bytes = new Uint8Array( buffer );
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode( bytes[ i ] );
+        }
+        return window.btoa( binary );
     }
 
     if(!user) { 
@@ -43,7 +48,7 @@ const FeedPost = props => {
     else
         return ( 
             <main id = "FeedPost" className = "Post-box">
-                <img className = "Post-image" src = {props.picture} alt = "Post" />
+                <img className = "Post-image" src = {typeof props.picture != "string" ? `data:image/png;base64,${arrayBufferToBase64(props.picture.data.data)}` : blankpic} alt="profile img"/>
                 <section className = "Profile-info">
                         <img 
                             className = "Profile-image" 

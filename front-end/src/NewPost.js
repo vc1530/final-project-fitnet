@@ -32,13 +32,10 @@ const NewPost = () => {
 
 
     const [description, setDesc] = useState('') 
-    const [picture, setPicture] = useState({})
+    const [picture, setPicture] = useState(null)
 
     const uploadPicture = e => { 
-        setPicture ({ 
-            picturePreview: URL.createObjectURL(e.target.files[0]), 
-            pictureAsFile: e.target.files[0] 
-        })
+        setPicture(e.target.files[0])
     } 
 
     const handleSubmit = e => { 
@@ -47,7 +44,7 @@ const NewPost = () => {
         const formData = new FormData() 
         formData.append("username", username)
         formData.append("description", description) 
-        formData.append("image", picture.pictureAsFile) 
+        formData.append("image", picture) 
         axios
         .post (`${process.env.REACT_APP_SERVER_HOSTNAME}/newPost`, 
             formData
