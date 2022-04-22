@@ -6,24 +6,29 @@ import axios from 'axios'
 
 const NewPost = () => {
 
-    const uid = 0 
+    const jwtToken = localStorage.getItem("token") 
 
     const [username, setUsername] = useState("")
     const [postMessage, setPostMessage] = useState("") 
 
     useEffect(() => { 
-        console.log("fetching data for user " + uid) 
+        console.log("fetching data for user " + 
+        jwtToken) 
         axios 
-        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/uid/` + uid)
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/posts`, { 
+            headers: { Authorization: `JWT ${jwtToken}` }
+        })
         .then (res => { 
-            setUsername(res.data.user.username) 
-            console.log("successful retrieval of user " + uid + " from database")
+            setUsername(username) 
+            console.log("successful retrieval of user " + 
+            jwtToken + " from database")
         })
         .catch (err => { 
             console.error(err) 
-            console.log("failed retrieval of user " + uid + " from database")
+            console.log("failed retrieval of user " + 
+            jwtToken + " from database")
         })
-    }, []) 
+    }, [jwtToken]) 
 
 
     const [description, setDesc] = useState('') 
@@ -44,7 +49,7 @@ const NewPost = () => {
         formData.append("description", description) 
         formData.append("image", picture.pictureAsFile) 
         axios
-        .post (`${process.env.REACT_APP_SERVER_HOSTNAME}/new-post`, 
+        .post (`${process.env.REACT_APP_SERVER_HOSTNAME}/posts`, 
             formData
         )
         .catch(err => { 
