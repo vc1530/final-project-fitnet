@@ -81,6 +81,7 @@ const SignUp = () => {
                 setEmailError("")
                 setPasswordError("") 
                 setSavedMessage("You have been registered!") 
+                window.location.replace('/login')
             })
             .catch((err) => { 
                 console.error(err) 

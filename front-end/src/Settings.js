@@ -124,6 +124,12 @@ const Settings = () => {
       const handleFileSelect = (event) => {
         setSelectedFile(event.target.files[0])
       }
+
+      const handleSignOut = e => { 
+        console.log(`attemping to log out user ${username}`)
+        localStorage.removeItem("token")
+        console.log(`user ${username} has been logged out`)
+      }
       
       const handleDelete = e => {
         
@@ -236,7 +242,7 @@ const Settings = () => {
                 </body>
                 {savedMessage ? <p className = "saved">{savedMessage}</p> : ""}
                 <div className = "bottom-links"> 
-                    <div id = "signout-button" className = "blue-button"> 
+                    <div id = "signout-button" className = "blue-button" onClick = {handleSignOut} > 
                         <a className = "User-link" href="/">Sign Out</a> 
                     </div>
                     <div id = "deleteaccount-button" className = "blue-button" onClick={handleDelete}> 
