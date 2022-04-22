@@ -9,8 +9,6 @@ import blankpic from "./images/blank_profile.jpg"
 
 const Settings = () => {
 
-    let changes = 0
-
     const jwtToken = localStorage.getItem("token") 
 
     const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true) 
@@ -21,7 +19,7 @@ const Settings = () => {
     const [bio, setBio] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [profile_pic, setProfile_pic] = useState("") 
+    const [profile_pic, setProfile_pic] = useState(null) 
     const [selectedFile, setSelectedFile] = useState(null)
     
     useEffect(() => { 
@@ -35,17 +33,15 @@ const Settings = () => {
             setBio(res.data.user.bio) 
             setEmail(res.data.user.email) 
             setPassword(res.data.user.password) 
-            if (res.data.user.profile_pic) { 
+            if (res.data.user.profile_pic) 
                 setProfile_pic(res.data.user.profile_pic)
-                console.log(profile_pic)  
-            } 
         })
         .catch(err => { 
             console.error(err) 
             console.log("Invalid token") 
             setIsLoggedIn(false) 
         })
-    }, [changes])
+    }, [])
 
     const [nameError, setNameError] = useState("") 
     const [usernameError, setUsernameError] = useState("") 
@@ -114,7 +110,6 @@ const Settings = () => {
             })
             .then((response) => { 
                 console.log("saving changes in settings succeeded")
-                changes ++
                 setNameError("") 
                 setUsernameError("") 
                 setEmailError("")
@@ -150,6 +145,10 @@ const Settings = () => {
             })
         }
 
+        const arrayBufferToBase64 = buffer => {
+            const base64String = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+            return base64String 
+        }
     
     if (isLoggedIn) 
         return (
@@ -162,7 +161,7 @@ const Settings = () => {
                     <div id = "Settings-top"> 
                         <img 
                             id = "settingspic"
-                            ng-src={profile_pic.data ? `data:image/png;base64,${profile_pic.data}`: blankpic}
+                            src={profile_pic ? `data:image/png;base64,${arrayBufferToBase64(profile_pic.data.data)}`: blankpic}
                             alt = "me!"
                         /> 
                         {/* added to this */}
@@ -178,7 +177,7 @@ const Settings = () => {
                         />
                     </div>
                     <form onSubmit = {handleSubmit}>
-                        <label for="name">Name </label>
+                        <label htmlFor="name">Name </label>
                         <input 
                             type= "text" 
                             name = "name" 
@@ -190,7 +189,7 @@ const Settings = () => {
                             }}
                         />
                         {nameError ? <p className="error">{nameError}</p> : ""}
-                        <label for="username">Username </label>
+                        <label htmlFor="username">Username </label>
                         <input 
                             type= "text" 
                             name = "username" 
@@ -202,7 +201,7 @@ const Settings = () => {
                             }}
                         />
                         {usernameError ? <p className="error">{usernameError}</p> : ""}
-                        <label for="email">Email </label>
+                        <label htmlFor="email">Email </label>
                         <input 
                             type= "text" 
                             name = "email" 
@@ -214,7 +213,7 @@ const Settings = () => {
                             }}
                         />
                         {emailError ? <p className="error">{emailError}</p> : ""}
-                        <label for="password">Password </label>
+                        <label htmlFor="password">Password </label>
                         <input 
                             type= "password" 
                             name = "password" 
@@ -225,10 +224,10 @@ const Settings = () => {
                             }}
                         />
                         {passwordError ? <p className="error">{passwordError}</p> : ""}
-                        <label for="bio">Bio </label>
+                        <label htmlFor="bio">Bio </label>
                         <textarea 
                             id = "settingsbio"
-                            maxlength = "432"
+                            maxLength = "432"
                             type= "text" 
                             value = {bio} 
                             placeholder = "Enter a short bio"

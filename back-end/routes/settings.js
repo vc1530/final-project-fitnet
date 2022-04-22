@@ -71,7 +71,7 @@ router.post("/save-changes", upload.single('image'), async(req, res) =>{
             if (req.file) { 
               user.profile_pic = { 
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-                contentType: 'image/png' 
+                contentType: `image/png` 
               } 
               //user.profile_pic = await fs.readFile(req.file.path)
             } 
