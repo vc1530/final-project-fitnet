@@ -19,9 +19,11 @@ const { User } = require('../models/User');
 
 router.get('/w/:uid/:id', async (req, res) => {
   try {
-    // console.log(`handling get workout ${req.params.id}`);
-    // console.log(`printing req.params.uid: ${req.params.uid}`);
+    console.log(`handling get workout ${req.params.id}`);
+    console.log(`printing req.params.uid: ${req.params.uid}`);
     const user = await User.findById(req.params.uid);
+    // console.log("Printing user workouts")
+    // console.log(user.workouts)
     const workout = user.workouts.find((w) => w._id == req.params.id);
     if (!workout) {
       console.log(`get workout failed: workout ${req.params.id} was not found`);
@@ -57,29 +59,29 @@ router.post('/w/:id', async (req, res) => {
   try {
     const user = await User.findById(req.body.uid);
     if (req.params.id == 'new') {
-      const workout = { 
-        _id: Date.now(), 
-        workout_name: 'New Workout', 
+      const workout = {
+        _id: Date.now(),
+        workout_name: 'New Workout',
         workout_description: 'Description',
-        exercises: [],  
-        playlist: '', 
-      }
+        exercises: [],
+        playlist: '',
+      };
       user.workouts.unshift(workout);
       await user.save();
       res.json({
         success: true,
         workouts: user.workouts,
+        workout, // If code breaks get rid of this and deal with unit tests later
         status: `added workout ${workout.id} to database`,
       });
     } else {
-      const workout = user.workouts.find(w => w._id == req.params.id) 
+      const workout = user.workouts.find((w) => w._id == req.params.id);
       if (!workout) {
         res.status(400).json({
           success: false,
           status: `workout ${req.params.id} was not found`,
         });
       } else {
-
         workout.workout_name = req.body.workout_name;
         workout.workout_description = req.body.workout_description;
         const index = user.workouts.indexOf(user.workouts.find((w) => w._id == req.params.id));
