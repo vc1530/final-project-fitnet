@@ -6,34 +6,36 @@ import axios from 'axios'
 
 const NewPost = () => {
 
-    const uid = 0 
+    const jwtToken = localStorage.getItem("token") 
 
     const [username, setUsername] = useState("")
-    const [postMessage, setPostMessage] = useState("") 
+    const [postMessage, setPostMessage] = useState("")
 
     useEffect(() => { 
-        console.log("fetching data for user " + uid) 
+        console.log("fetching data for user " + 
+        jwtToken) 
         axios 
-        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/uid/` + uid)
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/myinfo`, { 
+            headers: { Authorization: `JWT ${jwtToken}` }
+        })
         .then (res => { 
             setUsername(res.data.user.username) 
-            console.log("successful retrieval of user " + uid + " from database")
+            console.log("successful retrieval of user " + 
+            username + " from database")
         })
         .catch (err => { 
             console.error(err) 
-            console.log("failed retrieval of user " + uid + " from database")
+            console.log("failed retrieval of user " + 
+            jwtToken + " from database")
         })
-    }, []) 
+    }, [jwtToken]) 
 
 
     const [description, setDesc] = useState('') 
-    const [picture, setPicture] = useState({})
+    const [picture, setPicture] = useState(null)
 
     const uploadPicture = e => { 
-        setPicture ({ 
-            picturePreview: URL.createObjectURL(e.target.files[0]), 
-            pictureAsFile: e.target.files[0] 
-        })
+        setPicture(e.target.files[0])
     } 
 
     const handleSubmit = e => { 
@@ -42,9 +44,9 @@ const NewPost = () => {
         const formData = new FormData() 
         formData.append("username", username)
         formData.append("description", description) 
-        formData.append("image", picture.pictureAsFile) 
+        formData.append("image", picture) 
         axios
-        .post (`${process.env.REACT_APP_SERVER_HOSTNAME}/new-post`, 
+        .post (`${process.env.REACT_APP_SERVER_HOSTNAME}/newPost`, 
             formData
         )
         .catch(err => { 

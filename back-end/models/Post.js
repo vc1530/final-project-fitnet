@@ -12,8 +12,9 @@ const postSchema = new Schema(
             required: true, 
         }, 
         picture: { 
-            type: String, 
-            required: true, 
+            data: Buffer,
+            contentType: String,
+            required: false, 
         },
     }, 
 )

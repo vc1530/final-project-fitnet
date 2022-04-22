@@ -13,7 +13,6 @@ const FeedPost = props => {
         .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/` + props.username)
         .then (res => { 
             setUser(res.data.user)
-            console.log(res.data.user.profile_pic) 
             console.log("successful retrieval of user " + props.username + " from database")
         })
         .catch (err => { 
@@ -27,8 +26,13 @@ const FeedPost = props => {
     }
 
     const arrayBufferToBase64 = buffer => {
-        const base64String = btoa(String.fromCharCode(...new Uint8Array(buffer)));
-        return base64String 
+        var binary = '';
+        var bytes = new Uint8Array( buffer );
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode( bytes[ i ] );
+        }
+        return window.btoa( binary );
     }
 
     if(!user) { 
@@ -40,35 +44,37 @@ const FeedPost = props => {
         )
     } 
 
-    else
-        return ( 
-            <main id = "FeedPost" className = "Post-box">
-                <img className = "Post-image" src = {props.picture} alt = "Post" />
-                <section className = "Profile-info">
-                        <img 
-                            className = "Profile-image" 
-                            src = {user.profile_pic ? `data:image/png;base64,${arrayBufferToBase64(user.profile_pic.data.data)}`: blankpic} 
-                            alt = "Profile" /> 
-                        <div className = "Profile-hover">
-                            <div className = "Profile-link">
-                                <b><a className = "User-link" href = {"/" + props.username} >{props.username}</a></b> 
+    console.log(props.picture)
+
+    return ( 
+        <main id = "FeedPost" className = "Post-box">
+            <img className = "Post-image" src = {typeof props.picture != "string" && props.picture? `data:image/png;base64,${arrayBufferToBase64(props.picture.data.data)}` : blankpic} alt="profile img"/>
+            <section className = "Profile-info">
+                <img 
+                    className = "Profile-image" 
+                    src = {user.profile_pic ? `data:image/png;base64,${arrayBufferToBase64(user.profile_pic.data.data)}`: blankpic} 
+                    alt = "Profile" /> 
+                <div className = "Profile-hover">
+                    <div className = "Profile-link">
+                        <b><a className = "User-link" href = {"/" + props.username} >{props.username}</a></b> 
+                    </div> 
+                    <div className = "Profile-card" onClick = {handleClick}> 
+                        <div className = "card-top"> 
+                            <img 
+                                src = {user.profile_pic ? `data:image/png;base64,${arrayBufferToBase64(user.profile_pic.data.data)}`: blankpic} 
+                                alt = "profile" 
+                            /> 
+                            <div className = "card-names">
+                                <b><p><a className = "User-link" href = {"/" + props.username}>{user.username}</a></p></b>
+                                <p>{user.name}</p> 
                             </div> 
-                            <div className = "Profile-card" onClick = {handleClick}> 
-                                <div className = "card-top"> 
-                                    <img 
-                                        src = {user.profile_pic ? `data:image/png;base64,${arrayBufferToBase64(user.profile_pic.data.data)}`: blankpic} 
-                                        alt = "profile" /> 
-                                    <div className = "card-names">
-                                    <b><p><a className = "User-link" href = {"/" + props.username}>{user.username}</a></p></b>
-                                    <p>{user.name}</p> 
-                                </div> 
-                            </div>
-                            <p id = "bio">{user.bio}</p>
                         </div>
+                        <p id = "bio">{user.bio}</p>
                     </div>
-                </section>
-                <p>{props.description}</p>
-            </main>
+                </div>
+            </section>
+            <p>{props.description}</p>
+        </main>
         )
 
 }

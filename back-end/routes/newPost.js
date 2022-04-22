@@ -1,88 +1,75 @@
-const express = require("express");
-const multer = require("multer");
-const router = express.Router();
-
-const { Post } = require('../models/Post') 
+const appendField = require('append-field');
+const express = require('express')
+const multer = require('multer')
+const router = express.Router()
+const path = require("path")
+const fs = require('fs')
+const {Post} = require('../models/Post') 
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-       cb(null, "./")
+    destination: (req, file, cb) => {
+        cb(null, 'routes/uploads')
     },
-    filename: function (req, file, cb) {
-      const ext = file.mimetype.split("/")[1];
-      cb(null, 'uploads/${file.originalname}-${Date.now().${ext}}');
-    },
-  })
-  
-const upload = multer({ storage: storage })
-
-router.post("/new-post", upload.single('image'), async(req, res) =>{
-    try {  
-      const post = await Post.create({ 
-        username: req.body.username, 
-        description: req.body.description, 
-        picture: 'http://dummyimage.com/140x100.png/cc0000/ffffff' 
-      })
-      return res.json({ 
-        success: true, 
-        newpost: post, 
-        status: "uploading new post succeeded" 
-      }) 
-    } catch (err) { 
-      console.error(err) 
-      res.status(400).json({ 
-        success: false, 
-        error: err, 
-        status: 'uploading new post failed', 
-      })
+    filename: (req, file, cb) =>{
+        cb(null, file.fieldname + '-' + Date.now())
     }
-  })
+});
 
-  const imageHandler = (event) => {
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append('image', file)
-    fetch('http://localhost:3000/new-post',{
-      method: 'POST',
-      body: formData,
-      headers:{
-        'Accept': 'multipart/form-data',
-      },
-      credentials: 'include',
-    })
-    .then(res=>res.json())
-    .then(res =>{
-      setUploadStatus(res.msg);
-  
-    })
-    .catch(error=>{
-      console.error(error)
-    })
-  }
-  
-  router.post("/post", upload.single('image'),(req, res, err) => {
-    if(!req.file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)){
-      res.send({msg: 'Only image files (jpg, jpeg, png) are allowed!'})
-    }
-    else{
-      const image = req.file.filename;
-      const id = 1;
-      const sqlInsert = "UPDATE images SET 'image' = ? WHERE id = ?;"
-      RTCPeerConnection.query(sqlInsert,[image, id], (err, result)=>{
+const upload = multer({storage:storage});
+
+router.get('/newPost', (req, res)=>{
+    imgModel.find({}, (err, items)=>{
         if(err){
-          console.log(err)
-          res.send({
-            msg: err
-          })
+            console.log(err);
+            res.status(500).send('An error occurred', err);
         }
-        if(result){
-          res.send({
-            data: result,
-            msg: 'Your image has been updated!'
-          });
+        else{
+            res.render('imagesPage', {items:items});
         }
-      });
-    }
-  });
+    });
+});
 
-module.exports = router; 
+router.post('/newPost', upload.single('image'), async(req, res, next)=>{
+    const newPost = await Post.create({
+        username: req.body.username,
+        description: req.body.description,
+    })
+    if(req.file){
+        newPost.picture = {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: `image/png` 
+        }
+        await newPost.save()
+    }    
+    /*
+    console.log(upload)
+    console.log("////////////////")
+    console.log(upload.storage)
+    console.log("////////////////")
+    console.log(upload.storage.getFilename)
+    console.log("///////////////")
+    console.log(req.file.filename)
+    console.log("///////////////")
+    console.log(req.file.originalname)
+    console.log("///////////////")
+    */
+    /*var obj = {
+        name: req.body.name,
+        desc: req.body.desc,
+        img:{
+            data: file.readFileSync(path.join(__dirname + '/upload/' + req.file.filename)),
+            contentType: 'image/jpg'
+        }
+    }
+    imgModel.creat(obj, (err, item)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect('newPost');
+        }
+    });
+    */
+});
+
+module.exports = router;
