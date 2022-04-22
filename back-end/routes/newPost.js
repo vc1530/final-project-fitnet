@@ -2,11 +2,13 @@ const appendField = require('append-field');
 const express = require('express')
 const multer = require('multer')
 const router = express.Router()
+const path = require("path")
+const fs = require('fs')
 const {Post} = require('../models/Post') 
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads')
+        cb(null, 'routes/uploads')
     },
     filename: (req, file, cb) =>{
         cb(null, file.fieldname + '-' + Date.now())
@@ -31,8 +33,14 @@ router.post('/newPost', upload.single('image'), async(req, res, next)=>{
     const newPost = await Post.create({
         username: req.body.username,
         description: req.body.description,
-        picture: req.file.filename
     })
+    if(req.file){
+        newPost.picture = {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: `image/png` 
+        }
+        await newPost.save()
+    }    
     /*
     console.log(upload)
     console.log("////////////////")
