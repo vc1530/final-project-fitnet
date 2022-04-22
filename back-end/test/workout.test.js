@@ -90,8 +90,8 @@ describe('/POST/:new workout', () => {
       .request(server)
       .post('/w/new')
       .send({
-        workout_name: 'new workout name!',
-        workout_description: 'new workout description!',
+        // workout_name: 'new workout name!',
+        // workout_description: 'new workout description!',
         uid,
       })
       .end((err, res) => {
@@ -104,8 +104,8 @@ describe('/POST/:new workout', () => {
         res.body.workout.should.have.property('workout_name');
         res.body.workout.should.have.property('workout_description');
         res.body.workout.should.have.property('_id');
-        res.body.workout.workout_name.should.eql('new workout name!');
-        res.body.workout.workout_description.should.eql('new workout description!');
+        res.body.workout.workout_name.should.eql('');
+        res.body.workout.workout_description.should.eql('');
         done();
       });
   });

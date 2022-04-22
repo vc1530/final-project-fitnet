@@ -47,7 +47,6 @@ app.use('/', settings);
 app.use('/', newPost);
 app.use('/', register);
 app.use('/', posts);
-app.use('/', workouts);
 app.use('/', workout);
 app.use('/', playlists);
 app.use('/', loginVerify);

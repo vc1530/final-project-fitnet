@@ -61,8 +61,8 @@ router.post('/w/:id', async (req, res) => {
     if (req.params.id == 'new') {
       const workout = {
         _id: Date.now(),
-        workout_name: 'New Workout',
-        workout_description: 'Description',
+        workout_name: '',
+        workout_description: '',
         exercises: [],
         playlist: '',
       };
