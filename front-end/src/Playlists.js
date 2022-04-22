@@ -47,6 +47,7 @@ const Playlists = () => {
             .catch(err => { 
                 console.log("failed retrieval of playlist for workout " + params.id) 
                 console.error(err) 
+                setIsLoggedIn(false)
             })
     }
 

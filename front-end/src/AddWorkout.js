@@ -69,6 +69,7 @@ const AddWorkout = () => {
       .catch((err) => {
         console.log(`retrieval of workout ${params.id} from backend failed`);
         console.log(err);
+        setIsLoggedIn(false) 
       });
   };
 
