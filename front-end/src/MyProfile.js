@@ -35,6 +35,11 @@ const MyProfile = () => {
         })
     }, [])
 
+    const arrayBufferToBase64 = buffer => {
+        const base64String = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+        return base64String 
+    }
+
     if (isLoggedIn) 
         return(
             <main className="MyProfile">
@@ -43,7 +48,7 @@ const MyProfile = () => {
                     title = "My Profile"
                 /> 
                 <body id = "MyProfile-info" className = "Post-box">
-                    <img className="UserProfile-pic" src={profile_pic ? profile_pic : blankpic} alt="profile img"/>
+                    <img className="UserProfile-pic" src={profile_pic ? `data:image/png;base64,${arrayBufferToBase64(profile_pic.data.data)}` : blankpic} alt="profile img"/>
                     <div className = "UserProfile-title"> 
                         <p id = "myname" >{name}</p>
                         <p><i><a id="myusername" className = "User-link" href = {"/" + username}>{username}</a></i></p>
