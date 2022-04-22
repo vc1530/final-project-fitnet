@@ -34,21 +34,6 @@ const WorkoutHistory = () => {
       });
   }, [jwtToken]);
 
-  // useEffect (() => {
-  //     console.log('retrieving workouts from database')
-  //     setNewWorkoutRoute('/w/new')
-  //     axios
-  //         .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/workouts`)
-  //         .then(res => {
-  //             setWorkouts(res.data.workouts)
-  //             console.log("successful retrieval of workouts from database")
-  //         })
-  //         .catch(err => {
-  //             console.log("retrieval of workouts from backend failed")
-  //             console.error(err)
-  //         })
-  //     }, [])
-
   const addWorkout = () => {
     console.log('WorkoutHistory.js: addWorkout function begin');
     axios
