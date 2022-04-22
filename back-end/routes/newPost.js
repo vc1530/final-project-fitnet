@@ -2,7 +2,7 @@ const appendField = require('append-field');
 const express = require('express')
 const multer = require('multer')
 const router = express.Router()
-const { Post } = require('../models/Post') 
+const {Post} = require('../models/Post') 
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage:storage});
 
-router.get('/new-post', (req, res)=>{
+router.get('/newPost', (req, res)=>{
     imgModel.find({}, (err, items)=>{
         if(err){
             console.log(err);
@@ -27,8 +27,25 @@ router.get('/new-post', (req, res)=>{
     });
 });
 
-router.post('/new-post', upload.single('image'), (req, res, next)=>{
-    var obj = {
+router.post('/newPost', upload.single('image'), async(req, res, next)=>{
+    const newPost = await Post.create({
+        username: req.body.username,
+        description: req.body.description,
+        picture: req.file.filename
+    })
+    /*
+    console.log(upload)
+    console.log("////////////////")
+    console.log(upload.storage)
+    console.log("////////////////")
+    console.log(upload.storage.getFilename)
+    console.log("///////////////")
+    console.log(req.file.filename)
+    console.log("///////////////")
+    console.log(req.file.originalname)
+    console.log("///////////////")
+    */
+    /*var obj = {
         name: req.body.name,
         desc: req.body.desc,
         img:{
@@ -41,9 +58,10 @@ router.post('/new-post', upload.single('image'), (req, res, next)=>{
             console.log(err);
         }
         else{
-            res.redirect('new-post');
+            res.redirect('newPost');
         }
     });
+    */
 });
 
 module.exports = router;
