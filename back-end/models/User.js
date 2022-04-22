@@ -32,7 +32,7 @@ const userSchema = new Schema(
       },
     profile_pic: {
       data: Buffer,
-      type: String,
+      contentType: String,
       required: false,
     },
     workouts: { 

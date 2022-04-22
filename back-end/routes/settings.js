@@ -3,14 +3,14 @@ const router = express.Router()
 const multer = require("multer") 
 const allUsers = require("../mock_users.json") 
 const path = require("path")
-const fs = require('fs/promises')
+const fs = require('fs')
 
 const { User } = require('../models/User') 
 
 // do we need this? 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-     cb(null, "public/uploads")
+     cb(null, "routes/uploads")
   },
   filename: function (req, file, cb) {
     // take apart the uploaded file's name so we can create a new one based on it
@@ -68,8 +68,13 @@ router.post("/save-changes", upload.single('image'), async(req, res) =>{
             user.email = req.body.email
             user.password = req.body.password
             //console.log(req.file)
-            if (req.file) 
-              user.profile_pic = await fs.readFile(req.file.path)
+            if (req.file) { 
+              user.profile_pic = { 
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                contentType: `image/png` 
+              } 
+              //user.profile_pic = await fs.readFile(req.file.path)
+            } 
             await user.save()
 
             res.json({ 

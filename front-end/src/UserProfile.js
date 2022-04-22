@@ -6,6 +6,7 @@ import Footer from "./Footer"
 import { AiOutlineLeft } from 'react-icons/ai'
 import { useEffect, useState } from 'react' 
 import axios from "axios"
+import blankpic from "./images/blank_profile.jpg"
 
 const UserProfile = () => { 
 
@@ -26,6 +27,16 @@ const UserProfile = () => {
             console.log("failed retrieval of user " + params.username + " from database")
         })
     }, [params.username])
+
+    const arrayBufferToBase64 = buffer => {
+        var binary = '';
+        var bytes = new Uint8Array( buffer );
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode( bytes[ i ] );
+        }
+        return window.btoa( binary );
+    }
 
     if (typeof user == 'undefined') 
         return (
@@ -49,7 +60,10 @@ const UserProfile = () => {
             />
             <a id = "back-link" className = "User-link" href = "./Feed"><AiOutlineLeft size = {'28px'} /></a>
             <body id = "UserProfile-info" className = "Post-box">
-                <img className = "UserProfile-pic" src = {user.profile_pic} alt = "me!" /> 
+                <img 
+                    className = "UserProfile-pic" 
+                    src = {user.profile_pic ? `data:image/png;base64,${arrayBufferToBase64(user.profile_pic.data.data)}`: blankpic} 
+                    alt = "me!" /> 
                 <div className = "UserProfile-title">
                     <p id = "name">{user.name}</p>
                     <p><i><a id = "username" className = "User-link" href = {"/" + user.username}>{user.username}</a></i></p>
