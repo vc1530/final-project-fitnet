@@ -9,7 +9,7 @@ const NewPost = () => {
     const jwtToken = localStorage.getItem("token") 
 
     const [username, setUsername] = useState("")
-    const [postMessage, setPostMessage] = useState("") 
+    const [postMessage, setPostMessage] = useState("")
 
     useEffect(() => { 
         console.log("fetching data for user " + 
@@ -19,7 +19,7 @@ const NewPost = () => {
             headers: { Authorization: `JWT ${jwtToken}` }
         })
         .then (res => { 
-            setUsername(username) 
+            setUsername(res.data.username) 
             console.log("successful retrieval of user " + 
             jwtToken + " from database")
         })
@@ -49,7 +49,7 @@ const NewPost = () => {
         formData.append("description", description) 
         formData.append("image", picture.pictureAsFile) 
         axios
-        .post (`${process.env.REACT_APP_SERVER_HOSTNAME}/posts`, 
+        .post (`${process.env.REACT_APP_SERVER_HOSTNAME}/newPost`, 
             formData
         )
         .catch(err => { 
