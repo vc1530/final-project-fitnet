@@ -1,16 +1,17 @@
-.WorkoutHistory { 
-    align-items: center;
-    margin-bottom: 100px; 
+.WorkoutHistory {
+  align-items: center;
+  margin-bottom: 100px;
 }
 .backlink {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-direction: row;
-    width: 350px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row;
+  width: 350px;
 }
 .newWorkoutButton {
-    border: white;
-    background-color: white;
-    color: var(--main-accent-color)
+  border: none;
+  color: var(--main-accent-color);
+  text-decoration: none;
+  background: none;
 }
