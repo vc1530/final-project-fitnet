@@ -32,7 +32,7 @@ router.get('/newPost', (req, res)=>{
 router.post('/newPost', upload.single('image'), async(req, res, next)=>{
     try { 
       const newPost = await Post.create({
-        username: req.body.username,
+        user: req.body.user,
         description: req.body.description,
       })
       if(req.file){

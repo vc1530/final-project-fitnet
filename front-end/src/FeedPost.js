@@ -4,25 +4,9 @@ import axios from 'axios'
 import blankpic from "./images/blank_profile.jpg"
 
 const FeedPost = props => {   
-
-    const [user, setUser] = useState(null) 
-
-    useEffect (() => { 
-        console.log("fetching data for user " + props.username) 
-        axios 
-        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/` + props.username)
-        .then (res => { 
-            setUser(res.data.user)
-            console.log("successful retrieval of user " + props.username + " from database")
-        })
-        .catch (err => { 
-            console.error(err) 
-            console.log("failed retrieval of user " + props.username + " from database")
-        })
-    }, [props.username])
-
+    
     function handleClick () {
-        window.location.replace(user.username)
+        window.location.replace(props.user.username)
     }
 
     const arrayBufferToBase64 = buffer => {
@@ -35,7 +19,7 @@ const FeedPost = props => {
         return window.btoa( binary );
     }
 
-    if(!user) { 
+    if(!props.user) { 
         console.log("user not found") 
         return(
             <main className = "Post-box"> 
@@ -44,32 +28,30 @@ const FeedPost = props => {
         )
     } 
 
-    console.log(props.picture)
-
     return ( 
         <main id = "FeedPost" className = "Post-box">
             <img className = "Post-image" src = {typeof props.picture != "string" && props.picture? `data:image/png;base64,${arrayBufferToBase64(props.picture.data.data)}` : blankpic} alt="profile img"/>
             <section className = "Profile-info">
                 <img 
                     className = "Profile-image" 
-                    src = {user.profile_pic ? `data:image/png;base64,${arrayBufferToBase64(user.profile_pic.data.data)}`: blankpic} 
+                    src = {props.user.profile_pic ? `data:image/png;base64,${arrayBufferToBase64(props.user.profile_pic.data.data)}`: blankpic} 
                     alt = "Profile" /> 
                 <div className = "Profile-hover">
                     <div className = "Profile-link">
-                        <b><a className = "User-link" href = {"/" + props.username} >{props.username}</a></b> 
+                        <b><a className = "User-link" href = {"/" + props.user.username} >{props.user.username}</a></b> 
                     </div> 
                     <div className = "Profile-card" onClick = {handleClick}> 
                         <div className = "card-top"> 
                             <img 
-                                src = {user.profile_pic ? `data:image/png;base64,${arrayBufferToBase64(user.profile_pic.data.data)}`: blankpic} 
+                                src = {props.user.profile_pic ? `data:image/png;base64,${arrayBufferToBase64(props.user.profile_pic.data.data)}`: blankpic} 
                                 alt = "profile" 
                             /> 
                             <div className = "card-names">
-                                <b><p><a className = "User-link" href = {"/" + props.username}>{user.username}</a></p></b>
-                                <p>{user.name}</p> 
+                                <b><p><a className = "User-link" href = {"/" + props.user.username}>{props.user.username}</a></p></b>
+                                <p>{props.user.name}</p> 
                             </div> 
                         </div>
-                        <p id = "bio">{user.bio}</p>
+                        <p id = "bio">{props.user.bio}</p>
                     </div>
                 </div>
             </section>

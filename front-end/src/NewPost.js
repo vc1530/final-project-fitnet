@@ -8,7 +8,7 @@ const NewPost = () => {
 
     const jwtToken = localStorage.getItem("token") 
 
-    const [username, setUsername] = useState("")
+    const [user, setUser] = useState('')
     const [postMessage, setPostMessage] = useState("")
 
     useEffect(() => { 
@@ -19,9 +19,9 @@ const NewPost = () => {
             headers: { Authorization: `JWT ${jwtToken}` }
         })
         .then (res => { 
-            setUsername(res.data.user.username) 
+            setUser(res.data.user._id) 
             console.log("successful retrieval of user " + 
-            username + " from database")
+            res.data.user.username + " from database")
         })
         .catch (err => { 
             console.error(err) 
@@ -42,7 +42,7 @@ const NewPost = () => {
         e.preventDefault() 
         console.log("uploading new post")
         const formData = new FormData() 
-        formData.append("username", username)
+        formData.append("user", user)
         formData.append("description", description) 
         formData.append("image", picture) 
         axios

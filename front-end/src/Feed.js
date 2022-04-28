@@ -52,7 +52,7 @@ const Feed = () => {
                 <body className = "Feed-posts">
                         {posts.slice(0).reverse().map((post) => ( 
                             <FeedPost 
-                                username = {post?.username} 
+                                user = {post?.user} 
                                 picture = {post?.picture} 
                                 description = {post?.description}
                             /> 

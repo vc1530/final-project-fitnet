@@ -2,17 +2,18 @@
 /* eslint-disable no-unused-vars */
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const { default: mongoose } = require('mongoose');
 const server = require('../app');
 
 const should = chai.should();
-// const allUsers = require('../mock_users.json');
+
+const { User } = require('../models/User') 
 
 describe('/POST new-post', () => {
-  it('it should POST a new post with the given description', (done) => {
-    // const uid = '62570c4071b5c02be1b2d71d'
-    // const user = allUsers[uid]
+  it('it should POST a new post with the given description', async () => {
+    const user = await User.findOne({username: 'mochaTest'}) 
     const post = {
-      username: 'mochaTest',
+      user: user.id, 
       description:
         "Hey there everyone! Just me working out and doing some reps on a lovely Sunday. Hope y'all are doing well.",
     };
@@ -27,11 +28,10 @@ describe('/POST new-post', () => {
         res.body.should.have.property('status');
         res.body.newpost.should.be.a('object');
         res.body.status.should.be.a('string');
-        res.body.newpost.should.have.property('username');
+        res.body.newpost.should.have.property('user');
         res.body.newpost.should.have.property('description');
-        res.body.newpost.username.should.eql(post.username);
-        res.body.newpost.description.should.eql(post.description);
-        done();
+        res.body.newpost.user.should.eql(post.user);
+        res.body.newpost.description.should.eql(post.description); 
       });
   });
 });
