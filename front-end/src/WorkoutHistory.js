@@ -3,7 +3,6 @@ import WorkoutPost from './WorkoutPost';
 import Header from './Header';
 import Footer from './Footer';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { BsArrowLeftCircle } from 'react-icons/bs';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import axios from 'axios';
@@ -16,7 +15,6 @@ const WorkoutHistory = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
 
   const [workouts, setWorkouts] = useState([]);
-  const [newWorkoutRoute, setNewWorkoutRoute] = useState([]);
 
   useEffect(() => {
     axios
@@ -42,7 +40,6 @@ const WorkoutHistory = () => {
         // Update list of workouts
         setWorkouts(res.data.workouts);
         window.location.href = `/w/${res.data.workouts[0]._id}`;
-        // setNewWorkoutRoute('/w/' + res.data.workouts[0]._id);
       })
       .catch((err) => {
         console.log("WorkoutHistory.js: couldn't add a new workout");
@@ -58,12 +55,7 @@ const WorkoutHistory = () => {
           <a className="User-link" href={'../myProfile'}>
             {<BsArrowLeftCircle size="30px" />}
           </a>
-          {/* <Link to={addWorkout} href={newWorkoutRoute}>
-            <a href={newWorkoutRoute}>
-              <AiOutlinePlusCircle size="34px" />
-            </a>
-          </Link> */}
-          <button onClick={addWorkout}>
+          <button className="newWorkoutButton" onClick={addWorkout}>
             <AiOutlinePlusCircle size="34px" />
           </button>
         </div>
