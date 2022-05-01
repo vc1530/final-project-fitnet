@@ -30,7 +30,7 @@ const FeedPost = props => {
 
     return ( 
         <main id = "FeedPost" className = "Post-box">
-            <img className = "Post-image" src = {typeof props.picture != "string" && props.picture? `data:image/png;base64,${arrayBufferToBase64(props.picture.data.data)}` : blankpic} alt="profile img"/>
+            { props.picture ? <img className = "Post-image" src ={`data:image/png;base64,${arrayBufferToBase64(props.picture.data.data)}`} alt="profile img"/> : ""} 
             <section className = "Profile-info">
                 <img 
                     className = "Profile-image" 
