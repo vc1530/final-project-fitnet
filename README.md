@@ -11,7 +11,7 @@ FitNet is a fitness tracker application that is viable for everybody, ranging fr
 - [Colin McRae](../../../../crm584) 
 - [Sydney Jo](../../../../selftimersyd)
 - [Vanessa Chen](../../../../vc1530)
-- [Issac Singer](../../../../iwillseeyouinabits)
+- [Isaac Singer](../../../../iwillseeyouinabits)
 - [Yousuf Kidwai](../../../../yousufkidwai) 
 
 ## Short History 
