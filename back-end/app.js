@@ -53,6 +53,7 @@ app.use('/', loginVerify);
 app.use('/', users);
 
 app.use('/static', express.static('public'));
+app.use('/client', express.static('client'));
 
 app.get('/', (req, res) => {
   res.send('This is the root directory link for our app');
