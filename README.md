@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/software-assignments-spring2022/final-project-fitnet/tree/master.svg?style=shield)](https://circleci.com/gh/software-assignments-spring2022/final-project-fitnet/tree/master)
+
 # FitNet 
 
 ## What and Why?
