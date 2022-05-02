@@ -33,6 +33,8 @@ docker run -p 4000:4000 -d vnsachn/fitnet-front-end
 ```
 Navigate to localhost:4000 and you should see the front-end running. 
 
+### Run the back-end 
+
 Navigate into the back-end directory and 
 1. `npm install` 
 2. `nodemon server` 
