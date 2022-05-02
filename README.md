@@ -22,11 +22,25 @@ FitNet was inspired by this lack of existing fitness social media platforms. By 
 ## Building and testing 
 To test this project: 
 1. Clone the project repository: `git clone <url` 
-2. Go into the front end directory: `cd final-project-fitnet/front-end` 
-3. Run `npm install` 
-4. Run `npm start` 
+### Run the front-end 
+Navigate into the front-end directory and 
+1. `npm install`
+2. `npm start` 
 
-The app should start in your default web browser. 
+Alternatively, the front-end can be started as a Docker container. Make sure Docker has been installed locally, then run 
+```
+docker run -p 4000:4000 -d vnsachn/fitnet-front-end
+```
+Navigate to localhost:4000 and you should see the front-end running. 
+
+Navigate into the back-end directory and 
+1. `npm install` 
+2. `nodemon server` 
+Alternatively, start the back-end as a container: 
+```
+docker run -p 3000:3000 --restart unless-stopped -d vnsachn/fitnet-back-end
+```
+Navigate to localhost:3000 and you should see the back-end running. 
 
 ## For Potential Contributors 
 If you would like to correct any bugs in our code or add new functionalities feel free to do so by following [these](./CONTRIBUTING.md) instructions.  
