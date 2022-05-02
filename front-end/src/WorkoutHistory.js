@@ -30,7 +30,7 @@ const WorkoutHistory = () => {
         console.log('Invalid token');
         setIsLoggedIn(false);
       });
-  }, [jwtToken]);
+  }, [uid, jwtToken]);
 
   const addWorkout = () => {
     console.log('WorkoutHistory.js: addWorkout function begin');
