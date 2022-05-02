@@ -178,8 +178,8 @@ const AddWorkout = () => {
           <button onClick={addExercise}>{<AiOutlinePlusCircle size="30px" />}</button>
         </div>
         <div>
-          <button onClick={deleteWorkout} className="deleteWorkoutButton">
-            <Link to="../workoutHistory" className="deleteWorkoutButton">
+          <button className="deleteWorkoutButton">
+            <Link to="../workoutHistory" onClick={deleteWorkout}>
               Delete Workout
             </Link>
             {/* <a className="deleteWorkoutButton" href={'../workoutHistory'}>
