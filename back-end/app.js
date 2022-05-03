@@ -42,6 +42,9 @@ const playlists = require('./routes/playlists');
 const loginVerify = require('./routes/loginVerify');
 const users = require('./routes/users');
 
+app.use('/client', express.static('./client'));
+app.use('/static', express.static('./public'));
+
 app.use('/', myInfo);
 app.use('/', settings);
 app.use('/', newPost);
@@ -51,9 +54,6 @@ app.use('/', workout);
 app.use('/', playlists);
 app.use('/', loginVerify);
 app.use('/', users);
-
-app.use('/static', express.static('public'));
-app.use('/client', express.static('client'));
 
 app.get('/', (req, res) => {
   res.send('This is the root directory link for our app');

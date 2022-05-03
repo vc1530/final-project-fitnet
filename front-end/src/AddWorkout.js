@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { HiOutlineMusicNote } from 'react-icons/hi';
 import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AddWorkout = () => {
   const jwtToken = localStorage.getItem('token');
@@ -69,7 +70,7 @@ const AddWorkout = () => {
       .catch((err) => {
         console.log(`retrieval of workout ${params.id} from backend failed`);
         console.log(err);
-        setIsLoggedIn(false) 
+        setIsLoggedIn(false);
       });
   };
 
@@ -140,12 +141,12 @@ const AddWorkout = () => {
       <main className="AddWorkout">
         <Header url="./addWorkout" title="Add Workout" />
         <div className="backlink">
-          <a className="User-link" href={'../workoutHistory'}>
-            {<BsArrowLeftCircle size="30px" />}
-          </a>
-          <a className="User-link" href={'../p/' + params.id}>
-            {<HiOutlineMusicNote size="30px" />}
-          </a>
+          <Link to="../workoutHistory">
+            <BsArrowLeftCircle size="30px" />
+          </Link>
+          <Link to={`../p/${params.id}`}>
+            <HiOutlineMusicNote size="30px" />
+          </Link>
         </div>
         <AddWorkoutInfo
           workout_name={workout_name}
@@ -177,10 +178,10 @@ const AddWorkout = () => {
           <button onClick={addExercise}>{<AiOutlinePlusCircle size="30px" />}</button>
         </div>
         <div>
-          <button onClick={deleteWorkout} className="deleteWorkoutButton">
-            <a className="deleteWorkoutButton" href={'../workoutHistory'}>
+          <button className="deleteWorkoutButton">
+            <Link to="../workoutHistory" onClick={deleteWorkout}>
               Delete Workout
-            </a>
+            </Link>
           </button>
         </div>
         <Footer />

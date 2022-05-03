@@ -7,6 +7,7 @@ import { BsArrowLeftCircle } from 'react-icons/bs';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const WorkoutHistory = () => {
   const jwtToken = localStorage.getItem('token');
@@ -52,9 +53,9 @@ const WorkoutHistory = () => {
       <main className="WorkoutHistory">
         <Header url="./WorkoutHistory" title="Workout History" />
         <div className="backlink">
-          <a className="User-link" href={'../myProfile'}>
+          <Link className="User-link" to={'../myProfile'}>
             {<BsArrowLeftCircle size="30px" />}
-          </a>
+          </Link>
           <button className="newWorkoutButton" onClick={addWorkout}>
             <AiOutlinePlusCircle size="34px" />
           </button>
