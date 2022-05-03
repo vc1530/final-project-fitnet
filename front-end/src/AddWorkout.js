@@ -182,9 +182,6 @@ const AddWorkout = () => {
             <Link to="../workoutHistory" onClick={deleteWorkout}>
               Delete Workout
             </Link>
-            {/* <a className="deleteWorkoutButton" href={'../workoutHistory'}>
-              Delete Workout
-            </a> */}
           </button>
         </div>
         <Footer />
