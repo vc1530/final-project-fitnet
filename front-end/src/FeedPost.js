@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const FeedPost = (props) => {
   function handleClick() {
-    window.location.replace(props.user.username);
+    window.location.replace(`users/${props.user.username}`);
   }
 
   const arrayBufferToBase64 = (buffer) => {
