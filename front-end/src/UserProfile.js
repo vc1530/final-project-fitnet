@@ -66,7 +66,7 @@ const UserProfile = () => {
                     alt = "me!" /> 
                 <div className = "UserProfile-title">
                     <p id = "name">{user.name}</p>
-                    <p><i><a id = "username" className = "User-link" href = {"/" + user.username}>{user.username}</a></i></p>
+                    <p><i><a id = "username" className = "User-link" href = {"/users/" + user.username}>{user.username}</a></i></p>
                 </div>
                 <p id = "upbio">{user.bio}</p>
             </body> 
