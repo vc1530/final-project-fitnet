@@ -52,8 +52,9 @@ const FeedPost = (props) => {
         <div className="Profile-hover">
           <div className="Profile-link">
             <b>
-              <Link to={`/users/${props.user.username}`} />
-              {props.user.username}
+              <Link className = 'User-link' to={`/users/${props.user.username}`}>
+                {props.user.username}
+              </Link> 
             </b>
           </div>
           <div className="Profile-card" onClick={handleClick}>
@@ -70,10 +71,8 @@ const FeedPost = (props) => {
               />
               <div className="card-names">
                 <b>
-                  <p>
-                    <Link className="User-link" to={'/users/' + props.user.username}>
+                  <p className="User-link">
                       {props.user.username}
-                    </Link>
                   </p>
                 </b>
                 <p>{props.user.name}</p>
