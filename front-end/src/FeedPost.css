@@ -30,6 +30,11 @@
 .Profile-link { 
     padding: 5px; 
     margin: -5px; 
+    color: var(--main-accent-color)
+}
+
+.Profile-link:hover{ 
+    color: var(--main-accent-hover)
 }
 
 .Profile-link:hover + .Profile-card { 
