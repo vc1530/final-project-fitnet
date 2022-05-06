@@ -17,7 +17,7 @@ const UserProfile = () => {
     useEffect (() => { 
         console.log("fetching data for user " + params.username) 
         axios 
-        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/` + params.username)
+        .get(`${process.env.REACT_APP_SERVER_HOSTNAME}/users/` + params.username)
         .then (res => { 
             setUser(res.data.user)
             console.log("successful retrieval of user " + params.username + " from database")
@@ -47,7 +47,7 @@ const UserProfile = () => {
                 /> 
                 <body className = "Post-box"> 
                     <h3> Sorry, no such user exists. </h3>
-                    <h3>Return to <Link className = "User-link" to = "/Feed">Feed</Link>? </h3>
+                    <h3>Return to <Link className = "User-link" to = "../Feed">Feed</Link>? </h3>
                 </body>
                 <Footer/> 
             </main>
@@ -58,7 +58,7 @@ const UserProfile = () => {
                 url = "./Feed" 
                 title = "Feed" 
             />
-            <a id = "back-link" className = "User-link" href = "./Feed"><AiOutlineLeft size = {'28px'} /></a>
+            <a id = "back-link" className = "User-link" href = "./../Feed"><AiOutlineLeft size = {'28px'} /></a>
             <body id = "UserProfile-info" className = "Post-box">
                 <img 
                     className = "UserProfile-pic" 
