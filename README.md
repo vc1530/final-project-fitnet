@@ -1,7 +1,5 @@
 [![CircleCI](https://circleci.com/gh/software-assignments-spring2022/final-project-fitnet/tree/master.svg?style=shield)](https://circleci.com/gh/software-assignments-spring2022/final-project-fitnet/tree/master)
 
-[Fitnet Live](http://137.184.223.5:4000/) 
-
 # FitNet 
 
 ## What and Why?
