@@ -26,7 +26,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd back-end
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - run: echo "this is the build and test express.js job"
+    - run: |
+        cd back-end
+        pwd # for debugging: show current working directory
+        ls # for debugging: show sub-directories in here
+    - run: |
+        cd back-end
+        npm install # install all dependencies listed in package.json
+        npm test # run all unit tests
