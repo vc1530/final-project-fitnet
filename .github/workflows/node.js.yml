@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - run: |
-        cd back-end
+        cd ./back-end
         pwd # for debugging: show current working directory
         ls # for debugging: show sub-directories in here
     - uses: actions/checkout@v3
