@@ -28,7 +28,7 @@ jobs:
         cache: 'npm'
     - run: echo "this is the build and test express.js job"
     - run: |
-        cd back-end
+        cd /home/runner/work/final-project-fitnet/back-end
         pwd # for debugging: show current working directory
         ls # for debugging: show sub-directories in here
     - run: |
