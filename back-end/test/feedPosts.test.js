@@ -19,5 +19,5 @@ describe('/GET posts', () => {
                 res.body.status.should.be.a("string") 
                 done() 
             })
-    }).catch(done) 
+    })
 })
