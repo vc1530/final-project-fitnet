@@ -2,9 +2,9 @@ name: Backend CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -34,4 +34,4 @@ jobs:
     - run: echo "this is the build and test express.js job"
     - run: |
         npm install # install all dependencies listed in package.json
-        npm test # run all unit tests
+        npm run test # run all unit tests
