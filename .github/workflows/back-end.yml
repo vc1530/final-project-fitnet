@@ -16,7 +16,7 @@ jobs:
     
     defaults: 
       run: 
-        working-directory: "/back-end" 
+        working-directory: "back-end" 
     env:
       DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
       FRONT_END_URI: ${{ secrets.FRONT_END_URI}}
